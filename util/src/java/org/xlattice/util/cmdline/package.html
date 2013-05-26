@@ -1,0 +1,50 @@
+<html>
+    <body>
+
+<p>This is a facility for rapidly setting up software to pick values
+off of command lines.</p>
+
+<p>To achieve this, you write out a recipe for the command line in 
+the form of a list of option descriptors, something like:</p>
+
+<pre>
+static CmdLineOpt [] options = {
+    // option  field
+    new BooleanOpt ("b", "bFld", "boolean option"                 ),
+    new DoubleOpt  ("d", "dFld", "double value option", 1.0, 100.0),
+    new StringOpt  ("s", "sFld", "String option"                  ) };
+</pre>
+
+<p>Here <code>bFld, dFld,</code> and <code>sFld</code> are the
+names of fields 
+in the associated object.  The optional descriptions are for use
+in building help messages.</p>
+
+<p>Then you create an object with matching fields that you set to 
+the desired default values.</p>
+
+<pre>
+class Example {
+    boolean bFld;                   // defaults to false
+    double  dFld = 42;              // defaults to 42.0
+    String  sFld = "not specified";
+}
+</pre>
+
+<p>There can be any number of command line options and minimum and
+maximum values can be set for numeric types.  The user does not have
+to enter options in the same order as in the command line 
+specification.</p>
+
+<p>You then set up <code>main</code> like so:</p>
+
+<pre>
+public static void main (String[] args) {
+    Example ex = new Example();
+    int next = Bindery.bind (args, options, ex);
+</pre>
+
+<p>The call to <code>Bindery.bind</code> will have set the fields
+in the object from the command line.  If any arguments have not been
+used, <code>next</code> is the index of the first unused argument.</p>
+</body></html>

@@ -1,0 +1,50 @@
+<html><body>
+  <p>This package contains abstractions for all of the basic types
+  dealt with in XLattice.</p>
+  
+  <p>A Node has a 20-byte NodeID, a 160-bit number which is unique 
+  to the node, serves to identify it, and can be used to route messages
+  to it.  It also has a cryptographic key pair, usually a 1024 bit value.
+  This is used to prove the Node's identity.  The Node's public key is 
+  published, so anyone can encrypt a message using the public key; by
+  decrypting the message, the Node proves that it has the corresponding
+  private (secret) key materials.  Alternatively, the Node can use the
+  key to sign messages which anyone can verify using the public key.
+  </p>
+  
+  <p>A Node may have neighbors, Peers, which are also Nodes.  Each
+  Peer will have a unique NodeID and a PublicKey used to prove its
+  identity.</p>  
+  
+  <p>Nodes communicate over Overlays.  A Overlay is an Address space 
+  and a transport Protocol which supports passing Messages and other
+  data.  The Internet can be seen as a Overlay over IP address space
+  which uses IP, the Internet Protocol, to route messages.  Nodes can
+  be Internet hosts.  Normally such Nodes will have multiple Addresses
+  in the form of IP address:port number pairs.  An address reached 
+  using some particular protocol is an EndPoint.  That is, an EndPoint
+  is characterized by a Protocol and an Address.</p>
+
+  <p>Messages are passed over Connections.  A Connection has two 
+  EndPoints.  One of these will have an Address on a Node.  The other
+  will have an Address on one of the Node's Peers.  Connections are 
+  most often created when one Node requests a Connection from an Acceptor 
+  belonging to one of its Peers.  A Node maintains a list of Connectors 
+  used in establishing Connections with each Peer.  The list is in order, 
+  with earlier Connectors more preferred.</p>
+
+  <p>So a Node uses an Acceptor to listen for connection requests from
+  Peers, and it uses Connectors to call other Nodes' Acceptors.</p>
+
+  <p>Messages can also be sent to an EndPoint.  In such case the 
+  sending Node need not be aware of the Peer, if any, associated with
+  the EndPoint.  The Message may be sent directly, or via another
+  EndPoint, which may be one of a set of EndPoints associated with a Peer.
+  In such a case the Peer is being used as a gateway.
+  </p>
+
+  <p>A set of email addresses and SMTP, the email protocol, constitute 
+  an Overlay.  Email uses the underlying TCP/IP Overlay to route
+  messages.</p>
+  
+</body></html>

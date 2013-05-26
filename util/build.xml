@@ -167,7 +167,7 @@
 
     <!-- text files   -->
     <copy todir="${dist_dir}/${component}" >
-      <fileset dir="${basedir}" includes="LICENSE*, README*"/>
+      <fileset dir="${basedir}" includes="../LICENSE*, README*"/>
     </copy>
     <!-- jar for this component -->
     <copy todir="${dist_dir}/lib/xlattice" >
