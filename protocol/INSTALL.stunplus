@@ -1,0 +1,57 @@
+INSTALL.stunplus
+
+The stun+ release is packaged as a zip file, stunplus-N.N.N.zip, where
+N.N.N is the version number.  When unzipped, this will create an xlattice/
+subdirectory in the current directory.  This will contain at least
+
+  xlattice
+    INSTALL.stunplus                    // this file
+    README.stunplus
+    bin
+      stun.client.sh
+      stun.server.sh
+    lib
+      xlattice
+        LICENSE.txt
+        util-N.N.N.jar
+        crypto-N.N.N.jar
+        transport-N.N.N.jar
+        protocol-N.N.N.jar
+
+You must have a version of Java installed, with JAVA_HOME pointing at
+the installation.
+
+You must also have defined XLATTICE_HOME.  How this is done varies.
+On a Linux host running bash something like this does the job:
+
+  export XLATTICE_HOME=$HOME/xlattice
+
+where $HOME should be replaced by the path to wherever you unzipped
+the release.
+
+Once you have these two environmental variables (JAVA_HOME and 
+XLATTICE_HOME) correctly defined, you run the STUN client using 
+xlattice/bin/stun.client.sh and you run the STUN server using 
+xlattice/bin/stun.server.sh.  To see a list of command options,
+use 
+  stun.client.sh -h
+or 
+  stun.server.sh -h
+
+The client is normally run from the command line using 
+  stun.client.sh A.B.C.D
+or 
+  stun.client.sh my.target.com
+That is, you can use either a numeric Internet address or a host 
+name.
+
+The server needs two IP addresses and two port numbers.  The port
+numbers default to 3478 (primary) and 3479 (secondary).  The host
+names/IP addresses must be specified.  If the primary address were
+1.2.3.4 and the secondary address 1.2.3.5, then the server could
+be run with 
+  stun.server.sh -a 1.2.3.4 -b 1.2.3.5
+This would use the default ports and would not be an authenticating
+server because there is no -t option.  
+
+NOTE that authentication is not supported in this preliminary release.

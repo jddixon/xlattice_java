@@ -1,0 +1,11 @@
+README.stunplus
+
+This is a binary release of stun+.  
+
+If the version of this release is N.N.N, then the Java source code
+for the release is available from Sourceforge as protocol-N.N.N.zip.
+
+If you have obtained this as stunplus-current.zip, then you can see
+the version number by cd-ing to the directory where you unzipped the
+release and doing a 
+  ls xlattice/lib/xlattice/protocol*
