@@ -1,0 +1,35 @@
+<html>
+  <body>
+    <p>      
+      This package provides the XML capability essential to XLattice.
+    </p><p>
+      CoreXml is based on the XML established pull parser technology and
+      so can parse any valid XML input.
+    </p><p>
+      In many cases, all that is needed is the ability to set program
+      parameters using a simple configuration file.  In this case the
+      <code>SimpleConfig</code> class can be used to bind program variables
+      to element values in the configuration file.
+    </p><p>
+      Those with more elaborate requirements can use 
+      <code>corexml.bind's</code> data binding capabilities to 
+      automatically convert arbitrarily complex XML input into sets
+      of Java objects or to perform the reverse translation, 
+      generating XML from trees of Java objects.  All that is necessary
+      is to set up a data structure specifying the mapping from one
+      to the other.
+    </p><p>
+      An alternative approach is to use XPath expressions to extract
+      values from an XML document.  While not a complete implementation,
+      <code>corexml.expr</code> provides much of XPath's capabilities.
+      This is especially valuable when used in conjunction with 
+      <code>corexml.context,</code> which supports nested symbol 
+      tables as used in, for example, Ant.  This allows XML configuration
+      files to be generalized by using bracketed variables (enclosed in
+      <code>${}</code>) which are resolved against the symbol table.
+    </p><p>
+      All of this functionality is based on CoreXml's XML object model,
+      <code>corexml.om</code>.  This is a set of classes and methods 
+      that allows easy manipulation of XML documents as trees of nodes.
+    </p>
+</body></html>

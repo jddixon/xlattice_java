@@ -1,0 +1,37 @@
+<html>
+<body>
+  <p>
+    This is a Java data binding facility.
+  </p><p>
+    XML documents are bound to instances of Java classes by 
+    writing what amounts to a description of the binding in terms
+    of a number of classes:
+    <ul>
+      <li>a <b>Mapping,</b> which relates the top-level XML element
+        to the topmost Java class instance</li>
+      <li><b>SubMappings,</b> used where a subelement maps into a
+        child object</li>
+      <li><b>Bindings,</b> which relate XML values to values of fields 
+        in objects:
+        <ul>
+          <li><b>AttrBindings,</b> connecting attributes to fields</li>
+          <li><b>EmptyElBindings,</b> which set a boolean to true if a 
+            subelement is present</li>
+          <li><b>SubElBindings,</b> which connect the value of a 
+            subelement to a field value, and</li>
+          <li><b>TextBindings,</b> relating the text within a
+            subelement to a String field in the corresponding object
+        </ul></li>
+      <li><b>Collectors,</b> signalling the presence of a element 
+        in the XML which does not cause the creation of a Java object
+        on input</li>
+      <li><b>Interfaces</b>, where a set of submappings map into 
+        a set of classes implementing the same Java interface</li>
+    </ul>
+    The constituents may either be optional or allowed to repeat.
+  </p><p>
+    Additional descriptor classes will be added after more experience
+    with the package in its current form.  We also intend to add a 
+    facility for generating the mapping from an XML description.
+  </p>
+</body></html>

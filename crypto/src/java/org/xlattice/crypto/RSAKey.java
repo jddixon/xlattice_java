@@ -7,10 +7,6 @@ import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.spec.RSAPrivateCrtKeySpec;
 
-/**
- * @author Jim Dixon
- **/
-
 import org.xlattice.CryptoException;
 import org.xlattice.DigSigner;      // XXX experiment
 import org.xlattice.Key;
@@ -24,6 +20,11 @@ import org.xlattice.PublicKey;
  * available.
  * 
  * XXX This code is anything but efficient.
+ *
+ *
+ * @author Jim Dixon
+ **/
+
  */
 public class RSAKey implements Key {
 
