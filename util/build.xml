@@ -184,7 +184,7 @@
     </copy>
 
     <!-- project control files -->
-    <copy todir="${dist_dir}/${component}" file="LICENSE.txt" />
+    <copy todir="${dist_dir}/${component}" file="../LICENSE.txt" />
     <copy todir="${dist_dir}/${component}" file="build.xml" />
     <copy todir="${dist_dir}/${component}" file="project.properties" />
     <copy todir="${dist_dir}/${component}" file="project.xml" />

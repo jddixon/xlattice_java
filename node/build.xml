@@ -420,7 +420,7 @@
 
     <copy todir="${dist_dir}/${component}" >
 
-      <fileset dir="${basedir}" includes="LICENSE*, README*"/>
+      <fileset dir="${basedir}" includes="../LICENSE*, README*"/>
 
     </copy>
 
@@ -472,7 +472,7 @@
 
     <!-- project control files -->
 
-    <copy todir="${dist_dir}/${component}" file="LICENSE.txt" />
+    <copy todir="${dist_dir}/${component}" file="../LICENSE.txt" />
 
     <copy todir="${dist_dir}/${component}" file="build.xml" />
 

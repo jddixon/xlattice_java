@@ -186,11 +186,11 @@
 
     <!-- text files   -->
     <copy todir="${dist_dir}/${component}" >
-      <fileset dir="${basedir}" includes="LICENSE*, README*"/>
+      <fileset dir="${basedir}" includes="../LICENSE*, README*"/>
     </copy>
     <!-- jar for this component -->
     <copy todir="${dist_dir}/lib/xlattice" >
-      <fileset dir="${lib_dir}/xlattice" includes="LICENSE*"/>
+      <fileset dir="${lib_dir}/xlattice" includes="../LICENSE*"/>
       <fileset dir="${build_dir}" includes="*.jar"/>
     </copy>
     <!-- dependencies -->
@@ -209,16 +209,11 @@
     </copy>
 
     <!-- project control files -->
-    <copy todir="${dist_dir}/${component}" file="LICENSE.txt" />
+    <copy todir="${dist_dir}/${component}" file="../LICENSE.txt" />
     <copy todir="${dist_dir}/${component}" file="build.xml" />
-    <copy todir="${dist_dir}/${component}" file="classpath.sh" />
     <copy todir="${dist_dir}/${component}" file="project.properties" />
     <copy todir="${dist_dir}/${component}" file="project.xml" />
 
-    <exec executable="cp">
-      <arg value="build.sh"/>
-      <arg value="${dist_dir}/${component}"/>
-    </exec>
     <!-- source code -->
     <copy todir="${dist_dir}/${component}/${src_dir}" >
       <fileset dir="${src_dir}" includes="*.jar"/>
@@ -228,6 +223,7 @@
       <fileset dir="${test_src_dir}" includes="**/*.java"/>
     </copy>
     <!-- any documentation -->
+    <!--
     <copy todir="${dist_dir}/${component}/${xdoc_dir}" >
       <fileset dir="${xdoc_dir}" includes="**/*.css"/>
       <fileset dir="${xdoc_dir}" includes="**/*.gif"/>
@@ -237,6 +233,7 @@
       <fileset dir="${xdoc_dir}" includes="**/*.png"/>
       <fileset dir="${xdoc_dir}" includes="**/*.xml"/>
     </copy>
+    -->
     <!--
     <tar longfile="gnu"
          destfile="${zip_dir}/${dist_name}.tar">
