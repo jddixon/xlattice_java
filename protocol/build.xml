@@ -42,7 +42,7 @@
 
   <property name="build_dir" value="target"/>
 
-
+  <property name="keystore_dir"     value="keystores"/>
 
   <property name="classes_dir"      value="${build_dir}/classes"/>
 
@@ -63,6 +63,10 @@
   <!-- ======================================================= -->
 
   <property name="component"        value="${name}"/>
+
+  <!-- *.bat and *.sh scripts -->
+
+  <property name="bin_dir"          value="bin"/>
 
   <!-- where the zip files go -->
 
@@ -106,9 +110,9 @@
 
   <property name="clientPassword"       value="12345678"/>
 
-  <property name="stun.server.keystore" value="test.server.private"/>
+  <property name="stun.server.keystore" value="${keystore_dir}/test.server.private"/>
 
-  <property name="stun.client.keystore" value="test.client.private"/>
+  <property name="stun.client.keystore" value="${keystore_dir}/test.client.private"/>
 
   <!-- ======================================================= -->
 
@@ -126,9 +130,9 @@
 
       <and>
 
-        <available file="test.client.private"/>
+        <available file="${keystore_dir}/test.client.private"/>
 
-        <available file="test.client.public"/>
+        <available file="${keystore_dir}/test.client.public"/>
 
       </and>
 
@@ -138,9 +142,9 @@
 
       <and>
 
-        <available file="test.server.private"/>
+        <available file="${keystore_dir}/test.server.private"/>
 
-        <available file="test.server.public"/>
+        <available file="${keystore_dir}/test.server.public"/>
 
       </and>
 
@@ -170,7 +174,7 @@
 
       <arg line="-genkey -alias ${which}private -keyalg RSA"/>
 
-      <arg line="-keystore test.${which}.private -storetype JKS" /> 
+      <arg line="-keystore ${keystore_dir}/test.${which}.private -storetype JKS" /> 
 
       <arg line="-storepass ${pwd} -keypass ${pwd}"/>
 
@@ -192,7 +196,7 @@
 
     <exec executable="keytool">
 
-      <arg line="-import -noprompt -alias ${which}public -keystore test.${which}.public"/>
+      <arg line="-import -noprompt -alias ${which}public -keystore ${keystore_dir}/test.${which}.public"/>
 
       <arg line="-file temp.key -storepass ${pwd}"/>
 
@@ -234,9 +238,9 @@
 
   <target name="clientKeystores" unless="clientKeystoresExist">
 
-    <delete file="test.client.private"/>
+    <delete file="${keystore_dir}/test.client.private"/>
 
-    <delete file="test.client.public"/>
+    <delete file="${keystore_dir}/test.client.public"/>
 
     <antcall target="makePrivate"> 
 
@@ -252,9 +256,9 @@
 
   <target name="serverKeystores" unless="serverKeystoresExist">
 
-    <delete file="test.server.private"/>
+    <delete file="${keystore_dir}/test.server.private"/>
 
-    <delete file="test.server.public"/>
+    <delete file="${keystore_dir}/test.server.public"/>
 
     <antcall target="makePrivate"> 
 
@@ -608,7 +612,7 @@
 
     <!-- secrets -->
 
-    <copy file="test.server.private" tofile="stun.server.private"/>
+    <copy file="${keystore_dir}/test.server.private" tofile="keystores/stun.server.private"/>
 
     <copy todir="${stunplus_dir}">
 
@@ -622,7 +626,7 @@
 
     <copy todir="${stunplus_dir}/bin">
 
-      <fileset dir="${basedir}" includes="stun*.sh,stun*.bat"/>
+      <fileset dir="${basedir}/bin" includes="stun*.sh,stun*.bat"/>
 
     </copy>
 
@@ -748,7 +752,7 @@
 
     <!-- project control files -->
 
-    <copy todir="${dist_dir}/${component}" file="LICENSE.txt" />
+    <copy todir="${dist_dir}/${component}" file="${root_dir}/LICENSE.txt" />
 
     <copy todir="${dist_dir}/${component}" file="build.xml" />
 
@@ -764,19 +768,19 @@
 
     -->
 
-    <copy todir="${dist_dir}/${component}" file="stun.client.bat"/>
+    <copy todir="${dist_dir}/${component}/${bin_dir}" file="${bin_dir}/stun.client.bat"/>
 
-    <copy todir="${dist_dir}/${component}" file="stun.client.sh"/>
+    <copy todir="${dist_dir}/${component}/${bin_dir}" file="${bin_dir}/stun.client.sh"/>
 
-    <copy todir="${dist_dir}/${component}" file="stun.gui.bat"/>
+    <copy todir="${dist_dir}/${component}/${bin_dir}" file="${bin_dir}/stun.gui.bat"/>
 
-    <copy todir="${dist_dir}/${component}" file="stun.gui.sh"/>
+    <copy todir="${dist_dir}/${component}/${bin_dir}" file="${bin_dir}/stun.gui.sh"/>
 
-    <copy todir="${dist_dir}/${component}" file="stun.server.bat"/>
+    <copy todir="${dist_dir}/${component}/${bin_dir}" file="${bin_dir}/stun.server.bat"/>
 
-    <copy todir="${dist_dir}/${component}" file="stun.server.sh"/>
+    <copy todir="${dist_dir}/${component}/${bin_dir}" file="${bin_dir}/stun.server.sh"/>
 
-    <copy todir="${dist_dir}/${component}" file="stop.stun.server.sh"/>
+    <copy todir="${dist_dir}/${component}/${bin_dir}" file="${bin_dir}/stop.stun.server.sh"/>
 
     <copy todir="${dist_dir}/${component}" file="TODO" />
 

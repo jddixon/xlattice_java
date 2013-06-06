@@ -72,7 +72,7 @@ public class TestSecretServer extends TestCase implements StunConst {
         // TEMPORARY HACK junk.tls.init
         myTls               = new Tls();
         authLevel           = ANONYMOUS_TLS;
-        serverKeyStoreName  = "test.server.private";
+        serverKeyStoreName  = "keystores/test.server.private";
         serverPasswd        = "87654321";
         passphrase          = serverPasswd.toCharArray();
         clientKeyStoreName  = null;
