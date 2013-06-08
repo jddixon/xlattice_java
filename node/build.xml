@@ -23,7 +23,7 @@
   <!-- this is an XLattice subproject, so root_dir is one up   -->
 
   <property name="root_dir"       value=".."/>
-
+  <property name="bin_dir"        value="bin"/>
   <property name="src_dir"        value="src/java"/>
 
   <property name="test_src_dir"   value="src/test"/>

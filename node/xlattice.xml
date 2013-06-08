@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<id>
+dGhpcyBnZXRzIGVuY29kZWQgYXM=</id>
+<rsa>
+<p>
+AM0E_Gljp7RtXQAFrJRI4OdFtAXKZ65pM2ycONjRGf366IL79mqDUEtJhpoCbUP-uwQlWRhsKtGKk-M-IwTuhPk=</p>
+<q>
+AMQTCizyy3y7UkauCHY-YOnpRB5lHFJLFCQeytxSudOtWjGMDLdIfENt8l3Wh-L-WD2tdSld17KBrwdIHEJHm9M=</q>
+<d>
+ClxA-wjZitEEHowYZKro6mj4ZB3sBW2PpzTR_gBJ9MvUs_mJNAVu4zBI8F4s8HdNkB3j8V24LGmwPTKDCf87K7o1XMCoJ6qLKj1zKCq0oqC-iH4lXPYfBywjxms8P1gA-_4NP1FBa55BSWoUciQ2vViFVwOOh-TOKCPti3SW78E=</d>
+<e>
+AQAB</e>
+</rsa>
+<overlays>
+<overlay dir="httpd" class="org.xlattice.Httpd"/>
+<overlay dir="memcache" class="org.xlattice.lattice.MemCache"/>
+</overlays>
+</node>
