@@ -1,0 +1,9 @@
+// ~/dev/java/xlattice_j/crypto/CHANGES
+
+v0.2.0  
+    2011-08-21                                                      SLOC 5987
+        * stepped version number, import in Stockton svn
+        * dropped classpath.* and build.sh/.bat
+        * added xdocs/ directory
+    2011-08-23
+        * uncommented SignedList.getVerifier()

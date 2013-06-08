@@ -1,0 +1,8 @@
+pa:~jdd/dev/java/xlattice/util/CHANGES
+
+v3.10.0                                                             SLOC 3554
+    2012-07-10
+        * created TestStack by cloning TestArrayStack and then 
+            editing; this becomes a guide to how to replace 
+            ArrayStack (deprecated) with util.Stack
+

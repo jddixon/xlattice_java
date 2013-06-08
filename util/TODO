@@ -1,0 +1,17 @@
+pa:~jdd/dev/java/xlattice_j/util/TODO
+
+2013-05-25
+    * modify build.xml to use LICENSE.txt from ..               # DONE
+
+2012-07-10
+    * sf tarballs has util-0.3.9; 0.3.10 is current.  Update 
+        ASAP.
+        - this means fixing pa:~jdd/.../util and then fixing 
+            pa:~www
+    * ArrayStack is deprecated; drop from util (will then need 
+        to fix httpd and overlay)
+        - CAUTION: Sourceforge CVS will be in conflict
+    * note warnings in build output
+        - "Some input files use unchecked or unsafe 
+            operations.
+        - "Recompile with -Xlint:unchecked for details

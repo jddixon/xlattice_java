@@ -1,0 +1,8 @@
+TestSchedulableTcp testConnector gets an ERROR:
+    [junit] java.net.SocketException: Address already in use
+from tcpip.SchedulableTcpAcceptor line 89, the call to bind() on
+srvSock, despite the 
+    srvSock.setReuseAddress(true); 
+that precedes it.
+
+So far this is a mystery.

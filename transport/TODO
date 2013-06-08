@@ -1,0 +1,10 @@
+// ~dev/java/xlattice_j/transport/TODO
+
+2013-06-06
+    * create keystores/, add test.{client,server}.{public,private},
+        add to build.xml
+
+2011-09-13 
+    * Need to clearly differentiate connections using ConnectionListeners
+        from those using PacketHandlers.  tls/TestAsyncTlsEchoers is
+        meant to test this, but is stubbed at a critical point.

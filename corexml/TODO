@@ -1,0 +1,8 @@
+~/dev/java/xlattice_j/corexml/TODO
+
+2013-05-31
+    * Some tests fail because the equivalence of some XML expressions
+        is not recognized because libraries have changed the order
+        of parts.
+    * Almost certainly this component should be dropped in favor of
+        existing Java implementations.

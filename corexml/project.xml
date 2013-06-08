@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<project>
+  <pomVersion>3</pomVersion>
+  <id>corexml</id>
+  <name>CoreXml</name>
+  <version>0.3.7</version>
+  <!-- name is used to generate copyright notice -->
+  <organization>
+    <name>The XLattice Project</name>
+    <url>http://corexml.sourceforge.net/</url>
+    <logo>http://sourceforge.net/sflogo.php?group_id=92652&amp;type=5</logo>
+  </organization>
+
+  <inceptionYear>2004</inceptionYear>
+  <package>org.xlattice.corexml</package>
+  <logo>/images/xlattice.jpg</logo>
+  <!-- The first <p> is implicit, as is the terminating </p>.  Omit both. -->
+  <description>
+    CoreXml provides a wide range of XML services, including parsing
+    of XML source, conversion to object model, data binding, and
+    XPath expression evaluation.
+  </description>
+  <shortDescription>provides XML functionality needed for XLattice</shortDescription>
+
+  <url>http://xlattice.sourceforge.net/components/corexml</url>
+  <issueTrackingUrl>http://www.sourceforge.net/tracker/?group_id=92652</issueTrackingUrl>
+
+  <!-- host on which site is deployed -->
+  <siteAddress>xlattice.sourceforge.net</siteAddress>
+  <siteDirectory>/components/corexml</siteDirectory>
+  
+  <repository> 
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/xlattice:corexml</connection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/xlattice/corexml</url>
+  </repository>
+
+  <branches>
+  </branches>
+
+  <mailingLists>
+    <mailingList>
+      <name>XLattice Developers</name>
+      <subscribe>xlattice-devel-subscribe@lists.sourceforge.net</subscribe>
+      <unsubscribe>xlattice-devel-unsubscribe@lists.sourceforge.net</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum_id=92652</archive>
+    </mailingList>
+  </mailingLists>
+
+  <developers>
+    <developer>
+      <name>Jim Dixon</name>
+      <id>jdd</id>
+      <email>jddixon@users.sourceforge.net</email>
+      <organization></organization>
+      <roles>
+        <role>Admin</role>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <contributors>
+  </contributors>
+
+  <dependencies>
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>ant</artifactId>
+      <version>1.5.4</version>
+      <url>http://jakarta.apache.org/ant/</url>
+    </dependency>
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>optional</artifactId>
+      <version>1.5.4</version>
+      <url>http://jakarta.apache.org/ant/</url>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.1</version>
+      <url>http://www.junit.org/</url>
+    </dependency>
+    <dependency>
+      <groupId>xlattice</groupId>
+      <artifactId>util</artifactId>
+      <version>0.3.9</version>
+      <url>http://www.xlattice.org/jars/</url>
+    </dependency>
+    <dependency>
+      <groupId>xpp3</groupId>
+      <artifactId>xpp3</artifactId>
+      <version>1.1.3.4.C</version>
+      <url>http://www.extreme.indiana.edu/dist/java-repository/xpp3/jars/</url>
+    </dependency>
+    <dependency>
+      <groupId>antlr</groupId>
+      <artifactId>antlr</artifactId>
+      <version>2.7.4</version>
+      <url>http://www.antlr.org/download/antlr-2.7.4.tar.gz</url>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <nagEmailAddress>xlattice-devel@lists.sourceforge.net</nagEmailAddress>
+    <sourceDirectory>src/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/Test*.java</include>
+      </includes>
+    </unitTest>    
+    <reports>
+    </reports>
+  </build>
+</project>
