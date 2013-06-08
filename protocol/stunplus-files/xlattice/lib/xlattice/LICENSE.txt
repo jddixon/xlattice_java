@@ -1,4 +1,4 @@
-<p>Copyright (c) 2003-2004, The XLattice Project<br>
+<p>Copyright (c) 2003-2013 Jim Dixon AKA The XLattice Project<br>
 All rights reserved.</p>
 
 <p>Redistribution and use in source and binary forms, with or without

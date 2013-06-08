@@ -606,7 +606,8 @@
 
     <copy todir="${stunplus_dir}">
 
-      <fileset dir="${basedir}" includes="LICENSE*, README*,INSTALL*"/>
+      <fileset dir="${basedir}" includes="README*,INSTALL*"/>
+      <fileset dir="${root_dir}" includes="LICENSE*"/>
 
     </copy>
 
@@ -615,20 +616,22 @@
     <copy file="${keystore_dir}/test.server.private" tofile="keystores/stun.server.private"/>
 
     <copy todir="${stunplus_dir}">
-
       <fileset dir="${basedir}" includes="stun.server.properties"/>
-
-      <fileset dir="${basedir}" includes="stun.server.private"/>
-
     </copy>
 
     <!-- scripts     -->
 
     <copy todir="${stunplus_dir}/bin">
 
-      <fileset dir="${basedir}/bin" includes="stun*.sh,stun*.bat"/>
+      <fileset dir="${bin_dir}" includes="stun*.sh,stun*.bat"/>
 
     </copy>
+
+    <!-- keystores  -->
+    <copy todir="${stunplus_dir}/keystores">
+      <fileset dir="${keystore_dir}" includes="stun.server.private"/>
+    </copy>
+
 
     <!-- jar for this component -->
 
@@ -641,25 +644,17 @@
     <!-- dependencies -->
 
     <copy todir="${stunplus_dir}/lib/xlattice" >
-
-      <fileset dir="${lib_dir}/xlattice">
-
+      <fileset dir="${root_dir}">
         <include name="LICENSE*"/>
-
-        <include name="util-0.3.10.jar"/>
-
-        <include name="crypto-0.2.0.jar"/>
-
-        <!--
-
-        <include name="corexml-0.3.7.jar"/>
-
-          -->
-
-        <include name="transport-0.2.0.jar"/>
-
       </fileset>
-
+      <fileset dir="${lib_dir}/xlattice">
+        <include name="util-0.3.10.jar"/>
+        <include name="crypto-0.2.0.jar"/>
+        <!--
+        <include name="corexml-0.3.7.jar"/>
+          -->
+        <include name="transport-0.2.0.jar"/>
+      </fileset>
     </copy>
 
     <!-- make the zip file -->

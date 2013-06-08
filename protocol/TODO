@@ -1,0 +1,32 @@
+2013-06-06
+    * need stun server on AWS with two IP addresses
+    * stun.server.properties are wrong
+    * stunplus-files/xlattice/stun.server.properties are wrong
+    * above need to be added to git
+    * protocol/stunplus-files/xlattice/LICENSE.txt duplicated ?
+    * protocol/stunplus-files/xlattice/bin missing
+    * protocol/stunplus-files/xlattice/keystores missing
+    * protocol/stunplus-files/xlattice/lib missing
+    * Javadocs apparently refer to org.xlattice.crypto.tls, and 
+        this does not exist
+
+2013-05-29
+    * STUN tests are against 192.168.152.100 whereas test is 
+        configured with 192.168.152.200/201
+    * install xlattice_j on test, get stun servers running on 
+        200-201 (javac is gcj-4.7)
+    * if possible, install xlattice_j (util, crypto, transport,
+        protocol) on ns4 using gcj or IBM Java
+
+2011-09-03 jdd 
+    * need a timeout on authentication; it generally fails by simply 
+        hanging if a remote server is involved.  See TestClient.java, 
+        search on TIMEOUT
+
+2011-08-21 jdd 
+    * testing is currently screwed up; needs distinct IP addresses for 
+        STUN primary and secondary servers, but I now have both on 
+        127.0.0.1.  This causes collisions in TestServer.java.  Needs 
+        to be cleaned up.  FIXED by 2011-09-03
+
+
