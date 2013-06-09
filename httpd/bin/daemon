@@ -1,0 +1,8 @@
+#!/bin/sh
+
+JAVA=$JAVA_HOME/bin/java
+echo "JAVA=$JAVA"
+LCP=$XLATTICE_HOME/lib/xlattice/httpd-0.1.jar:$CLASSPATH
+CMD="$JAVA $OPTS -classpath $LCP org.xlattice.httpd.Server $@"
+echo $CMD
+$CMD

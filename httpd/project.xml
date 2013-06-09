@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+  <extends>../project.xml</extends>
+
+  <!-- component/subproject names, short and long -->
+  <id>httpd</id>
+  <name>Httpd</name>
+
+  <version>0.0.5</version>
+  <package>org.xlattice.httpd</package>
+
+  <!-- BUILD-RELATED ============================================ -->
+  <dependencies>
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>ant</artifactId>
+      <version>1.5.4</version>
+      <url>http://jakarta.apache.org/ant/</url>
+    </dependency>
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>optional</artifactId>
+      <version>1.5.4</version>
+      <url>http://jakarta.apache.org/ant/</url>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <url>http://www.junit.org/</url>
+    </dependency>
+    <dependency>
+      <groupId>xlattice</groupId>
+      <artifactId>util</artifactId>
+      <version>0.3.5</version>
+      <url>http://prdownloads/sourceforge.net/xlattice/util-0.3.4?download</url>
+    </dependency>
+  </dependencies> 
+  <repository> 
+    <connection>
+      scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/xlattice:httpd
+    </connection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/xlattice/httpd</url>
+  </repository>
+
+  <!-- WEB SITE GENERATION ====================================== -->
+  <!-- project description ============================ -->
+  <description>
+  </description>
+  <shortDescription>
+  </shortDescription>
+  <inceptionYear>2004</inceptionYear>
+
+  <!-- Web site location ============================== -->
+  <url>http://xlattice.sourceforge.net</url>
+  <siteDirectory>/applications/httpd</siteDirectory>
+  
+</project>

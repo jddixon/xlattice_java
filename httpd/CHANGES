@@ -1,0 +1,8 @@
+~/dev/java/xlattice_j/httpd/CHANGES
+
+0.2.0                                                               SLOC 4988
+    2011-08-23 
+        * hacked SignedList so that SiteList works (exposed getVerifier())
+    2011-08-21 
+        * stepped version number for move to Stockton svn
+        * dropped build.sh, classpath.sh, added CHANGES

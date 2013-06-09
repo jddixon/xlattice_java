@@ -1,0 +1,16 @@
+~/dev/java/xlattice/httpd/TODO
+
+2012-07-10
+    * ArrayStack is deprecated; drop from httpd ASAP
+
+2011-08-23 
+    * FIX:bug in RndSites generates paths to site files in which the
+
+2011-08-21 
+    * FIX: [javac] /home/jdd/dev/java/xlattice/httpd/src/test/org/xlattice/httpd/AbstractHttpTest.java:25: package org.xlattice.overlay.builds does not exist
+             site name appears twice
+
+20??-??-??
+    * Several tests fail in California because the tests expect GMT 
+        results (not PST).
+
