@@ -1,5 +1,10 @@
-2011-09-13 0.2.1 jdd corrected protection (none->public) on KeyQueueTable
-                       methods
 
-2011-08-21 0.2.0 jdd stepped version number for move to Stockton svn
-                     dropped build.sh, classpath.sh, added CHANGES
+
+v0.2.1                                                          SLOC 3063
+    2011-09-13 
+        * corrected protection (none->public) on KeyQueueTable
+                       methods
+0.2.0
+    2011-08-21 
+        * stepped version number for move to Stockton svn
+        *dropped build.sh, classpath.sh, added CHANGES

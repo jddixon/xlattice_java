@@ -1,6 +1,6 @@
 // ~/dev/java/xlattice_j/node/CHANGES
 
-v0.2.0 
+v0.2.0                                                              SLOC 2841
     2011-08-21 
         * stepped version number for move to Stockton svn
         * dropped build.sh, classpath.sh, added CHANGES
