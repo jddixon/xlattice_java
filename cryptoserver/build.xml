@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="test" name="cryptoserver" basedir=".">
+
+  <property name="name"           value="cryptoserver"/>
+  <property name="version"        value="0.2.0"/>
+  <!-- manual addition -->
+  <property name="projectName"    value="xlattice"/>
+  <!-- ======================================================= -->
+  <!-- S O U R C E   P R O P E R T I E S                       -->
+  <!-- ======================================================= -->
+  <!-- this is an XLattice subproject, so root_dir is one up   -->
+  <property name="root_dir"       value=".."/>
+  <property name="src_dir"        value="src/java"/>
+  <property name="test_src_dir"   value="src/test"/>
+  <!-- ======================================================= -->
+  <!-- B U I L D   P R O P E R T I E S                         -->
+  <!-- ======================================================= -->
+  <property name="build_dir" value="target"/>
+
+  <property name="classes_dir"      value="${build_dir}/classes"/>
+  <property name="lib_dir"          value="../lib"/>
+  <property name="test_classes_dir" value="${build_dir}/test-classes"/>
+  <property name="test_report_dir"  value="${build_dir}/test-reports"/>
+  <!-- ======================================================= -->
+  <!-- D I S T R I B U T I O N   P R O P E R T I E S           -->
+  <!-- ======================================================= -->
+  <property name="component"        value="${name}"/>
+  <!-- where the zip file goes -->
+  <property name="zip_dir"          value="distribution"/>
+  <!-- where a clean set of files is collected before zipping -->
+  <property name="dist_base"        value="dist-files"/>
+  <property name="dist_dir"         value="${dist_base}/xlattice"/>
+  <property name="dist_lib"         value="${dist_dir}/lib"/>
+  <property name="dist_name"        value="${name}-${version}"/>
+  <!-- ======================================================= -->
+  <!-- I N I T                                                 -->
+  <!-- ======================================================= -->
+  <target name="init"
+                      description="o Initializes some properties">
+    <mkdir dir="${lib_dir}"/>
+  </target>
+
+  <!-- ======================================================= -->
+  <!-- C O M P I L E   S O U R C E   F I L E S                 -->
+  <!-- ======================================================= -->
+  <target name="compile"         description="o Compile the code"
+                                                   depends="init">
+    <mkdir dir="${classes_dir}"/>
+    <javac destdir="${classes_dir}" deprecation="true"
+         debug="true" optimize="false" excludes="**/package.html">
+      <src>
+        <pathelement location="${src_dir}"/>
+      </src>
+      <classpath>
+        <fileset dir="${lib_dir}">
+          <include name="xlattice/util-0.3.10.jar"/>
+          <include name="xlattice/corexml-0.3.7.jar"/>
+          <include name="xlattice/crypto-0.2.0.jar"/>
+          <include name="xlattice/transport-0.2.0.jar"/>
+          <include name="xlattice/overlay-0.2.0.jar"/>
+          <include name="xlattice/node-0.2.0.jar"/>
+          <include name="xlattice/httpd-0.2.0.jar"/>
+        </fileset>
+      </classpath>
+    </javac>
+  </target>
+  <!-- ======================================================= -->
+  <!-- C O M P I L E   T E S T S                               -->
+  <!-- ======================================================= -->
+  <target name="compile-tests" description="o Compile unit tests"
+                                                depends="compile">
+    <mkdir dir="${test_classes_dir}"/>
+    <javac destdir="${test_classes_dir}" deprecation="true"
+         debug="true" optimize="false" excludes="**/package.html"
+        >
+      <src>
+        <pathelement location="${test_src_dir}"/>
+      </src>
+      <classpath>
+        <fileset dir="${lib_dir}">
+          <include name="junit/junit*.jar"/>
+          <include name="xlattice/util-0.3.10.jar"/>
+        </fileset>
+        <pathelement path="${classes_dir}"/>
+      </classpath>
+    </javac>
+  </target>
+  <!-- ======================================================= -->
+  <!-- U N I T  T E S T S                                      -->
+  <!-- ======================================================= -->
+  <target name="test"          description="o Run the unit tests"
+                                          depends="compile-tests">
+    <mkdir dir="${test_report_dir}"/>
+    <junit dir="./" failureproperty="test_failure" fork="true"
+	       haltonerror="false" printSummary="yes" >
+      <sysproperty key="basedir" value="."/>
+      <formatter type="xml"/>
+      <formatter usefile="false" type="plain"/>
+      <classpath>
+        <fileset dir="${lib_dir}">
+          <include name="junit/junit*.jar"/>
+          <include name="xlattice/util-0.3.10.jar"/>
+        </fileset>
+        <pathelement path="${test_classes_dir}"/>
+        <pathelement path="${classes_dir}"/>
+      </classpath>
+
+      <batchtest todir="${test_report_dir}">
+        <fileset dir="${test_src_dir}">
+          <include name="**/Test*.java"/>
+        </fileset>
+      </batchtest>
+      <!-- the usual collection
+          <include name="**/Test*.java"/>
+
+        -->
+    </junit>
+  </target>
+  <!-- ======================================================= -->
+  <!-- C R E A T E   J A R                                     -->
+  <!-- ======================================================= -->
+  <target name="jar"               description="o Create the jar"
+                                                depends="compile">
+    <jar jarfile="${build_dir}/${dist_name}.jar"
+         excludes="**/package.html" 
+         basedir="${classes_dir}"/>
+  </target>
+  <!-- ======================================================= -->
+  <!-- I N S T A L L   J A R                                   -->
+  <!-- ======================================================= -->
+  <target name="install-jar"      description="o Copy jar to lib"
+                                                    depends="jar">
+    <copy file="${build_dir}/${dist_name}.jar" 
+        todir="${lib_dir}/${projectName}"/>
+  </target>
+  <!-- ======================================================= -->
+  <!-- D I S T R I B U T I O N                                 -->
+  <!-- ======================================================= -->
+  <target name="dist"   description="o Create a full distribution"
+                                            depends="install-jar">
+    <mkdir  dir="${zip_dir}"/>
+    <delete dir="${dist_base}"/>
+    <mkdir  dir="${dist_dir}/${component}"/>
+
+    <!-- text files   -->
+    <copy todir="${dist_dir}/${component}" >
+      <fileset dir="${root_dir}" includes="LICENSE*"/>
+      <fileset dir="${basedir}" includes="README*"/>
+    </copy>
+    <!-- jar for this component -->
+    <copy todir="${dist_dir}/lib/xlattice" >
+      <fileset dir="${root_dir}" includes="LICENSE*"/>
+      <fileset dir="${build_dir}" includes="${dist_name}.jar"/>
+    </copy>
+    <!-- dependencies -->
+    <copy todir="${dist_dir}/lib/xlattice" >
+        <fileset dir="${root_dir}"         includes="LICENSE.txt"/>
+        <fileset dir="${lib_dir}/xlattice" includes="util-0.3.10.jar"/>
+        <fileset dir="${lib_dir}/xlattice" includes="corexml-0.3.7.jar"/>
+        <fileset dir="${lib_dir}/xlattice" includes="crypto-0.2.0.jar"/>
+        <fileset dir="${lib_dir}/xlattice" includes="transport-0.2.0.jar"/>
+        <fileset dir="${lib_dir}/xlattice" includes="protocol-0.2.0.jar"/>
+        <fileset dir="${lib_dir}/xlattice" includes="overlay-0.2.0.jar"/>
+        <fileset dir="${lib_dir}/xlattice" includes="node-0.2.0.jar"/>
+        <fileset dir="${lib_dir}/xlattice" includes="httpd-0.2.0.jar"/>
+        <fileset dir="${lib_dir}/xlattice" 
+                            includes="cryptoserver-${version}.jar"/>
+    </copy>
+    <copy todir="${dist_dir}/lib/xmlpull" >
+        <fileset dir="${lib_dir}/xmlpull" includes="*"/>
+    </copy>
+    <copy todir="${dist_dir}/lib/xpp3" >
+        <fileset dir="${lib_dir}/xpp3" includes="*"/>
+    </copy>
+
+    <!-- project control files -->
+    <copy todir="${dist_dir}/${component}" file="${root_dir}/LICENSE.txt" />
+    <copy todir="${dist_dir}/${component}" file="build.xml" />
+    <copy todir="${dist_dir}/${component}" file="CHANGES" />
+    <!--
+    <copy todir="${dist_dir}/${component}" file="cryptoserver.sh" />
+    -->
+    <copy todir="${dist_dir}/${component}" file="project.properties" />
+    <copy todir="${dist_dir}/${component}" file="project.xml" />
+    <copy todir="${dist_dir}/${component}" file="TODO" />
+
+    <!-- source code -->
+    <copy todir="${dist_dir}/${component}/${src_dir}" >
+      <fileset dir="${src_dir}" includes="*.jar"/>
+      <fileset dir="${src_dir}" includes="**/*.java"/>
+    </copy>
+    <copy todir="${dist_dir}/${component}/${test_src_dir}" >
+      <fileset dir="${test_src_dir}" includes="**/*.java"/>
+    </copy>
+
+    <zip destfile="${zip_dir}/${dist_name}.zip"
+         basedir="${dist_base}"/>
+  </target>
+  <!-- ========================================================== -->
+  <!-- C L E A N                                                  -->
+  <!-- ========================================================== -->
+  <target name="clean"
+                  description="o Clean up the generated directories">
+    <delete file="${lib_dir}/xlattice/${dist_name}.jar"/>
+    <delete dir="${build_dir}"/>
+    <delete dir="${dist_dir}"/>
+  </target>
+</project>

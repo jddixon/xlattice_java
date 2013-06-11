@@ -1,0 +1,7 @@
+~/dev/java/xlattice_j/cryptoserver/TODO
+
+
+2013-06-11
+    * create cryptoserver.sh, add to build.xml
+2011-08-23 
+    * addConnListener() in Server.java needs to add a factory instead

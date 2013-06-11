@@ -1,0 +1,7 @@
+~/dev/java/xlattice/cryptoserver/CHANGES
+
+v0.2.0
+    2011-08-23 
+        * stepped version number for move to Stockton svn
+        * dropped build.sh, classpath.sh, added CHANGES
+        * changed Version.java to follow new pattern
