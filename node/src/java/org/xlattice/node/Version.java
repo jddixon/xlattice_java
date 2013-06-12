@@ -13,6 +13,6 @@ public class Version extends org.xlattice.Version {
                    0,         // major
                    2,         // minor
                    0,         // decimal
-                   0,         // build
+                   0);        // build
     }
 }

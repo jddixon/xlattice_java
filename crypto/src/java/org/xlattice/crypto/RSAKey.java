@@ -25,7 +25,6 @@ import org.xlattice.PublicKey;
  * @author Jim Dixon
  **/
 
- */
 public class RSAKey implements Key {
 
     /** length of the key in bytes */
