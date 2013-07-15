@@ -201,10 +201,14 @@ public class BuildMaker {
         } else {
             srcPath = new StringBuffer(src).append(File.separator).toString();
         }
-        
+        // DEBUG
+        // System.out.printf("BuildMaker: srcPath is %s\n", srcPath);
+        // END
         srcDir = new File(srcPath);
-        if(!srcDir.exists())
-            throw new IllegalArgumentException("source directory must exist");
+        if(!srcDir.exists()) {
+            String complaint = "source directory '" + srcPath + "' must exist";
+            throw new IllegalArgumentException(complaint);
+        }
         if(!srcDir.isDirectory())
             throw new IllegalArgumentException(
                     "source directory is not a directory!");

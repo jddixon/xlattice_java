@@ -179,7 +179,7 @@ public abstract class AbstractHttpTest extends RndSites {
         SiteConfig siteConfig = SiteConfigurer.configureSite(
                                     new StringReader(siteDesc));
         // create the node directory (xlattice/) //////////
-        SiteMaker.generate (siteConfig);    
+        SiteMaker.generate (siteConfig);            // XXX FAILS
         name2Hash.loadFromNodeDir(nodeDirName);
       
         // XXX CHECK TO MAKE SURE SiteList and BuildList match

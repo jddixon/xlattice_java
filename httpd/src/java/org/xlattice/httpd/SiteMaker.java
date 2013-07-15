@@ -204,8 +204,8 @@ public class SiteMaker {
                                 sites[i].getDir(), sites[i].getName());
             // END
             BuildMaker maker = new BuildMaker(masterKey, pubKey,
-                                sites[i].getDir(),      // source
                                 sites[i].getName(),     // title
+                                sites[i].getDir(),      // source
                                 BuildMaker.FLAT,        // strategy
                                 storeDirName);          // target
             buildLists[i] = maker.makeBuildList();
