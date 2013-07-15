@@ -71,7 +71,9 @@ public abstract class AbstractHttpTest extends RndSites {
     }
 
     protected void DEBUG_MSG(String msg) {
-        debugLog.message("AbstractHttpTest" + msg);
+        // 2013-07-14
+        // debugLog.message("AbstractHttpTest" + msg);
+        System.out.println("AbstractHttpTest" + msg);
     }
     // SETUP, TEARDOWN //////////////////////////////////////////////
     /**
@@ -81,6 +83,7 @@ public abstract class AbstractHttpTest extends RndSites {
      * will not have been defined.
      */
     private String makeSiteConfig (int siteCount) {
+        System.out.printf("makeSiteCount(%d)\n", siteCount);    // DEBUG
         if (siteCount < 1 || siteCount > MAX_SITE_COUNT) 
             throw new IllegalArgumentException("impossible site count: " 
                     + siteCount);

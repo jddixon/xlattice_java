@@ -38,6 +38,7 @@ public class TestHttpOverTcp extends AbstractHttpTest {
         serverEnd  = new EndPoint[SITE_COUNT];
 
         for (int i = 0; i < SITE_COUNT; i++) {
+            System.out.printf("TestHttpOverTcp setup %d\n", i);  // DEBUG
             serverPort[i] = 8080 + i;
             serverAddr[i] = new IPAddress (thisHost, serverPort[i]);
             // XXX 2011-08-22 replaces Tcp.class with new Tcp()

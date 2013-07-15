@@ -246,56 +246,33 @@
 
         <fileset dir="${test_src_dir}">
 
-          <include name="**/TestHttpOverTcp.java"/>
-
-          
-
+          <include name="**/Test*.java"/>
+          <!-- infinite loop: -->
+          <exclude name="**/TestHttpOverTcp.java"/> 
+        
         </fileset>
 
       </batchtest>
-
       <!-- the usual collection
 
           XXX known problems XXX
-
-          <include name="**/TestName2Hash.java"/>
-
-
-
-          +++ known good +++
+          <include name="**/TestHttpOverTcp.java"/>
+          
+          +++ possibly good +++
 
           <include name="**/TestHttpParser.java"/>
-
           <include name="**/TestHttpVersion.java"/>
-
+          <include name="**/TestName2Hash.java"/>
           <include name="**/TestName2HashLite.java"/>
-
           <include name="**/TestSiteConfig.java"/>
-
           <include name="**/TestSiteList.java"/>
-
-
-
-
-
-          <include name="**/Test*.java"/>
-
           <include name="**/TestHeaders.java"/>
-
           <include name="**/TestHttpCoding.java"/>
-
           <include name="**/TestHttpDate.java"/>
-
-          <include name="**/TestHttpOverTcp.java"/>
-
           <include name="**/TestHttpRequest.java"/>
-
           <include name="**/TestHttpResponse.java"/>
-
           <include name="**/TestSiteConfig.java"/>
-
           <include name="**/TestSiteList.java"/>
-
         -->
 
     </junit>

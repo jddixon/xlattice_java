@@ -86,6 +86,7 @@ public abstract class RndSites extends TestCase {
     // CONSTRUCTORS /////////////////////////////////////////////////
     public RndSites (String name)               throws Exception {
         super(name);
+        System.out.println("RndSites: ctor");            // DEBUG
         keyGen    = new RSAKeyGen();
         sha1      = new SHA1Digest();
         setDebugLog("debug.log");   // DEBUG
@@ -106,6 +107,7 @@ public abstract class RndSites extends TestCase {
     }
     // SETUP, TEARDOWN //////////////////////////////////////////////
     public void setUp ()                        throws Exception {
+        System.out.println("RndSites.setup");       // DEBUG
         _setUp();
         DEBUG_MSG(".setUp, after _setUp:\n    BASE_DIR_NAME = " 
                 + BASE_DIR_NAME);
