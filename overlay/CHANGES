@@ -1,6 +1,9 @@
 
 
-v0.2.1                                                          SLOC 3063
+v0.2.2                                                              SLOC 1941
+    2013-12-29
+        * jdk 1.7, ant 1.8.2
+v0.2.1                                                              SLOC 3063
     2011-09-13 
         * corrected protection (none->public) on KeyQueueTable
                        methods
