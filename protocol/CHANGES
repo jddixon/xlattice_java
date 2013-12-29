@@ -1,5 +1,10 @@
 ~/dev/java/xlattice_j/protocol/CHANGES
 
+v0.2.1
+    2013-12-29                                                      SLOC 5485
+        * jdk 1.7, ant 1.8.2
+        * stun tests fail because server not up
+        * corrected stunplus jar list
 v0.2.0                                                              SLOC 5485
     2011-08-21
         * stepped version number for move to Stockton   
