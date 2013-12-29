@@ -1,57 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-
 <project default="install-jar" name="node" basedir=".">
-
-
-
   <property name="name"           value="node"/>
-
-  <property name="version"        value="0.2.0"/>
-
+  <property name="version"        value="0.2.1"/>
   <!-- manual addition -->
-
   <property name="projectName"    value="xlattice"/>
 
   <!-- ======================================================= -->
-
   <!-- S O U R C E   P R O P E R T I E S                       -->
-
   <!-- ======================================================= -->
 
   <!-- this is an XLattice subproject, so root_dir is one up   -->
-
   <property name="root_dir"       value=".."/>
-  <property name="bin_dir"        value="bin"/>
   <property name="src_dir"        value="src/java"/>
-
   <property name="test_src_dir"   value="src/test"/>
-
-  <property name="jml_dir"        value="jml"/>
-
   <property name="xdoc_dir"       value="xdocs"/>
 
+  <property name="bin_dir"        value="bin"/>
+  <property name="jml_dir"        value="jml"/>
+  
   <!-- ======================================================= -->
-
   <!-- B U I L D   P R O P E R T I E S                         -->
-
   <!-- ======================================================= -->
 
   <property name="build_dir" value="target"/>
-
-
-
+  
   <property name="classes_dir"      value="${build_dir}/classes"/>
-
   <property name="lib_dir"          value="../lib"/>
-
   <property name="test_classes_dir" value="${build_dir}/test-classes"/>
-
   <property name="test_report_dir"  value="${build_dir}/test-reports"/>
-
   <property name="javadoc_dir"
-
                     value="${root_dir}/xdocs/components/${name}/api"/>
 
   <!-- ======================================================= -->
@@ -77,119 +55,70 @@
   <property name="dist_name"        value="${name}-${version}"/>
 
   <!-- ======================================================= -->
-
   <!-- I N I T                                                 -->
-
   <!-- ======================================================= -->
 
   <target name="init"
-
                       description="o Initializes some properties">
-
     <mkdir dir="${lib_dir}"/>
-
   </target>
 
-
-
   <!-- ======================================================= -->
-
   <!-- C O M P I L E   S O U R C E   F I L E S                 -->
-
   <!-- ======================================================= -->
 
   <target name="compile"         description="o Compile the code"
-
                                                    depends="init">
-
     <mkdir dir="${classes_dir}"/>
-
     <javac destdir="${classes_dir}" deprecation="true"
-
          debug="true" optimize="false" excludes="**/package.html">
-
       <src>
-
         <pathelement location="${src_dir}"/>
-
       </src>
-
       <classpath>
-
         <fileset dir="${lib_dir}">
-
-          <include name="xlattice/util-0.3.10.jar"/>
-
-          <include name="xlattice/corexml-0.3.7.jar"/>
-
-          <include name="xlattice/crypto-0.2.0.jar"/>
-
+          <include name="junit/junit-4.1.jar"/>
+          <include name="xlattice/util-0.3.11.jar"/>
+          <include name="xlattice/corexml-0.3.8.jar"/>
+          <include name="xlattice/crypto-0.2.1.jar"/>
           <include name="xlattice/transport-0.2.1.jar"/>
-          <include name="xlattice/protocol-0.2.0.jar"/>
-
-          <include name="xlattice/overlay-0.2.0.jar"/>
-
+          <include name="xlattice/protocol-0.2.1.jar"/>
+          <include name="xlattice/overlay-0.2.2.jar"/>
         </fileset>
-
       </classpath>
-
     </javac>
-
   </target>
 
   <!-- ======================================================= -->
-
   <!-- C O M P I L E   T E S T S                               -->
-
   <!-- ======================================================= -->
 
   <target name="compile-tests" description="o Compile unit tests"
-
                                               depends = "compile">
 
     <mkdir dir="${test_classes_dir}"/>
-
     <javac destdir="${test_classes_dir}" deprecation="true"
-
          debug="true" optimize="false" excludes="**/package.html"
-
         >
-
       <src>
-
         <pathelement location="${test_src_dir}"/>
-
       </src>
-
       <classpath>
-
         <fileset dir="${lib_dir}">
-
-          <include name="xlattice/util-0.3.10.jar"/>
-
-          <include name="xlattice/corexml-0.3.7.jar"/>
-
-          <include name="xlattice/crypto-0.2.0.jar"/>
-
+          <include name="junit/junit-4.1.jar"/>
+          <include name="xlattice/util-0.3.11.jar"/>
+          <include name="xlattice/corexml-0.3.8.jar"/>
+          <include name="xlattice/crypto-0.2.1.jar"/>
           <include name="xlattice/transport-0.2.1.jar"/>
-          <include name="xlattice/protocol-0.2.0.jar"/>
-
-          <include name="xlattice/overlay-0.2.0.jar"/>
-
+          <include name="xlattice/protocol-0.2.1.jar"/>
+          <include name="xlattice/overlay-0.2.2.jar"/>
           <!--  
-
           <include name="xpp3/xpp3-1.1.3.4.C.jar"/>
-
           -->
-
         </fileset>
-
         <pathelement path="${classes_dir}"/>
-
       </classpath>
-
     </javac>
-
   </target>
 
   <!-- ======================================================= -->
@@ -231,18 +160,13 @@
       <classpath>
 
         <fileset dir="${lib_dir}">
-
-          <include name="xlattice/util-0.3.10.jar"/>
-
-          <include name="xlattice/corexml-0.3.7.jar"/>
-
-          <include name="xlattice/crypto-0.2.0.jar"/>
-
+          <include name="junit/junit-4.1.jar"/>
+          <include name="xlattice/util-0.3.11.jar"/>
+          <include name="xlattice/corexml-0.3.8.jar"/>
+          <include name="xlattice/crypto-0.2.1.jar"/>
           <include name="xlattice/transport-0.2.1.jar"/>
-          <include name="xlattice/protocol-0.2.0.jar"/>
-
-          <include name="xlattice/overlay-0.2.0.jar"/>
-
+          <include name="xlattice/protocol-0.2.1.jar"/>
+          <include name="xlattice/overlay-0.2.2.jar"/>
           <include name="xpp3/xpp3-1.1.3.4.C.jar"/>
 
         </fileset>
