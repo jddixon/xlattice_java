@@ -3,7 +3,7 @@
 <project default="test" name="crypto" basedir=".">
 
   <property name="name"           value="crypto"/>
-  <property name="version"        value="0.2.0"/>
+  <property name="version"        value="0.2.1"/>
   <!-- manual addition -->
   <property name="projectName"    value="xlattice"/>
   <!-- ======================================================= -->
@@ -293,7 +293,7 @@
     </copy>
 
     <!-- project control files -->
-    <copy todir="${dist_dir}/${component}" file="LICENSE.txt" />
+    <copy todir="${dist_dir}/${component}" file="../LICENSE.txt" />
     <copy todir="${dist_dir}/${component}" file="build.xml" />
     <copy todir="${dist_dir}/${component}" file="CHANGES" />
     <copy todir="${dist_dir}/${component}" file="project.properties" />
