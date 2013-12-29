@@ -1,0 +1,15 @@
+pa:~jdd/dev/java/xlattice_j/TODO
+
+2013-07-15
+    * FIX: TestHttpOverTcp goes into an infinite loop       
+
+2013-06-02
+    * URGENT: whatever generates Version.java creates incorrect
+        code: corexml/src/java/org/xlattice/corexml/Version.java was
+        missing a closing RPAREN at line 16
+    * build.xml succeeds despite compilation errors
+
+2013-05-25
+    * LICENSE.txt is html; should strip that out or rename
+        to LICENSE.html
+
