@@ -1,0 +1,3 @@
+LCP=.:../lib/xlattice/util-0.3.8.jar
+LCP=target/test-classes:target/classes:$LCP
+java -cp $LCP org.xlattice.transport.tcpip.TimeServer $@
