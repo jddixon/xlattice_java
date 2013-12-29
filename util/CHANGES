@@ -1,6 +1,9 @@
 pa:~jdd/dev/java/xlattice/util/CHANGES
 
-v3.10.0                                                             SLOC 3554
+v0.3.11
+    2013-12-29
+        * dropped ArrayStack                                        SLOC 3390
+v0.3.10                                                             SLOC 3554
     2012-07-10
         * created TestStack by cloning TestArrayStack and then 
             editing; this becomes a guide to how to replace 
