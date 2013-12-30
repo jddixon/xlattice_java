@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+  <id>projmgrParent</id>
+  <name>ProjMgr Parent</name>
+  <version>0.1</version>
+  <libDir>../lib</libDir>
+  <package>org.xlattice</package>
+
+  <dependencies>
+    <!-- ant, JUnit should be packaged with projmgr -->
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>ant</artifactId>
+      <version>1.5.4</version>
+      <url>http://jakarta.apache.org/ant/</url>
+    </dependency>
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>optional</artifactId>
+      <version>1.5.4</version>
+      <url>http://jakarta.apache.org/ant/</url>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.1</version>
+      <url>http://www.junit.org/</url>
+    </dependency>
+  </dependencies>
+  
+  <description>
+    Dummy parent project.
+  </description>
+  <shortDescription>
+    dummy parent project
+  </shortDescription>
+  <inceptionYear>2006</inceptionYear>
+  
+</project>
