@@ -1,0 +1,5 @@
+xlattice_j/projmgr/TODO
+
+2013-12-29
+    * upgrade: existing code uses ancient 2.7.4 antlr
+    * project.xml points at sf.net

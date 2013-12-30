@@ -3,6 +3,8 @@ pa:~jdd/dev/java/xlattice_j/util/TODO
 2013-12-29
     * ant build fails, can't find JunitTask                         * DONE
         - fixed: on ubuntu aptitude install ant-optional            * DONE
+    * figure out where to put tarballs on github
+        - then automate the process
 
 2013-05-25
     * modify build.xml to use LICENSE.txt from ..                   * DONE
