@@ -5,6 +5,9 @@ pa:~jdd/dev/java/xlattice_j/util/TODO
         - fixed: on ubuntu aptitude install ant-optional            * DONE
     * figure out where to put tarballs on github
         - then automate the process
+    * version number in Version.java is *wrong*, must be fixed
+        in all components
+        - this really needs to be automated!
 
 2013-05-25
     * modify build.xml to use LICENSE.txt from ..                   * DONE

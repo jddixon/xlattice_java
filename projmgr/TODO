@@ -2,4 +2,10 @@ xlattice_j/projmgr/TODO
 
 2013-12-29
     * upgrade: existing code uses ancient 2.7.4 antlr
+        - tentatively switch to antlr 4.1 (github antlr/antlr4),
+            if that is stable enough
+        - instructions in project README.md
     * project.xml points at sf.net
+    * need a tool to keep jar file version numbers correct in the
+        various build.xmls
+        - isn't projmgr that tool??
