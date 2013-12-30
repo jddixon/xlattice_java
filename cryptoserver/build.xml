@@ -3,7 +3,7 @@
 <project default="test" name="cryptoserver" basedir=".">
 
   <property name="name"           value="cryptoserver"/>
-  <property name="version"        value="0.2.0"/>
+  <property name="version"        value="0.2.1"/>
   <!-- manual addition -->
   <property name="projectName"    value="xlattice"/>
   <!-- ======================================================= -->
