@@ -1,5 +1,8 @@
 ~/dev/java/xlattice_j/httpd/CHANGES
 
+0.2.0        
+    2013-12-29                                                      SLOC 5583
+        * jdk 1.7, ant 1.8.2
 0.2.0                                                               SLOC 4988
     2011-08-23 
         * hacked SignedList so that SiteList works (exposed getVerifier())

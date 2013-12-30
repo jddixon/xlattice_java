@@ -8,7 +8,7 @@
 
   <property name="name"           value="httpd"/>
 
-  <property name="version"        value="0.2.0"/>
+  <property name="version"        value="0.2.1"/>
 
   <!-- manual addition -->
 
