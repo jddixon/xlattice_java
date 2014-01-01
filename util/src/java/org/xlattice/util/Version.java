@@ -2,17 +2,15 @@
 package org.xlattice.util;
 
 /**
- * THIS CLASS SHOULD BE AUTOMATICALLY GENERATED.
- *
- * @author Jim Dixon
+ * THIS CLASS IS AUTOMATICALLY GENERATED.  DO NOT EDIT
  */
 public class Version extends org.xlattice.Version {
 
     public Version () {
-        super ("org.xlattice.util",     // package
-                0,                      // major
-                3,                      // minor
-                10,                     // decimal
-                0);                     // build
+        super("org.xlattice.util", // package
+            0,                       // minor
+            3,                       // minor
+            11,                       // decimal
+            0);                      // build
     }
-}
+};

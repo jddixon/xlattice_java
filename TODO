@@ -1,5 +1,17 @@
 pa:~jdd/dev/java/xlattice_j/TODO
 
+2013-12-31
+    * rebuild dist after reconcileJava run
+        - util
+        - corexml
+        - crypto
+        - transport
+        - protocol
+        - overlay
+        - node
+        - httpd
+        - projmgr
+
 2013-07-15
     * FIX: TestHttpOverTcp goes into an infinite loop       
 
