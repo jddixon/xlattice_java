@@ -2,8 +2,8 @@ pa:~jdd/dev/java/xlattice_j/TODO
 
 2013-12-31
     * rebuild dist after reconcileJava run
-        - util
-        - corexml
+        - util                                                      * DONE
+        - corexml                                                   * DONE
         - crypto
         - transport
         - protocol
