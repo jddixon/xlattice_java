@@ -2,17 +2,15 @@
 package org.xlattice.httpd;
 
 /**
- * THIS CLASS SHOULD BE AUTOMATICALLY GENERATED.
- *
- * @author Jim Dixon
+ * THIS CLASS IS AUTOMATICALLY GENERATED.  DO NOT EDIT
  */
 public class Version extends org.xlattice.Version {
 
     public Version () {
-        super ("org.xlattice.httpd",
-                0,      // major
-                2,      // minor
-                0,      // decimal
-                0);     // build
+        super("org.xlattice.httpd", // package
+            0,                       // minor
+            2,                       // minor
+            1,                       // decimal
+            0);                      // build
     }
-}
+};
