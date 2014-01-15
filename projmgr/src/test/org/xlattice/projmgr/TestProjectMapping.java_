@@ -1,0 +1,34 @@
+/* TestProjectMapping.java */
+package org.xlattice.projmgr;
+
+import junit.framework.*;
+
+import org.xlattice.corexml.CoreXmlException;
+
+/**
+ */
+public class TestProjectMapping extends ProjectMapping {
+
+    public TestProjectMapping (String name) {
+        super(name);
+    }
+
+    public void setUp () {
+    }
+
+    public void tearDown() {
+    }
+
+    public void testBasics() throws CoreXmlException {
+        buildProjectMapper();
+        assertEquals ("project",          map.getTag());
+        assertEquals (PROJECT_CLASS_NAME, map.getClassName());
+        // number of bindings in the first sequence  
+        assertEquals (8, seq.size());
+
+        assertEquals ("dependencies", holder.getTag());
+
+        assertEquals ("dependency", submap.getTag());
+        assertEquals (3, submapSeq.size());         // GEEP
+    }
+}
