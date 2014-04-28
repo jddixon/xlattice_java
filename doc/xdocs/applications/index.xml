@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+
+<header><title>
+Applications</title></header>
+
+<body>
+<p>
+
+</p>
+<section id="XLatticeApplications"><title>XLattice Applications</title>
+<p>
+These are software packages based on XLattice components.  An XLattice
+application is delivered with all necessary jars except for the Java
+runtime package itself.
+</p>
+<section id="AboutToBeReleased"><title>About To Be Released</title>
+<p>
+XLattice currently has two applications in development.  
+</p>
+<ul>
+<li>
+<strong>
+CryptoServer,</strong>
+ a lightweight, secure, and very fast Web server
+</li>
+<li>
+<strong>
+ShareDev,</strong>
+ a set of tools using peer-to-peer technologies to
+  support cooperative software development
+</li>
+</ul>
+<p>
+An early release of the CryptoServer is expected in January of 2005.
+Components are available in CVS.
+For moderately reliable information on progress in CryptoServer development,
+see its <a href="httpd/roadmap.html">
+roadmap.</a>
+
+</p>
+</section>
+</section>
+</body>
+</document>

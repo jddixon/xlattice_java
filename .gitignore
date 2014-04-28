@@ -1,6 +1,7 @@
 CVS
 .svn
 junk*
+*.swp
 dist-files
 distribution
 target
