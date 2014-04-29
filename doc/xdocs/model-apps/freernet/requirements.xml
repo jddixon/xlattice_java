@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>P2P File Sharing</title></header>
+      
+  
+  <body>
+    <section id="BasicRequirements"><title>Basic Requirements</title>
+      <p>Requirements include</p>
+      <ul>
+        <li><strong>Anonymity</strong> for both those posting material to 
+          the system (publishers) and those 
+          retrieving material from the system (readers).</li>
+        <li><strong>Content Encryption.</strong> All files and all inter-node
+          messages should be encrypted.</li>
+        <li><strong>Replication and Dispersal.</strong> 
+          The system should have some provision
+          for automatically copying files and distributing copies
+          across the network, so that bringing down
+          any one or any small group of servers would be unlikely 
+          to remove documents from the system.</li>
+        <li><strong>Automatic Migration.</strong>  Files should tend to drift
+          towards where they are most used.</li>
+      </ul>
+    </section>
+    <section id="FreenetDeficiencies"><title>Freenet Deficiencies</title>
+      <p>Freenet in particular has been widely analysed and is known
+        to have several deficiencies.  Any new system would have to
+        address these.</p>
+      <ul>
+        <li><strong>Performance.</strong>  Freenet is perceived by many as 
+          very slow.</li>
+        <li><strong>Authentication.</strong>  Freenet has no mechanism for
+          authenticating users.  This leaves it open to a variety
+          of denial of service (DOS) attacks.</li>
+        <li><strong>Prevention of Flooding.</strong>  Any user can flood 
+          Freenet either by inserting bogus content into the 
+          system or by requesting content that is far away in 
+          network terms.  In the latter case the system will 
+          replicate a document copy on every server queried in 
+          the course of retrieving the document.</li>
+      </ul>
+    </section>
+    <section id="OtherPossibleRequirements"><title>Other Possible Requirements</title>
+      <ul>
+        <li><strong>Graceful Fragmentation.</strong>  The system should 
+          survive network fragmentation.  This might be caused
+          by a failure in the underlying Internet or by the loss of
+          an excessive number of authentication servers.</li>
+        <li><strong>Graceful Merger.</strong>  If a system has survived
+          fragmentation, so that it continues to exist as two separate
+          networks, then when whatever condition caused the 
+          fragmentation changes, it should be possible to remerge
+          the two fragments.  Ideally this will occur automatically.</li>
+        <li><strong>Graceful Joins.</strong>  From a user's point of view, 
+          joining the network should be entirely automatic or very
+          nearly so.  </li>
+        <li><strong>Graceful Leaving.</strong>  While it should be possible for
+          a node to notify the system that it is leaving (being powered 
+          down, for example), the system should respond automatically
+          to a node's departure.</li>
+        <li><strong>Compatibility with Other P2P Networks.</strong>  It is highly
+          desirable that XLattice support gateways into other p2p 
+          networks such as
+          <a href="http://www.freenetproject.org">freenet</a> and 
+          <a href="http://mnet.sourceforge.net">mnet.</a></li>
+      </ul>
+    </section>
+  </body>
+</document>

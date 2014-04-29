@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>Model Applications</title></header>
+      
+  
+  <body>
+    <section id="Introduction"><title>Introduction</title>
+    <p>The applications discussed here are not necessarily
+      XLattice project objectives.  Rather they are "gedanken" 
+      applications, applications which XLattice should be able to 
+      support.</p>
+
+    <p>The objective is to sketch out the applications in 
+      sufficient detail to understand how they might best be 
+      implemented, and then give a rough proof that they could 
+      be built on top of XLattice with reasonable likely performance.  
+      Consideration of the need
+      to serve these model applications should also force an
+      appropriately simple design.</p>
+
+    <p>It should be possible for a node to participate in more than
+      one of these activities at one time, without any unintended 
+      leakage of information from one to another.  
+    </p>
+  <section id="TheModelApplications"><title>The Model Applications</title>
+    <ul>
+      <li><a href="strategy-game.html">Realtime Strategy Game</a></li>
+      <li><a href="messaging-system.html">Business Messaging System</a></li>
+      <li><a href="freernet/index.html">
+                              Anonymous P2P File Sharing System</a></li>
+      <li><a href="p2pchat/index.html">Universal Chat Facility</a></li>
+    </ul>
+  </section>
+  <section id="CommonRequirements"><title>Common Requirements</title>
+    <p>A first analysis of the model applications listed above shows
+      all of them using the common elements set out below.
+    </p>
+    <table>
+      <tr><td>command line interface</td>
+        <td>This connects a user's keyboard and screen to the console.
+          In a Java implementation this would be part of the runner
+          which launches the other elements (console, node, etc) in 
+          one or more virtual machines (JVMs).</td></tr>
+      <tr><td>(virtual) console</td>
+        <td>Interfaces a single user to one or more nodes, providing an
+          input stream to and an output stream from each.</td></tr>
+      <tr><td>clock</td>
+        <td>All of the applications require a clock.  In one it is
+          critical that all participating nodes share the same absolute 
+          time; in other words the clocks must all be synchronized with
+          the real time (UT) to some degree of accuracy.  In another, it
+          is critical that all nodes share the same time to some
+          degree of accuracy, but it is not critical that this shared
+          time be synchronized with the real external time.  In the 
+          other two applications, it is not critical that clocks be
+          synchronized either between nodes or with the real clock time.
+      </td></tr>
+      <tr><td>node</td>
+        <td>The key XLattice component.  A node is controlled by a 
+          console, has an identity and an address, has a local file
+          system, is capable of authenticating messages and other
+          cryptographic operations, is capable of being a member of
+          one or more lattices, and can send and receive messages 
+          over a number of connections using a variety of transport
+          protocols.</td></tr>
+      <tr><td>identity</td>
+        <td>The identity of a node: essentially a public key pair
+          unique to the node.</td></tr>
+      <tr><td>address</td>
+        <td>The lattice ID of a node plus an associated address.  This
+          is usually a physical address (for example, IP address 
+          plus port number) but can be anothe lattice ID.</td></tr>
+      <tr><td>lattice</td>
+        <td>An ordered set of the nodes participating in a lattice.  A node
+        may belong to more than one lattice.</td></tr>
+      <tr><td>local file system</td>
+        <td>That portion of the platform's memory and hard drives which are
+          reserved to XLattice.  Persistence of in-memory files is not
+          guaranteed; the machine can be turned off or crash.  Files on
+          hard drives are assumed to persist: if you turn the
+          machine off and back on, they will still be there.</td></tr>
+      <tr><td>authentication</td>
+        <td>Responsible for verifying the identity of another node
+          using public key cryptography.</td></tr>
+      <tr><td>crypto</td>
+        <td>Encrypts or decrypts messages or files.  Usually supports more
+          than one protocol.</td></tr>
+      <tr><td>message</td>
+        <td>The fundamental unit of communication.  Messages may be sent
+          to one or more nodes using one or more transport protocols.
+          They may be encrypted. And they may be routed, that is, 
+          forwarded to one or more other nodes, possibly with protocol
+          translation (for example, a message might arrive over tcpip
+          and then be forwarded using smtp).</td></tr>
+      <tr><td>connection</td>
+        <td>The connection between two nodes over which messages pass.  A
+          connection always has two endpoints and an associated transport
+          protocol.</td></tr>
+      <tr><td>transport</td>
+        <td>The protocol used for transporting messages over a connection.
+          At least the following four transport protocols are assumed to be 
+          available to all applications.
+          </td></tr>
+      <tr><td>tcpip</td>
+        <td>The standard Internet protocol for reliable communications, 
+          TCP/IP. Reliable means that either eventual 
+          delivery of the message or notice of failure 
+          is guaranteed.</td></tr>
+      <tr><td>udp</td>
+        <td>The Internet's datagram protocol, used for unreliable
+          communications.  Unreliable means that delivery is
+          made on a best-effort basis, without notification in case of
+          failure.</td></tr>
+      <tr><td>smtp</td>
+        <td>SMTP, the email protocol.</td></tr>
+      <tr><td>http</td>
+        <td>HTTP, the protocol used by the World Wide Web.  This is a 
+          client/server protocol.  One of the endpoints will be acting
+          as a Web server, possibly running on the standard port (80),
+          and the other will be acting like a browser.</td></tr>
+    </table>
+  </section>
+  <section id="Interoperability"><title>Interoperability</title>
+    <p>As mentioned above, it should be possible for a user to 
+      run more than one XLattice application simultaneously,
+      without unintended leakage of information from one 
+      application to another.  </p>
+
+    <p>It is highly desirable that it also be 
+      possible to pass information from one application to another
+      in a controlled way.</p>
+  </section>
+  </section>
+</body>
+</document>

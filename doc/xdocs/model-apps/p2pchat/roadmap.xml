@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+
+<header><title>
+P2P Chat Facility</title></header>
+
+<body>
+<p>
+
+</p>
+<section id="Roadmap"><title>Roadmap</title>
+<p>
+The table below summarizes the capabilities that XLattice's p2p
+chat facility is expected to have at revision number <strong>
+n.n.n</strong>
+.  In
+other words, these are the milestones in the implementation of
+p2p chat.
+</p>
+<p>
+  The descriptions below describe the protocol in IRC 
+  <em>(Internet Relay Chat)</em> terms, but in implementation it may 
+  more closely resemble Jabber (XMPP).
+</p>
+<note>This table should be understood as an exercise in planning the
+  implementation of a chat facility.  This work is not underway at
+  this time.
+</note>
+
+<table>
+<tr>
+<td>
+<strong>
+n</strong>
+</td>
+<td>
+<strong>
+n</strong>
+</td>
+<td>
+<strong>
+n</strong>
+</td>
+<td>
+ <strong>
+capability at this revision number</strong>
+               </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ Users can <strong> download/update basic software</strong>
+ from XLattice server using <strong> Webstart</strong> protocol.</td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ Node can generate public/private key pair, the
+                node's cryptographic ID.  This is entirely
+                automatic, with no user involvement; if there
+                is no crypto ID when the software begins running, 
+                the software generates a key pair.              </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 2 </td>
+<td>
+ Register IP addresss with XLattice server,
+                get node ID from the server.  As soon as the
+                software has been installed and a node ID has
+                been generated, the node registers itself with
+                the server.<br/>
+             At this stage, the XLattice server is running a 
+             <strong>node registry</strong> binding
+             node IDs to public keys ("cryptographic identities")
+             and IP addresses.                                  </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 3 </td>
+<td>
+ Node can get list of neighbor IP addresses 
+                from XLattice server (no user involvement).     </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 4 </td>
+<td>
+ Node can establish contact with neighbors, send 
+                keep-alives.                                    </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 5 </td>
+<td>
+ Node-to-node plaintext messaging.  No user
+                involvement.                                    </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 6 </td>
+<td>
+ DH handshaking, session keys.                      </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 7 </td>
+<td>
+ Encrypted none-node messaging.
+</td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ 0 </td>
+<td>
+ <strong>Authentication cluster</strong>
+ 
+                formation by neighbor nodes (automatic,
+                no user involvement, but list of neighbor nodes
+                and IP addresses available to user).            </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ 1 </td>
+<td>
+ User name (nick) selection, confirmation by
+                authentication cluster.                         </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ 2 </td>
+<td>
+ User registration with cluster, nick/public
+                key binding.                                    </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ 3 </td>
+<td>
+ Plaintext user-to-user (nick-nick) messaging within
+                the cluster.                                    </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ 4 </td>
+<td>
+ Encrypted nick-nick messaging within the cluster.  </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ 5 </td>
+<td>
+ Cluster capable of assigning node ID to user.      </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ 6 </td>
+<td>
+ Cluster capable of providing neighbor list to user.</td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ 7 </td>
+<td>
+ XLattice server sets up <strong>cluster registry</strong>
+ 
+                binding the cluster name, 
+                cluster ID, and a possibly time-varying set of
+                crypto identities (node public keys)            </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ 8 </td>
+<td>
+ Cluster gets cluster ID from XLattice server.      </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ 9 </td>
+<td>
+ Cluster capable of operating a
+                <strong>
+node ID registry</strong>
+    </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ 10</td>
+<td>
+ XLattice server begins referring users to
+                cluster(s) for node ID assignment.
+</td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 2 </td>
+<td>
+ 0 </td>
+<td>
+ Authentication cluster capable of assigning
+                <strong>
+chat channel</strong>
+ 
+                names.  That is, the nodes in the cluster can 
+                agree upon a common, shared name for a channel. </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 5 </td>
+<td>
+ 0 </td>
+<td>
+ Supercluster node ID assignment capability.        </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 5 </td>
+<td>
+ 2 </td>
+<td>
+ Superclusters capable of referring users to
+                clusters for node ID assignment.                </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 5 </td>
+<td>
+ 3</td>
+<td>
+ XLattice server refers new users to supercluster(s)
+                for node ID assignment.                         </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 2 </td>
+<td>
+ 1 </td>
+<td>
+ Users (nicks) capable of creating channels by
+                application to their cluster.                   </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 2 </td>
+<td>
+ 2 </td>
+<td>
+ Channel creator can assign channel ops, that is,
+                assign privileged status to other nicks.        </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 2 </td>
+<td>
+ 3 </td>
+<td>
+ Users (nicks) can join channels.                   </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 2 </td>
+<td>
+ 4 </td>
+<td>
+ Clusters are now operating a dynamic 
+                <strong>
+channel registry</strong>
+
+                relating channel names, creators, channel ops,
+                and nicks                                       </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 2 </td>
+<td>
+ 5 </td>
+<td>
+ Plaintext channel messaging within the cluster.    </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 2 </td>
+<td>
+ 6 </td>
+<td>
+ Encrypted channel messaging within the cluster.
+</td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 3 </td>
+<td>
+ 0 </td>
+<td>
+ XLattice server capable of providing clusters with
+                list of neighbor clusters.                      </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 3 </td>
+<td>
+ 1 </td>
+<td>
+ Cluster-to-cluster messaging, communications
+                between authentication clusters, initially
+                keep-alives, then messages encrypted with 
+                session keys.                                   </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 3 </td>
+<td>
+ 2 </td>
+<td>
+ Byzantine 
+                <strong>
+supercluster formation:</strong>
+ 
+                clusters capable of forming
+                authentication groups with neighboring clusters </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 3 </td>
+<td>
+ 3 </td>
+<td>
+ XLattice server sets up <strong> supercluster registry</strong></td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 3 </td>
+<td>
+ 4 </td>
+<td>
+ Superclusters can register with XLattice server
+                to get supercluster ID.                         </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 3 </td>
+<td>
+ 5 </td>
+<td>
+ Superclusters capable of operating <strong>
+cluster registry</strong>
+                and providing cluster neighbor lists to 
+                clusters.                                       </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 3 </td>
+<td>
+ 6 </td>
+<td>
+ XLattice server refers new clusters to 
+                supercluster(s) for cluster ID assignment.      </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 3 </td>
+<td>
+ 7 </td>
+<td>
+ Cluster node ID assignment capability.             </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 3 </td>
+<td>
+ 8 </td>
+<td>
+ Superclusters capable of referring users to
+                clusters for node ID assignment.                </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 3 </td>
+<td>
+ 9 </td>
+<td>
+ XLattice server refers new users to supercluster(s)
+                for node ID assignment.                         </td>
+</tr>
+<tr>
+<td>
+                
+                
+ 0 </td>
+<td>
+ 3 </td>
+<td>
+ 3 </td>
+<td>
+ Qualified nicks (clusterName.userName)
+                bound to public keys.                           </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 3 </td>
+<td>
+ 4 </td>
+<td>
+ Qualified nick-to-qualified nick encrypted
+                messaging supported; this is user-to-user
+                messaging within the supercluster.
+</td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 4 </td>
+<td>
+ 0 </td>
+<td>
+ Superclusters capable of agreeing on
+ <strong>global nicks,</strong>
+                nicks not qualified by cluster names,
+                but bound to user's crypto ID (public key)      </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 4 </td>
+<td>
+ 4 </td>
+<td>
+ Superclusters operate global nick registry.        </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 4 </td>
+<td>
+ 5 </td>
+<td>
+ Global nick - global nick messaging.
+</td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 6 </td>
+<td>
+ 0 </td>
+<td>
+ Superclusters capable of
+                <strong>
+global channel</strong>
+
+                name assignment                                 </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 6 </td>
+<td>
+ 1 </td>
+<td>
+ Global channel creation: clusters can agree on
+                shared name for a channel, with the same name
+                to be used by all clusters, and with the same
+                nick having 'channel creator' privileges across
+                the cluster.                                    </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 6 </td>
+<td>
+ 2 </td>
+<td>
+ Global channel op assignment by creator.           </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 6 </td>
+<td>
+ 3 </td>
+<td>
+ Global channel joins                               </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 6 </td>
+<td>
+ 4 </td>
+<td>
+ Global channel plaintext messaging                 </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 6 </td>
+<td>
+ 5 </td>
+<td>
+ global channel encrypted messaging
+</td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 7 </td>
+<td>
+ 0 </td>
+<td>
+ Support for node-node
+            <strong>
+Voice over IP</strong>
+ (VOIP)
+            communications; no human involvement, just creation
+            of link and exchange of packets                     </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 7 </td>
+<td>
+ 1 </td>
+<td>
+ User-to-user 
+</td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 8 </td>
+<td>
+ 0 </td>
+<td>
+ Support for node-node <strong> video</strong>
+
+</td>
+</tr>
+</table>
+</section>
+</body>
+</document>

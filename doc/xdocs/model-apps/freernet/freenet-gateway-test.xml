@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>P2P File Sharing</title></header>
+      
+  
+  <body>
+    <section id="FreenetGatewayTests"><title>Freenet Gateway Tests</title>
+      <p>These are a series of tests that constitute proof that XLattice
+        has successfully implemented the various Freenet protocols and
+        then may demonstrate certain weaknesses in Freenet.</p>
+      <ul>      
+        <li><strong>network join</strong></li>
+        <li><strong>data insertion and retrieval</strong></li>
+        <li><strong>network mapping</strong> </li>
+        <li><strong>star detection</strong></li>
+        <li><strong>training</strong></li>
+        <li><strong>ring creation</strong></li>
+        <li><strong>ring rotation</strong></li>
+      </ul>
+      <p>The first two items, join, insertion, and retrieval, are
+        the basic Freenet protocols. Any correct implementation
+        should be able to carry out these operations.</p>
+
+      <p>If a comprehensive map can be built of Freenet, item 3, 
+        it suggests that Freenet's basic guarantee of anonymity is 
+        at risk.</p>
+
+      <p>If XLattice can determine which nodes specialize in which
+        keys, item 4, this is more certain.  If XLattice can force 
+        individual nodes to specialize, item 5, it is definite.  
+        If XLattice can manipulate the behaviour of the entire network, 
+        items 6 and 7, there is no doubt at all: 
+        Freenet cannot guarantee anonymity to its users.</p>
+
+      <section id="NetworkJoin"><title>Network Join</title>
+        <p>An XLattice node must be able to <strong>join</strong> Freenet, 
+          in the sense that it must be able to announce itself to
+          an arbitrarily selected Freenet node and acquire a Freenet
+          identity, allowing to insert data into Freenet and retrieve 
+          data from it.</p>  
+        
+        <p>Once one XLattice node has joined Freenet,
+          we believe that it can introduce an arbitrary number of other 
+          (possibly phantom) XLattice nodes.  This would demonstrate 
+          that Freenet is susceptible to 
+          <a href="http://citeseer.nj.nec.com/douceur02sybil.html">
+            Sybil attacks,</a> in which nodes acquire multiple
+          false identities.</p>
+      </section>
+      <section id="DataInsertionandRetrieval">
+        <title>Data Insertion and Retrieval</title>
+        <p>Having joined Freenet, an XLattice node must be able to
+          insert data into the network and retrieve data from it.</p>
+      </section>
+      <section id="NetworkMapping"><title>Network Mapping</title>
+        <p>An XLattice node must be able to build a reliable map showing 
+          all active Freenet network nodes and characterise those nodes
+          to some degree.</p>
+      </section>
+      <section id="StarDetection"><title>Star Detection</title>
+        <p>It should be possible for an XLattice node to determine which
+          Freenet nodes reliably return keys in a certain region of 
+          key space.  That is, it should be able to find out which nodes
+          have specialized successfully.  We refer to a node which has a
+          well-defined and stable specialization as a <strong>star.</strong></p>
+      </section>
+      <section id="Training"><title>Training</title>
+        <p>It should be possible for an XLattice node or possibly a cluster
+          of such nodes to <strong>train</strong> Freenet nodes, increasing or 
+        changing their specialization.</p>
+      </section>
+      <section id="RingCreation"><title>Ring Creation</title>
+        <p>Given the ability to train Freenet nodes, it should be possible
+          to train a set of stars with non-overlapping specialities whose
+          specialities taken together cover key space.  For example, 
+          sixteen such nodes might each specialize in keys beginning with
+          one of the hex digits.</p>
+      </section>
+      <section id="RingRotation"><title>Ring Rotation</title>
+        <p>Given the ability to create a ring of Freenet stars, it should
+          be possible to rotate that ring, meaning that the specializations
+          of each node would gradually change in the same direction and at
+          the same rate.  For example, the zero node in the ring might on
+          the first day specialize in keys in the range 0x00-0x0f,
+          on the second day in keys in the range 0x01-0x10,
+          on the third in keys in the range 0x02-0x11,
+          and so forth.</p>
+      </section>
+    </section>
+  </body>
+</document>

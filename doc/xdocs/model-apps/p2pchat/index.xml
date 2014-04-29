@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header><title>Universal Chat Facility</title></header>
+    <body>
+      <section id="Overview"><title>Overview</title>
+        <p> The minimal objective here would be an IRC proxy.  A more
+          ambitious objective would be an interface to the most
+          popular on-line chat utilities, possibly via 
+          <a href="http://gaim.sourceforge.net"> gaim</a>
+          or something similar.</p>
+        <p> Needed to support this: </p>
+      <ul>
+        <li> buddy lists </li>
+        <li> avatars </li>
+        <li> ad-hoc conversation groups </li>
+        <li> logging </li>
+      </ul>
+      </section>
+
+<section id="Non-standardElements"><title>Non-standard Elements</title>
+<table>
+<tr>
+<td>
+popup   </td>
+<td>
+ A resizable pop-up window that can be used with 
+            keyboard and mouse.                                     </td>
+</tr>
+<tr>
+<td>
+buddy list and avatars </td>
+<td>
+
+        These would be persistent (stored in the local file
+            system) and editable via the popup.                     </td>
+</tr>
+<tr>
+<td>
+log     </td>
+<td>
+ Stored in the local file system, viewable through
+            the popup.  <em>
+May not be necessary.</em>
+                     </td>
+</tr>
+<tr>
+<td>
+irc proxy </td>
+<td>
+
+        A module providing an interface to Internet relay
+            chat (IRC).  The node would presumably have a tcpip
+            connection to the proxy.                                </td>
+</tr>
+<tr>
+<td>
+chat facility interface </td>
+<td>
+
+        <em>
+optional? alternative?</em>
+  A module providing an interface 
+        to gaim or some other universal chat facility.  This might 
+        be quite complex and difficult to implement.
+</td>
+</tr>
+</table>
+</section>
+<section id="ImplementationSketch"><title>Implementation Sketch</title>
+<p>
+A fairly detailed implementation roadmap is available by clicking on
+the menu selection to the left.
+</p>
+</section>
+</body>
+</document>

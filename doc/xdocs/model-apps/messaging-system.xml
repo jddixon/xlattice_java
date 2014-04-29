@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>Business Messaging System</title></header>
+      
+  
+  <body>
+      <section id="Requirements"><title>Requirements</title>
+        <ul>
+          <li><strong>Speed.</strong></li>
+          <li><strong>Reliability.</strong>  Several nines of reliability
+                would be essential.  This might for example mean that 
+                99.99% (four nines)of all
+                messages would have to be successfully delivered or 
+                their non-delivery would have to be reported promptly.
+                <br/>
+                Another way of stating the same requirement is to say
+                that the loss in one out of every ten thousand messages
+                would be acceptable.</li>
+          <li><strong>Confidentiality.</strong>  This includes the capability of
+                encrypting messages using a number of acceptable 
+                protocols and also some degree of protection against
+                traffic analysis.  In many business activities, the fact
+                that a message has been transmitted or received 
+                is as important as the contents of the message itself; 
+                it must be possible to mask both.</li>
+          <li><strong>Authentication.</strong> The system would have to be
+                capable of generating and securely storing its own 
+                digital certificates and of interacting with commercial digital 
+                certificates and certification authorities.</li>
+          <li><strong>Key Management.</strong></li>
+          <li><strong>Email Support, including Filtering.</strong>  All of the
+                requirements of the relevant IETF standards would have to
+                be supported.  In addition, we would need filtering 
+                in terms of source and destination, other header content,
+                and message content.</li>
+          <li><strong>Virus Scanning.</strong></li>
+          <li><strong>Archiving.</strong></li>
+          <li><strong>Logging.</strong></li>
+          <li><strong>Interface to Commercial Messaging Systems.</strong>  For
+                example, IBM's MQ Series.</li>
+        </ul>
+      </section>
+      <section id="Non-standardElementsClient"><title>Non-standard Elements, Client</title>
+        <table>
+          <tr><td>popup</td>
+            <td>A resizable popup window that can be used with keyboard
+              and mouse.</td></tr>
+          <tr><td>contact list</td>
+            <td>Persistent storage of such a list plus software allowing
+              it to be viewed and edited through the popup window.</td></tr>
+          <tr><td>attachments</td>
+            <td>Support for MIME attachments in the popup
+              is likely to be fairly complex.</td></tr>
+          <tr><td>incoming messages</td>
+            <td>Persistent storage of such messages plus software
+              allowing them to be viewed and replied to through the
+              popup window.</td></tr>
+          <tr><td>outgoing messages</td>
+            <td>Persistent storage of pending outgoing messages plus
+              software allowing the user to see what messages have not
+              yet been successfully sent.</td></tr>
+          <tr><td>log</td>
+            <td>Persistent storage of a log of sent and received messages
+              plus software allowing the user to view this.</td></tr>
+          <tr><td>filters</td>
+            <td>Persistent storage of a set of filters plus software
+              allowing these to be viewed and edited through the popup
+              window.</td></tr>
+          <tr><td>authentication</td>
+            <td>Support for externally-generated digital certificates
+              will be essential.  It must be easy to install a such
+              a digital certificate supplied from a local network admin
+              or some other such authority within the corporate 
+              hierarchy.</td></tr>
+        </table>
+      </section>
+      <section id="ImplementationSketchClient"><title>Implementation Sketch, Client</title>
+        <p>Building a client for a business messaging system on 
+          top of XLattice would seem to be straightforward.  </p>
+      </section>
+      <section id="Non-standardElementsBroker"><title>Non-standard Elements, Broker</title>
+        <table>
+          <tr><td/>
+            <td/></tr>
+          <tr><td/>
+            <td/></tr>
+          <tr><td/>
+            <td/></tr>
+          <tr><td>log</td>
+            <td>Any broker used for the Business Messaging System would
+              have to keep comprehensive logs of any messages passed.
+              There would be considerable tension between this 
+              requirement and the need for protection from traffic 
+              analysis.
+            </td></tr>
+        </table>
+      </section>
+      <section id="Non-standardElementsFilter"><title>Non-standard Elements, Filter</title>
+        <table>
+          <tr><td>connections</td>
+            <td>A firewall node (filter) would have only two (bidirectional)
+              connections, possibly plus a secure HTTPS connection
+            allowing remote management.</td></tr>
+          <tr><td>filters</td>
+            <td>To operate an efficient business messaging system, it is likely
+              that the firewall would have to support unusually complex
+              filters which would reflect a hierarchical authentication
+              structure.  This would allow, for example, company-wide
+              filter policies in conjunction with lower-level division
+              and and still lower-level departmental policies.</td></tr>
+          <tr><td>message pool</td>
+            <td>For speed, this would have to be in memory.  However,
+            it would be essential that any message entrusted to a
+            filter be persistent.</td></tr>
+          <tr><td>log</td>
+            <td>Any filter used in the Business Messaging System would
+              have to keep comprehensive logs of any messages passed.
+              There would be considerable tension between this 
+              requirement and the need for protection from traffic 
+              analysis.
+          </td></tr>
+          <tr><td>remote management</td>
+            <td>It would be very desirable for a filter node to be
+              remotely manageable using a browser over a secure
+              HTTPS connection.</td></tr>
+          <tr><td>views</td>
+            <td>It must be possible for network admins to view the
+              log and message pool and edit filters either through
+              a popup or via an HTTPS remote management interface.</td></tr>
+        </table>
+      </section>
+  </body>
+</document>

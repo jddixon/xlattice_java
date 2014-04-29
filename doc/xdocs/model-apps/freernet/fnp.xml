@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>Freenet Network Protocol</title></header>
+      
+  
+  <body>
+    <section id="fnp"><title>Freenet Network Protocol (FNP)</title>
+      <p>Officially there are three Freenet protocols:</p>
+        <ul>
+          <li><strong>announcement,</strong> by which a node introduces itself
+            to other nodes</li>
+          <li><strong>insertion,</strong> used to insert a new file into the 
+            network</li>
+          <li><strong>retrieval,</strong> used to fetch the file corresponding
+            to a given key from the network</li>
+        </ul>
+        <p>Each protocol is defined by a set of sequences of messages.  
+        Many of these 
+        messages are shared between the protocols.
+      </p>
+      <section id="Inter-nodeMessages"><title>Inter-node Messages</title>
+        <p>The messages discussed here are external messages 
+          passed between Freenet nodes.
+          They must be distinguished from the internal messages 
+          used to manage the node's internal state machine.</p>
+        
+      </section>
+      <section id="Announcement"><title>Announcement</title>
+      </section>
+      <section id="Insertion"><title>Insertion</title>
+      </section>
+      <section id="Retrieval"><title>Retrieval</title>
+      </section>
+    </section>
+  </body>
+</document>

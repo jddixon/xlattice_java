@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>Messages</title></header>
+      
+  
+  <body>
+    <section id="Messages"><title>Messages</title>
+      <p>The messages described in this section are those used to 
+        communicate between Freenet nodes, external messages.
+        Any descriptions of the internal messages used to synchronize
+        a Freenet node's state machine will be found in the 
+        <a href="implementation">Implementation</a> section.</p>
+
+      <p>An example is provided of each message type.  The order of
+        the name=value lines is not significant.  
+        Interestingly, any unexpected name=value lines
+        are ignored but normally copied upstream or downstream as
+        appropriate.</p>
+
+      <p>At this time we do not cover Freenet's client messages,
+        used for communications between a Freenet node and client
+        applications.</p>
+      
+      <section id="InternalStructure"><title>Internal Structure</title>
+        <p>Messages consist of a number of lines of text possibly
+          followed by a block of binary data.</p>
+        <ul>
+          <li>the first line is the message type</li>
+          <li>a number of name=value lines follow</li>
+          <li>if there is no trailing data, either End or
+            EndMessage ends the message</li>
+          <li>if there is trailing data, its length is given on a
+            DataLength=NNNN line, where the NNNN is a 
+            number in hexadecimal format representing the number of 
+            bytes following</li>
+          <li>where trailing data is present, it follows a 
+            Data line</li>
+        </ul>
+        <p>The table below describes each of the name=value
+          lines.</p>
+        <table>
+          <tr><td>DataLength</td>
+            <td>the number of bytes in the trailing <strong>Data</strong> field as
+              a hexadecimal number</td></tr>
+          <tr><td>KeyList</td>
+            <td>a newline-separated list of binary key values</td></tr>
+          <tr><td>RequestInterval</td>
+            <td>a double-precision floating point number representing 
+              the preferred number of seconds between requests</td></tr>
+          <tr><td>Signature</td>
+            <td>cryptographic signature using the signer's private key</td></tr>
+          <tr><td>Storable.Document-header</td>
+            <td/></tr>
+          <tr><td>Storable.Initial-digest</td>
+            <td/></tr>
+          <tr><td>Storable.Part-size</td>
+            <td/></tr>
+          <tr><td>Storable.Symmetric-cipher=Twofish</td>
+            <td/></tr>
+          <tr><td>TrailerMuxID</td>
+            <td/></tr>
+          <tr><td>UniqueID</td>
+            <td>a 64-bit pseudo-random 
+              integer value intended to uniquely identify the message</td></tr>
+        </table>
+      </section> 
+      <section id="Accepted"><title>Accepted</title> 
+        <p>This is a single-hop message sent in reply to an InsertRequest
+          message, signalling the upstream node that transmission may
+          begin.</p>
+
+<source>
+  Accepted
+  UniqueID=ed4f9b20be9f12b0
+  RequestInterval=2099.036673990198
+  EndMessage
+</source>
+      </section>
+      <section id="AnnouncementComplete"><title>AnnouncementComplete</title>
+        <p>The message sent upstream in the announcement protocol: 
+          message ID followed by a KeyList.</p>
+        <table>
+          <tr><td>ID</td><td>quasi-unique 64-bit message ID</td></tr>
+          <tr><td>KeyList</td><td>list of commit values</td></tr>
+        </table>
+      </section>
+      <section id="AnnouncementExecute"><title>AnnouncementExecute</title> 
+        <p>The message sent downstream after all of the participants
+          have committed their values: the message ID followed by a 
+        KeyList, followed by Alice's signature.</p>
+        <table>
+          <tr><td>ID</td><td>quasi-unique 64-bit message ID</td></tr>
+          <tr><td>KeyList</td><td>list of commit values</td></tr>
+          <tr><td>Signature</td>
+            <td>Alice's signature on the preceding list</td></tr>
+        </table>
+      </section>
+      <section id="AnnouncementFailed"><title>AnnouncementFailed</title> 
+        <table>
+          <tr><td>ID</td><td>quasi-unique 64-bit message ID</td></tr>
+          <tr><td>reason</td>
+            <td>field in the form "Reason=n", 
+              where n is a failure code</td></tr>
+        </table>
+        <p>The failure codes are </p>
+        <table>
+          <tr><td>KNOWN_ANNOUNCEE</td><td>1</td>
+            <td>The node being announced is already known.</td></tr>
+          <tr><td>CORRUPT_EXECUTE</td><td>2</td>
+            <td>The node's attempt to execute the announcement failed</td></tr>
+          <tr><td>UNACCEPTABLE_HTL</td><td>3</td>
+            <td>The HopsToLive field is too high.</td></tr>
+          <tr><td>TOO_MANY_RESTARTS</td><td>4</td>
+            <td>The announcement has been restarted too many times.</td></tr>
+          <tr><td>NO_EXECUTE</td><td>5</td>
+            <td>Timed out waiting for an AnnouncementExecute message.</td></tr>
+        </table>
+      </section>
+      <section id="AnnouncementReply"><title>AnnouncementReply</title> 
+        <p>The message returned when the end of the announcement chain
+          has been reached.</p>
+        <table>
+          <tr><td>ID</td><td>quasi-unique 64-bit message ID</td></tr>
+          <tr><td>return value</td>
+            <td>field in the form "ReturnValue=Key", 
+              where key is a byte array</td></tr>
+        </table>
+<source>
+</source>
+      </section>
+      <section id="DataInsert"><title>DataInsert</title> 
+<source>
+DataInsert
+TrailerMuxID=e36a
+Storable.Initial-digest=47f82ffb85b634a452f4b190ccad05198f2c2c01
+Storable.Part-size=4000
+Storable.Document-header=232f7a99ea106474bd8af718a8ee1898cba951d9e012e2dde\
+     86271a40c4543b8
+Storable.Symmetric-cipher=Twofish
+RequestInterval=1273.474899837288
+DataLength=10052c
+UniqueID=b474f4b167878edc
+Data
+</source>
+      </section>
+      <section id="DataNotFound"><title>DataNotFound</title> 
+<source>
+DataNotFound
+TimeSinceQuery=6
+RequestInterval=1052.9669147565785
+UniqueID=b84112a49e21ef7f
+EndMessage
+</source>
+      </section>
+      <section id="DataReply"><title>DataReply</title> 
+<source>
+DataReply
+TrailerMuxID=77e8
+Storable.Initial-digest=a1bf1654db02700553e9bc46e829fe7cf8ba1ac1
+Storable.Part-size=4000
+Storable.Document-header=4773721b3ad53dccfd263b5587cb85b713dcb4e451a454f76\
+     d601d838efe503f
+Storable.Symmetric-cipher=Twofish
+RequestInterval=1369.1215536141701
+DataLength=10052c
+UniqueID=bc2a596af39235d2
+Data
+</source>
+      </section>
+      <section id="DataRequest"><title>DataRequest</title> 
+<source>
+DataRequest
+RequestInterval=1407.6668953487936
+HopsToLive=9
+UniqueID=b31d72fe186543b7
+SearchKey=928150ba358b91579f9a088983e25f0feb6d7993140302
+EndMessage
+</source>
+      </section>
+      <section id="Identify"><title>Identify</title> 
+<source>
+  
+</source>
+      </section>
+      <section id="InsertReply"><title>InsertReply</title> 
+<source>
+InsertReply
+RequestInterval=1157.3403863712413
+UniqueID=cd5ca3473e35b8cd
+EndMessage
+</source>
+      </section>
+      <section id="InsertRequest"><title>InsertRequest</title> 
+<source>
+InsertRequest
+RequestInterval=1605.2938153729094
+HopsToLive=2
+UniqueID=a5794b03a06d4474
+SearchKey=cd51a609a8c1673e3e4a5a8963aae8bf6a1bbcdd130302
+EndMessage
+</source>
+      </section>
+      <section id="NodeAnnouncement"><title>NodeAnnouncement</title> 
+<source>
+  
+</source>
+      </section>
+      <section id="QueryAborted"><title>QueryAborted</title> 
+<source>
+QueryAborted
+RequestInterval=1165.7570680226793
+UniqueID=b263fc1be436dd8b
+EndMessage
+</source>
+      </section>
+      <section id="QueryRejected"><title>QueryRejected</title> 
+<source>
+QueryRejected
+Attenuation=0
+RequestInterval=1168.026459858041
+HopsToLive=7
+Reason=No route found
+UniqueID=51b389f88857e9ba
+EndMessage
+</source>
+      </section>
+      <section id="QueryRestarted"><title>QueryRestarted</title> 
+<source>
+QueryRestarted
+RequestInterval=1215.3449623195202
+UniqueID=1e2640a2d4772276
+EndMessage
+</source>
+      </section>
+      <section id="StoreData"><title>StoreData</title> 
+<source>
+StoreData
+DataSource.physical.tcp=12.34.56.78:12345
+DataSource.ARK.encryption=0d95b021e6b3e87166d36fd38ecbfa2d3ac9ba7e3c121fc6\
+     c968b049e8367f92
+DataSource.ARK.revision=1
+DataSource.signature=39bedaaf584f05e477ee913dad7d3cec39b890e9,bee47e1a3782\
+     6b3988704a11d7a41f02cceb0afb
+DataSource.presentations=3
+DataSource.sessions=1
+DataSource.identity.y=a6999317e383d971ff30808c72f79447e1c10c6dbcf1c18bf770\
+     69d56e68d300de4a4021188beef579073d97404e7cf99f31026ccc8f27cb877952a49\
+     5a17fa53001776f98ec30ab5f5f87e26e81fc753e56524f7bf6b0baa0dc186ec2a743\
+     3eee6482d9598bd540c3afacd413e8b37b1c0fadafeab92ddf1f55803fd75bc9b5
+DataSource.identity.p=cb0a782c7abff492000000000000000000000000000000000000\
+     0000023d662854a10e52de49da383d9ee21d7a337213d24ed096f95a5d37b8537bbaa\
+     58a2a6b26bd328f6a32cec77180f78d5be43d80e813e4018d09da38bd58fd615c01fb\
+     ab492ec203c69e3da9fd682ce8aa98f15ad8057970edb44fe1ed08e0462e5b8d97
+DataSource.identity.g=930168de21e7fb66c0375e08e964255a0f7f0ad54507a51864af\
+     dc686f36be8bb8b7865408116060c5f34f94b5146cbef9e4adb70324fba01d34c1c60\
+     817cbadf6854d654176cb391de0d41e0f0fbbc8ceea5546c09a676b0d9a9988c7a1ce\
+     36ce31596037a18b4d540374bdf2ad071a3f8dd1015a9d8ba0f0d51cde212db6da
+DataSource.identity.q=ef1f7a7a73362e526515f348075aee265e9eff45
+DataSource.version=Fred,0.5,STABLE-1.50,5072
+RequestRate=cfe
+RequestInterval=1985.7997839490379
+HopsSinceReset=0
+UniqueID=bc2a596af39235d2
+EndMessage
+</source>
+      </section>
+    </section>
+  </body>
+</document>

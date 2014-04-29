@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>Freenet</title></header>
+      
+  
+  <body>
+    <section id="FreenetSpecifications"><title>Freenet Specifications</title>
+      <p>This is a difficult topic because Freenet is in fact poorly
+        specified.  There is little documentation and the developers
+        make frequent changes to the protocols in use.  One consequence
+        is that the network is at the time of writing (mid-February 2004)
+        split into three.  Officially, there are two networks, 
+        <strong>stable</strong> and <strong>unstable,</strong> the former meant for general 
+        use and the latter reserved for developers.  The networks generally
+        are incompatible at the protocol level.</p>
+      
+      <p>However on 8 February stable build 5066
+        was released; this used protocols incompatible with stable build 5065
+        and previous builds, and so split the stable network in two.  To
+        make matters worse, 5066 was buggy, and almost immediately replaced
+        by stable build 5067.  This introduced still more bugs, and so was
+        replaced the next day by stable build 5068.  The upshot is that
+        there are at least three Freenet networks: the older stable network, 
+        compatible with build 5065; the newer stable network, currently at
+        build 5068; and the unstable network, which sees new releases at 
+        least on a daily basis.</p>
+      
+      <p>This description will focus on Freenet's protocols as of 
+        build 5065, the last version used
+        in the older stable network.  If the newer stable version settles
+        down, we will revise the specifications here accordingly.</p>
+
+      <section id="pickle"><title>pickle</title>
+      <ul>
+        <li><a href="fnp.html">fnp</a></li>
+        <li><a href="wire.formats.html">wire.formats</a></li>
+        <li><a href="crypto.html">crypto</a></li>
+        <li><a href="algorithms.html">algorithms</a></li>
+        <li><a href="implementation.html">implementation</a></li>
+        <li><a href="problems.html">problems</a></li>
+      </ul>
+      </section>
+    </section>
+  </body>
+</document>

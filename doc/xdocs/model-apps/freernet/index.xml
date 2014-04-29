@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>P2P File Sharing System</title></header>
+      
+  
+  <body>
+    <section id="overview"><title>Overview</title>
+      <p>This would be a universal peer-to-peer file-sharing system
+        similar to <a href="http://www.freenetproject.org">Freenet</a>
+        and, to a lesser extent, <a href="http://mnet.sf.org">mnet.</a> 
+        It will be quite desirable for XLattice to support gateways
+        into at least these two networks.
+      </p>
+      <note>
+        Well, at the time of writing (2006-03-28) both Freenet and 
+        mnet are more or less gone from this world.  Leaving
+        this section in need of revision.
+      </note>
+    </section>
+    <section id="Non-standardElements"><title>Non-standard Elements</title>
+      <table>
+        <tr><td>browser interface</td>
+          <td>A browser interface to 
+            system contents will be essential because of the
+            unsophistication of likely users.  For security,
+            this browser interface must connect to the XLattice 
+            console.
+            The user will be able to use this interface both to
+            view files retrieved from the system and to manage 
+            cache and shared file policies.</td></tr>
+        <tr><td>shared file space</td>
+          <td>The user needs to be able to set an amount of disk
+            space made available to the system.  The system needs
+            to be able to confirm that the user is actually making
+            this amount available.</td></tr>
+        <tr><td>cache</td>
+          <td>The user also needs to be able to configure 
+            a caching policy: at least the amount of space reserved 
+            for this purpose and the length of time that files
+            retrieved from the system will be held in the cache.</td></tr>
+        <tr><td>network file management</td>
+          <td>This is application-specific code for managing
+            the replication, dispersal, and retrieval of files in
+            the anonymous file sharing system.</td></tr>
+        <tr><td>log</td>
+          <td>Extensive logging would be necessary; this requirement
+            is very much at odds with the need for privacy and for
+            protection from traffic analysis.
+            </td></tr>
+      </table> 
+    </section>
+  </body>
+</document>

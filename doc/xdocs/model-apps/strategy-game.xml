@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>Realtime Strategy Game</title></header>
+      
+  
+  <body>
+      <section id="Overview"><title>Overview</title>
+      <p>In a typical application of this type,</p>
+      <ul>
+        <li>Users would form groups (lattices) lasting for the 
+          life of the game, typically no more than a few hours.</li>
+        <li>Several user machines would act as servers whose
+          principal function would be to verify that events 
+          had occurred and possibly to agree on scores.</li>
+        <li>Terrain maps and other such static information might
+          originate with the servers but would be distributed by
+          player nodes, using hypercube links, in order to fairly
+          distribute the communications load.</li>
+        <li>Messages relating to events would be distributed 
+          partially using the hypercube, to evenly share the load,
+          and partially using direct node-to-node messages.  
+          Typically a kill would be reported simultaneously to at
+          least one server and to the victim.</li>
+        <li>The game would need to support the formation of ad-hoc
+          chat groups to allow player alliances.</li>
+        <li>Users will probably want to store information about people that
+          they have played with previously, so that they can contact
+          them to arrange future games.</li>
+      </ul>
+      <p>Games of this type require very fast communications at all
+        levels.  Because messages would pass through other players'
+        machines, encryption would be very desirable.  To avoid 
+        intolerable delays in verifying results - this must occur
+        while action is in progress - server authentication
+        protocols would have to be fast and simple.
+        </p>
+    </section>
+      <section id="Non-standardElements"><title>Non-standard Elements</title>
+        <table>
+          <tr><td>hi-res window</td>
+            <td>Although the commandline interface might be used 
+              for starting the game, the normal user interface would
+              be a window using high-resolution and possibly 3D graphics.
+            </td></tr>
+          <tr><td>joystick or similar</td>
+            <td>While mouse support might be acceptable in the short run,
+              it is likely that in the long run joysticks and other 
+              similar devices would have to be supported.</td></tr>
+          <tr><td>maps, other static information</td>
+            <td>Users would expect to be able to share relatively 
+              large amounts of static information such as terrain 
+              maps and graphics relating to vehicles, events (eg 
+              explosions), weapons, and stock characters.  These might
+              be downloaded prior to a game, using hypercube "broadcast"
+              to distribute the load fairly.  Storage would normally
+              be persistent.</td></tr>
+          <tr><td>buddy list, avatars</td>
+            <td>The requirements here are the same as for the chat
+              application.</td></tr>
+          <tr><td>game-specific messages</td>
+            <td>Player movement and events would be broadcast to other 
+              player nodes and to server nodes, which would be responsible
+              for verifying events.  Because of the importance of speed,
+              these messages would be short.  Probably udp would be used
+              for many.</td></tr>
+          <tr><td>game state</td>
+            <td>The stream of messages would be 
+              passed to a software module responsible for maintaining 
+              the game state.</td></tr>
+        </table>
+      </section>
+      <section id="ImplementationSketch"><title>Implementation Sketch</title>
+        <p>The software would consist of two distinct blocks: the game
+          proper and a simplified chat system.  The chat system would 
+          be used for communications between allies; it might be that
+          such alliances would be required to 
+          last for the duration of the game.</p>  
+
+        <p>This chat subsystem would be usable as the basis for the
+          Chat model application.  The difference between the two 
+          would be that Chat might not need authentication and 
+          encryption but it would definitely need an IRC proxy and/or
+          universal chat interface, which the Strategy Game would not
+          need.</p>
+        
+        <p>It is unlikely that messages would be routed, because
+          passing through a <strong>broker</strong> would significantly slow the game.
+          On the other hand, because messages would be on occasion 
+          passed through opponents' platforms, reasonably robust 
+          authentication and encryption would be essential.</p>
+
+        <p>Most of the complexity of the game implementation would lie in 
+          the front end, in the game window, and then in the internal
+          logic used to synchronize movements and events between nodes.</p>
+      </section>
+      <section id="Interoperability"><title>Interoperability</title>
+        <p>We would also need a module running on <strong>server nodes</strong> to 
+          authenticate game events.  These server nodes would operate on 
+          user platforms, but be distinct from the user nodes.  Because
+          of the likelihood of attempts to cheat, the servers would need
+          a protocol involving voting among them.  The usual Byzantine
+          protocols require unanimity with three servers or less, and 
+          more than two-thirds agreement with four or more servers.</p>
+      </section>
+  </body>
+</document>
