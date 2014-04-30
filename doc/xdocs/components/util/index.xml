@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+
+<header><title>
+Utilities</title></header>
+
+<body>
+<p>
+
+</p>
+<section id="TheXLatticeLibrary"><title>The XLattice Library</title>
+<p>
+The Utilities component currently consists of the basic XLattice
+abstractions collected under <code>
+org.xlattice</code>
+ and a number of common
+utility classes in the <code>
+org.xlattice.util</code>
+ package.  Any software
+using XLattice modules must include the <code>
+util-n.n</code>
+, where <code>
+n.n</code>
+
+represents the 2 or 3 digit version number.
+</p>
+<p>
+The utility classes include
+</p>
+<ul>
+<li>
+<code>
+ArrayStack,</code>
+ a fast stack requiring external synchronization 
+</li>
+<li>
+<code>
+Base64Coder,</code>
+ which converts byte arrays to Strings and vice-versa
+</li>
+<li>
+the <code>
+org.xlattice.util.cmdline</code>
+ package
+</li>
+<li>
+classes for handling JNLP Version numbers, 
+</li>
+<li>
+<code>
+NonBlockingLog,</code>
+ a very simple thread-safe logger
+</li>
+<li>
+<code>
+Timestamp,</code>
+ a java.util.Date subclass most useful for formatting
+        timestamps in a consistent way (YY-MM-DD HH:MM:SS)
+</li>
+<li>
+the <code>
+Version</code>
+ class
+</li>
+</ul>
+<p>
+<code>
+CmdLine</code>
+ is a utility for setting program parameters (typed Java
+variables) from command line options, similar in functionality to
+<code>
+getopt.</code>
+  There is a good description of 
+how to use the <code>
+CmdLine</code>
+ package in the <a href="api">
+Javadocs</a>
+.
+</p>
+<p>
+JNLP <em>
+(Java Network Launch Protocol)</em>
+ is Sun's Web Start facility for 
+one-click downloading of Java software from the Internet.  The 
+software has to be packaged as a jar.  JNLP supports automatic 
+updates and allows designers to specify dependencies by an exact
+match, a partial match, or a "same-or-more-recent" version number.
+</p>
+</section>
+</body>
+</document>
