@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+
+<header><title>
+ConnectMe</title></header>
+
+<body>
+<p>
+
+</p>
+<section id="CryptoServer"><title>CryptoServer</title>
+<section id="Hashes"><title>Hashes</title></section>
+<section id="CryptographicIdentities"><title>Cryptographic Identities</title></section>
+<section id="MasterDomainMasterKey"><title>Master Domain, Master Key</title></section>
+<section id="FiltersBlacklistsandWhitelists"><title>Filters: Blacklists and Whitelists</title></section>
+<section id="SiteList"><title>Site List</title></section>
+<section id="BuildFiles"><title>Build Files</title></section>
+<section id="In-memoryCache"><title>In-memory Cache</title></section>
+<section id="DiskCache"><title>Disk Cache</title></section>
+<section id="RetrievalfromtheNet"><title>Retrieval from the Net</title></section>
+<section id="HTTPProtocolVersionSupport"><title>HTTP Protocol Version Support</title></section>
+<section id="Dependencies"><title>Dependencies</title>
+<p>
+The server software depends upon a number of XLattice components
+and other jars.
+At the time of writing these are
+</p>
+<ul>
+<li>
+  util-0.3.<strong>
+x</strong>
+.jar
+</li>
+<li>
+  xpp3-1.1.3.4.C.jar
+</li>
+<li>
+  corexml-0.3.x.jar
+</li>
+<li>
+  crypto-0.0.<strong>
+x</strong>
+.jar
+</li>
+<li>
+  node-0.0.<strong>
+x</strong>
+.jar
+</li>
+<li>
+  protocol-0.0.<strong>
+x</strong>
+.jar
+</li>
+<li>
+  overlay-0.0.<strong>
+x</strong>
+.jar
+</li>
+</ul>
+<p>
+The 'x' in the XLattice component version number 
+is currently 1 in each case, but this will be changing 
+frequently as implementation progresses.  The xpp3 jar is an 
+<a href="http://www.extreme.indiana.edu/xgws/xsoap/xpp/">
+XML pull parser.</a>
+
+</p>
+<p>
+Current jars for all dependencies will be included
+in the CryptoServer distribution, excepting only Java's runtime
+libraries.
+</p>
+</section>
+<section id="Security"><title>Security</title>
+<p>
+
+</p>
+</section>
+</section>
+</body>
+</document>
