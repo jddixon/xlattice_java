@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+
+<header><title>
+ShareDev</title></header>
+
+<body>
+<p>
+
+</p>
+<section id="ShareDev"><title>ShareDev</title>
+<section id="Hashes"><title>Hashes</title></section>
+<section id="CryptographicIdentities"><title>Cryptographic Identities</title></section>
+<section id="MasterDomainMasterKey"><title>Master Domain, Master Key</title></section>
+<section id="FiltersBlacklistsandWhitelists"><title>Filters: Blacklists and Whitelists</title></section>
+<section id="SiteList"><title>Site List</title></section>
+<section id="BuildFiles"><title>Build Files</title></section>
+<section id="In-memoryCache"><title>In-memory Cache</title></section>
+<section id="DiskCache"><title>Disk Cache</title></section>
+<section id="RetrievalfromtheNet"><title>Retrieval from the Net</title></section>
+<section id="HTTPProtocolVersionSupport"><title>HTTP Protocol Version Support</title></section>
+<section id="Dependencies"><title>Dependencies</title>
+<p>
+ShareDev depends upon a number of other XLattice components.
+At the time of writing these are
+</p>
+<ul>
+<li>
+  util-0.3.<strong>
+x</strong>
+.jar
+</li>
+<li>
+  corexml-0.3.<strong>
+x</strong>
+.jar
+</li>
+</ul>
+<p>
+Current jars for all dependencies will be included
+in the CryptoServer distribution, excepting only Java's runtime
+libraries.
+</p>
+</section>
+<section id="Security"><title>Security</title>
+<p>
+
+</p>
+</section>
+</section>
+</body>
+</document>
