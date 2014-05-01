@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+
+<header><title>Transport</title></header>
+
+  <body>
+    <note><em>Tuesday 2006-03-28:</em> 
+      What follows describes not the current implementation of 
+      the software but the software as it shortly will be.  The 
+      description is also partial.  It describes blocking operations
+      whereas the existing software also supports non-blocking I/O.
+    </note>
+    <section id="intro"><title>Introduction</title>
+      <p>When an XLattice node needs to communicate with (pass data to or
+        receive data from) another node, it uses a transport.  There are
+        many types of transports.  The two most used by XLattice 
+        applications will be <a href="http://www.faqs.org/rfcs/rfc768.html">
+        UDP</a> and <a href="http://www.faqs.org/rfcs/rfc793.html">
+        TCP</a> and subclasses of these.</p>
+    
+      <p>UDP is an unreliable transport which carries <strong>datagrams</strong>.
+        A datagram is a block of data with a fixed length.  A datagram
+        is transmitted as a whole.  We shall use <strong>send</strong> and 
+        <strong>receive</strong> as names for the basic I/O operations for 
+        this type of transport.</p>
+      
+      <p>TCP is a reliable transport based on <strong>streams</strong>.  We shall
+        be using <strong>read</strong> and <strong>write</strong> to name I/O operations
+        for streams-based transports.</p>
+
+      <p>TCP and other transports derived from it use <strong>connections</strong>.
+        For our purposes, a connection is a triplet:</p>
+      <ul>
+        <li>a local address</li>
+        <li>a remote address</li>
+        <li>a transport</li>
+      </ul>
+
+      <p>UDP also uses connections but with somewhat different semantics.
+        By default a UDP port is promiscuous: it can receive data from 
+        anywhere.  If it is connected and has a remote address specified,
+        then incoming UDP packets (<strong>datagrams</strong>)
+        from other addresses to the local address are discarded.</p>
+
+      <p>For outgoing datagrams, binding the remote address 
+          makes it unnecessary to look up the address on each 
+          transmission, which can save a great deal of time.</p>
+    </section>
+
+    <section id="address"><title>Addresses</title>
+      <p>An XLattice address is a number or string which is meaningful
+        for the purposes of a transport.  If the transport is UDP or
+        TCP running over IPv4, a suitable address is a 32-bit host address 
+        plus a 16-bit port number, each in <strong>big-endian</strong> 
+        network byte
+        order (meaning that the most significant byte is first).
+        A valid domain name, one which can be resolved into a host
+        address, plus a port number can be used for the same purpose.
+        In either case the XLattice address is a six-byte number.
+      </p>
+
+      <p>However, it's important to understand that there are other 
+        types of addresses used by other transports.  For example, 
+        the transport might be SMTP, the email protocol, in which case
+        "node07@abc.example.com" would be a valid address if the
+        node could use it to receive data.</p>
+
+      <p><strong>TLS</strong> (Transport Layer Security) is the IETF's 
+        version of SSL, the transport underlying HTTPS, the secure 
+        Web protocol.  In the XLattice implementation of TLS, the address 
+        includes the location of the key store containing the keys and 
+        the passphrase necessary to use it.
+      </p>
+      <p>Addresses need not be unique.  Generally, if an address is
+        not unique, then if a message is sent to the address a copy
+        should be delivered to all nodes sharing the address (which
+        would then have been construed as a <strong>broadcast</strong> address).
+        However in some cases (as in round-robin DNS), it might be
+        possible to arrange that a number of nodes share the same 
+        address, but when a connection is made only one of the 
+        nodes participates.</p>
+    </section>
+    
+    <section id="endPoint"><title>End Points</title>
+      <p>An XLattice node will have a number of local addresses.
+        In order to be useful for communications, an address must
+        be associated with a transport.  An <strong>EndPoint</strong>
+        abstracts that association: it is an address plus the 
+        transport.</p>
+    </section>
+    
+    <section id="connection"><title>Connection</title>
+      <p>As we use the term, a <strong>Connection</strong> is a
+        pairing between a local EndPoint (an address plus a 
+        protocol) and a remote EndPoint.  We shall assume that
+        there are two basic types: <strong>buffered connections</strong>
+        and <strong>stream connections</strong>.
+      </p>
+
+      <section id="bufferedCnx"><title>Buffered Connections</title>
+        <p>A BufferedConnection carries fixed length messages which 
+          are either received or sent in their entirety or not at all.
+          The abstract class has an input buffer and an output buffer
+          and supports <strong>send</strong> and <strong>receive</strong>
+          as I/O operations.
+        </p>
+
+        <p>For our purposes, a <strong>UDP connection</strong> 
+          is a subclass of
+          the BufferedConnection.  It is unreliable in that a UDP
+          datagram may be delivered any number of times: zero, one, 
+          or many.</p>
+          
+        <p>An EndPoint using UDP or another datagram protocol does
+          not need to be connected to communicate, to send or 
+          receive messages.  However, it may be more efficient to
+          <strong>connect</strong>, to bind the remote end, if more 
+          than one message is to be sent to it.</p>
+
+      <p>If the transport is UDP or a subclass, the connection is
+        a <strong>DatagramConnection</strong>.</p>
+      </section>
+
+      <section id="streamCnx"><title>Stream Connections</title>
+      <p>An EndPoint using TCP or another stream protocol must 
+        bind the far end in order to read or write messages.  TCP
+        and its subclasses uses a <strong>StreamConnection</strong>.</p>
+      
+        <section id="acceptor"><title>Acceptor</title>
+          <p>An <strong>Acceptor</strong> is an EndPoint which 
+            accepts connections.  That is, it is a generalization
+            of a server socket.</p>
+        </section>
+        
+        <section id="connector"><title>Connector</title>
+          <p>A <strong>Connector</strong> is an EndPoint which can
+            make a connection to another EndPoint which is willing
+            to accept such a connection.  In other words, it abstracts
+            a socket.</p>
+        </section>
+    
+      </section>
+
+      <section id="compound"><title>Compound Connections</title>
+        <p>A <strong>simple</strong> connection is one in which the
+          transport is the same at both ends and no intermediate
+          nodes act as relays.</p>
+        
+        <p>Nodes can agree to cooperate in constructing 
+          <strong>compound connections</strong>
+          in which intermediate nodes relay messages on behalf of
+          other nodes. In an XLattice compound connection the same
+          transport is used on all constituent segments.</p>
+  
+        <p>Intermediate nodes can also act as <strong>translators</strong>,
+          relaying messages received over one transport out over another.
+          A <strong>complex connection</strong> is a compound connection
+          in which one or more of the intermediate nodes translates as 
+          well as relays messages.</p>
+        <section id="composition"><title>Composition</title>
+          <p><strong>Composition</strong> is the operation which
+            creates one connection from two or more.  One of XLattice's
+            fundamental objectives is to make composition straightforward,
+            so that reliable compound connections can be built very
+            easily, and preferably automatically.</p>
+        </section>
+      </section>
+    </section>
+
+    <section id="supported"><title>Supported Transports</title>
+      <p>At the time of writing (2006-03-28): </p>
+      <ul>
+        <li>both blocking and non-blocking TCP are supported</li>
+        <li>blocking TLS is partially implemented</li>
+        <li>development of XLattice blocking UDP has just begun</li>
+      </ul>
+    </section>
+    
+    
+    <!-- OTHER ABSTRACTIONS
+    <section id="x"><title>x</title>
+    </section>
+    
+    <section id="x"><title>x</title>
+    </section>
+    -->
+
+  </body>
+</document>
