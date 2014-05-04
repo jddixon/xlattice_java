@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>Client Node</title></header>
+      
+  
+  <body>
+    <section id="ClientNode"><title>Client Node</title>
+      <p>This type of node is normally connected to a human being,
+        the user, either 
+        directly or via a <strong>virtual console.</strong>  The console 
+        enables the user to interface to several nodes at one
+        time.  A user node has 1:N connectivity, 
+        meaning that it connects one
+        entity (the user) to many.  The user node will normally 
+        have direct access to at least part of the file system on 
+        the user's computer.
+      </p>
+    </section>
+  </body>
+</document>

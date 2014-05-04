@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>Filter</title></header>
+      
+  
+  <body>
+    <section id="Filter"><title>Filter</title>
+      <p>A filter is a 1:1 node whose function is to connect one 
+        node to another, filtering messages between them
+        at high speed.  It may use local store as a message pool.
+        Messages will be filtered according to a policy, part of 
+        which is determined by the filter module used and part by
+        a configuration file of some sort.</p>
+
+      <p>Filters will normally be positioned at network (lattice) 
+        boundaries.  The filter will enforce the message filtering
+        policy of the network which controls it.  Because a filter
+        is a 1:1 device, there will normally be a router on each of its 
+        interfaces in this application.</p>
+
+      <p>A filter has much the same functionality as an Internet
+        <strong>firewall</strong> and is best understood as such.</p>
+      
+      <p>Throughout this document, the term <strong>filter</strong> will 
+          always mean an XLattice filter as described in this section,
+          except where otherwise qualified.</p>
+    </section>
+  </body>
+</document>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>Nodes</title></header>
+      
+  
+  <body>
+      <section id="Nodes"><title>Nodes</title>
+      <p>An XLattice node is a network component that can send and 
+        receive messages and has some (potentially shared) local 
+        store.  The node has unique identifier and one or more 
+        addresses.</p>
+      
+      <p>A node identifier, its <strong>nodeID</strong>, is a 160-bit
+        number chosen by a crypto-strength random number generator.
+        While it is theoretically possible for two nodes to have the
+        same nodeID, it is not likely that this will occur within the 
+        lifetime of the universe.</p>
+        
+      <p>A node's address is one at which it can be reached 
+        through an overlay to which the node is connected.  This 
+        might be, or might contain, an Internet
+        Protocol (IP) address and port number.
+      </p>
+      <section id="NodeTypes"><title>Node Types</title>
+        <p>An XLattice network is built from nodes of various types.
+          The most fundamental type is a client which connects 
+          a user to one or more lattices, networks.  The client
+          may either create its own network (lattice)  
+          or may join an existing one.
+          The first time that it joins a lattice it must get a node ID from the
+          network's authentication servers.
+        </p>
+        <table>
+          <tr><th>node type</th><th>connectivity</th><th>description</th></tr>
+          <tr><td><a href="client.html">client</a></td><td>1:N</td>
+            <td>connects a single user to the network</td></tr>
+          <tr><td><a href="server.html">server</a></td><td>N:1 or N:M</td>
+            <td>maintains persistent shared storage 
+              for a group of nodes; such servers may be replicated</td></tr>
+          <tr><td><a href="byzantine.html">consensus</a></td><td>N:1, M:M</td>
+            <td>a specialized server, one of a cluster, 
+              the M members of which authenticate 
+              decisions by voting among themselves using
+              Byzantine protocols</td></tr>
+          
+          <tr><td><a href="broker.html">broker</a></td><td>N:N</td>
+            <td>routes messages according to network policy,
+              possibly doing protocol translation</td></tr>
+          <tr><td><a href="filter.html">filter</a></td><td>1:1</td>
+            <td>filters messages according to local policy</td></tr>
+        </table>
+      </section>
+      <section id="NodesvsPlatforms"><title>Nodes vs Platforms</title>
+        <p>Nothing prohibits there being several types of node on one
+          platform.  It is expected that some XLattice resources will
+          be more permanent and widely shared, and that some smaller 
+          and more transient groups of users will organize themselves
+          into small groups (lattices).  In such small groups the
+          server nodes supporting persistence and certifying 
+          identities would run on user machines.
+        </p>
+      </section>
+    </section> 
+  </body>
+</document>

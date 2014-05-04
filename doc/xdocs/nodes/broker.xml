@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>Broker</title></header>
+      
+  
+  <body>
+    <section id="Broker"><title>Broker</title>
+      <p>A broker is an N:N device that connects many (an indefinite
+        number of) nodes to many other nodes.  Its primary purpose is
+        message routing, although it may use local store as a message
+        pool.  Messages will be routed according to a local policy,
+        part of which will be determined by the specific brokering module
+        used and part of which will be configured in some manner, 
+        usually by a configuration table.  Where necessary, a broker
+        will perform protocol translation in routing a message.</p>
+
+      <p>Where a node is behind a organizational firewall, it may be
+        that messages to and from that node may have to be routed
+        indirectly, through a nearby broker.</p>
+
+      <p>A broker has much the same functionality as an Internet 
+        <strong>router.</strong>  It would be possible for brokers to exchange
+        routing information, exactly as Internet routers do.</p>
+        
+      <p>Throughout this document, the term <strong>broker</strong> will 
+          always mean an XLattice broker as described in this section,
+          except where otherwise qualified.</p>
+
+    </section>
+  </body>
+</document>

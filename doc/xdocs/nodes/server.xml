@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>Server</title></header>
+      
+  
+  <body>
+    <section id="Server"><title>Server</title>
+      <p>A server is a 1:N node that specializes in maintaining a 
+        common persistent store for a number of other nodes, its 
+        clients.  That number may be 1.  In other words, it may have
+        only one client.</p>
+      
+      <p>A server finding itself the only server to a 
+        group of nodes will normally seek to persuade other servers 
+        to support the group as well.  The less reliable the servers,
+        the larger the number of servers needed.</p>
+
+      <p>Storage may be either replicated or shared.  If it
+        is replicated, each of the M servers in the group will have 
+        identical content. If it is shared, then each server will 
+        carry a fraction of the content, with no overlap between 
+        servers.</p>
+      
+      <p>It is expected that servers will often be organized 
+        as a separate p2p network that supports the user node-level
+        p2p network, especially where the user-level network is 
+        large and long-lived.</p>
+
+      <p>It is likely that servers will commonly specialize as
+        <strong>certification authorities,</strong> usually as one of a group
+        which must jointly sign certificates, generally following
+        a protocol which involves voting.  Such specialized servers are 
+        <a href="byzantine.html">consensus nodes.</a></p>
+        
+      <p>Throughout this document, the term <strong>server</strong> will 
+          always mean an XLattice server as described in this section, 
+          except where otherwise qualified.</p>
+    </section>
+  </body>
+</document>
