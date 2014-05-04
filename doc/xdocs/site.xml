@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~j2ee/xlattice/src/documentation/content/xdocs/site.xml -->
+
+<!-- The label attribute of the outer "site" element will only show
+  in the linkmap (linkmap.html).
+  Use elements project-name and group-name in skinconfig to change name of 
+  your site or project that is usually shown at the top of page.
+  No matter what you configure for the href attribute, Forrest will
+  always use index.html when you request http://yourHost/
+  See FAQ: "How can I use a start-up-page other than index.html?"
+-->
+
+<!-- jdd: if you set the <site> @tab to "home" it stops everything
+     from appearing under that tab
+  -->
+
+<site label="The XLattice Project" href="" 
+  xmlns="http://apache.org/forrest/linkmap/1.0" tab="home"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <home    label="XLattice">
+    <!-- 
+    <index label="index" href="index.html" description="overview"/>
+      -->
+
+      <overview label="overview" href="/index.html" description="Overview"/>
+      <newschanges label="news/changes" href="/news.html" description="News/Changes"/>
+      <gettingstarted label="getting started" href="/getting-started.html" description="Getting Started"/>
+      <usersguide label="users guide" href="/userguide.html" description="Users Guide"/>
+  </home>
+
+  <model   label="model apps"  href="model-apps/" tab="model"> 
+    <index label="Overview" href="index.html" description="Model Applications"/>
+    <strategygame label="strategy game" href="strategy-game.html" 
+                  description="Strategy Game"/>
+    <messagingsystem label="messaging system" href="messaging-system.html" 
+                  description="Messaging System"/>
+    
+    <p2pfilesharing label="p2p file sharing" href="freernet/" 
+                                  description="P2P File Sharing">
+      <overview label="overview" href="index.html" 
+        description="Overview"/>
+      <requirements label="requirements" href="requirements.html" 
+        description="Requirements"/>
+      <!-- who needs Freenet ?
+      <freenetspecifications label="freenet specifications" 
+                                description="Freenet Specifications">
+        <freenet-specs label="freenet-specs" href="freenet-specs.html" 
+                                description="Specs"/>
+        <messages label="messages" href="messages.html" description="Messages"/>
+        <fnp label="fnp" href="fnp.html" description="FNP"/>
+        <wireformats label="wire formats" href="wire.formats.html" 
+          description="Wire Formats"/>
+        <crypto label="crypto" href="crypto.html" 
+          description="Crypto"/>
+        <algorithms label="algorithms" href="algorithms.html" 
+          description="Algorithms"/>
+        <implementation label="implementation" href="implementation.html" 
+          description="Implementation"/>
+        <problems label="problems" href="problems.html" description="Problems"/>
+      </freenetspecifications>
+      <gatewaytestplan label="gateway test plan" 
+        href="freenet-gateway-test.html" description="Gateway Test Plan"/>
+      -->
+
+    </p2pfilesharing>
+    
+    <chatfacility label="chat facility" href="p2pchat/" description="Chat Facility">
+      <index label="index" href="index.html" description="Index"/>
+      <roadmap label="roadmap" href="roadmap.html" description="Roadmap"/> 
+    </chatfacility>
+  
+  </model>
+  
+  <nodes   label="nodes" href="nodes/" tab="nodes"> 
+    <introduction label="introduction" href="index.html" description="Introduction"/>
+    <clientnodes label="client nodes" href="client.html" description="Client Nodes"/>
+    <servernodes label="server nodes" href="server.html" description="Server Nodes"/>
+    <consensusnodes label="consensus nodes" href="byzantine.html" description="Consensus Nodes"/>
+    <brokernodes label="broker nodes" href="broker.html" description="Broker Nodes"/>
+    <filternodes label="filter nodes" href="filter.html" description="Filter Nodes"/>
+      
+  </nodes>
+  
+  <components label="components" href="components/" tab="components"> 
+    <index label="index" href="index.html" description="Components"/>
+    
+    <util label="util" href="util/" description="Util">
+      <index label="index" href="index.html" description="Index"/>
+      <api label="api" href="api/index.html" description="API"/>
+      <source label="source" href="src" description="Source"/>
+    </util>
+      
+    <corexml label="corexml" href="corexml/" description="CoreXml">
+      <index label="index" href="index.html" description="Index"/>
+      <api label="api" href="api/" description="API"/>
+      <source label="source" href="corexml/src" description="Source"/>
+    </corexml>
+   
+    <crypto label="crypto" href="crypto/" description="Crypto">
+      <index label="index" href="index.html" description="Index"/>
+      <api label="api" href="api/" description="API"/>
+      <source label="source" href="src/" description="Source"/>
+    </crypto>
+
+    <transport label="transport" href="transport/" description="Transport">
+      <index label="index" href="index.html" description="Index"/>
+      <api label="api" href="api/" description="API"/>
+      <source label="source" href="src/" description="Source"/>
+    </transport>
+    
+    <protocol label="protocol" href="protocol/" description="Protocol">
+      <index label="index" href="index.html" description="Index"/>
+      <examples label="examples">
+        <overview label = "overview" 
+                              href="examples.html" description="Overview"/>
+        <kademlia label="kademlia" href="kademlia/" description="Kademlia">
+          <index label="index" href="index.html" description="Index"/>
+          <specs label="specs" href="specs.html" description="Kademlia"/>
+          <references 
+            label="references" href="references.html" description="Kademlia"/>
+        </kademlia>
+        
+        <stun label="stun" href="stun/" description="Stun">
+          <index label="index" href="index.html" description="Index"/>
+          <specs label="specs" href="specs.html" description="Stun"/>
+        </stun>
+      </examples> 
+      
+      <api label="api" href="api/" description="API"/>
+      <source label="source" href="src/" description="Source"/>
+    </protocol>
+    
+    <overlay label="overlay" href="overlay/" description="Overlay">
+      <index label="index" href="index.html" description="Index"/>
+      <api label="api" href="api/" description="API"/>
+      <source label="source" href="src/" description="Source"/>
+    </overlay>
+   
+    <node label="node" href="node/" description="Node">
+      <index label="index" href="index.html" description="Index"/>
+      <api label="api" href="api/" description="API"/>
+      <source label="source" href="src/" description="Source"/>
+    </node>
+    
+    <httpd label="httpd" href="httpd/" description="Httpd">
+      <index label="index" href="index.html" description="Index"/>
+      <api label="api" href="api/" description="API"/>
+      <source label="source" href="src/" description="Source"/>
+    </httpd>
+
+    <jpl label="jpl" href="jpl/" description="JPL">
+      <index label="index" href="index.html" description="Index"/>
+      <api label="api" href="api/" description="API"/>
+      <source label="source" href="src/" description="Source"/>
+    </jpl>
+
+    <projmgr label="projmgr" href="projmgr/" description="ProjMgr">
+      <index label="index" href="index.html" description="Index"/>
+      <api label="api" href="api/" description="API"/>
+      <source label="source" href="src/" description="Source"/>
+    </projmgr> 
+      
+    <cpp label="cpp" href="cpp/" description="C++ implementation">
+      <index label="index" href="index.html" description="Index"/>
+      <!-- NOT YET
+      <api label="api" href="api/" description="API"/>
+      <source label="source" href="src/" description="Source"/>
+      -->
+    </cpp> 
+      
+  </components>
+  
+  <apps       label="applications"  href="applications/" tab="apps"> 
+    <index label="index" href="index.html" description="Applications"/>
+    
+    <cryptoserver label="cryptoserver" href="httpd/" description="CryptoServer">
+      <index label="index" href="index.html" description="Index"/>
+      <roadmap label="roadmap" href="roadmap.html" description="Roadmap"/> 
+      <api label="api" href="api/index.html" description="API"/>
+      <source label="source" href="src" description="Source"/>
+    </cryptoserver>
+
+    <sharedev label="sharedev" href="sharedev/" description="ShareDev">
+      <index label="index" href="index.html" description="Index"/>
+      <!-- 
+      <roadmap label="roadmap" href="roadmap.html" description="Roadmap"/> 
+        -->
+      <api label="api" href="api/" description="API"/>
+      <source label="source" href="src/" description="Source"/>
+    </sharedev>
+  </apps>
+  
+  <community  label="community"  href="community/" tab="community"> 
+    <!--
+    <index label="index" href="index.html" description="Community"/>
+      -->
+      <gettinginvolved label="getting involved" href="/community/index.html" description="Getting Involved"/>
+      <license label="license" href="/community/license.html" description="License"/>
+  </community>
+
+  <!-- XXX FIXED NAV.XSL 
+
+    <xlattice label="XLattice" href="XLattice" tab="xlattice">
+ 
+      GEEP
+    
+    </xlattice>
+    
+  
+
+       XXX END FIXED NAV.XSL -->
+
+
+  <!-- JUNK below here 
+  <about label="About" href="about/">
+    <index label="About Us" href="index.html" description="About The XLattice Project"/>
+  </about>
+  
+  <products label="Products" href="product/">
+    <index label="Our Products" href="index.html" description="Products from The XLattice Project"/>
+  </products>
+  
+  <team label="The Team" href="team/">
+    <index label="Our Team" href="index.html" description="About the XLattice team"/>
+    <all label="All Team Members" href="all.html" description="The XLattice team members organisaed by skill"/>
+    <bySkill label="Team Skills" href="allBySkill.html" description="The XLattice team members organisaed by skill"/>
+    <withForrestSkill label="Apache Forrest" href="allWithSkill/Apache Forrest.html" description="The Apache Forrest XLattice team members"/>
+    <withForrestSkill label="Technical Authoring" href="allWithSkill/Developer Manuals.html" description="The Technical Authoring Team"/>
+  </team>
+
+  -->
+  <!--
+  The href must be wholesite.html/pdf  You can change the labels and node names
+  <all label="All">
+    <whole_site_html label="Whole Site HTML" href="wholesite.html"/>
+    <whole_site_pdf label="Whole Site PDF" href="wholesite.pdf"/>
+  </all>
+  -->
+
+  <external-refs>
+    <forrest href="http://forrest.apache.org/">
+      <linking href="docs/linking.html"/>
+      <validation href="docs/validation.html"/>
+      <webapp href="docs/your-project.html#webapp"/>
+      <dtd-docs href="docs/dtd-docs.html"/>
+    </forrest>
+    <cocoon href="http://cocoon.apache.org/"/>
+    <xml.apache.org href="http://xml.apache.org/"/>
+  </external-refs>
+
+</site>

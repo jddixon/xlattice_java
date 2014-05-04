@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header><title>News/Changes</title></header>
+  <body>
+    <table>
+        <tr><td>2007-07-10</td>
+          <td><strong>corexml-0.3.5 release</strong>
+            <p>We add NameGenerator to corexml.bind.  This is a facility 
+              for generating class, method, and variable names in a 
+              standardized way.  These names are to be used in various 
+              types of automatically generated code, as for example in 
+              other bind methods; in XLattice's ProjMgr component; and 
+              in the forthcoming JAppGen J2EE MVC application generator 
+              project, jappgen.sourceforge.net.
+            </p></td></tr>
+        <tr><td>2007-07-10</td>
+          <td><strong>util-0.3.9 release</strong>
+            <p>This release adds ucFirst and lcFirst methods to StringLib. 
+              These are used fairly heavily by upcoming corexml and projmgr 
+              component releases, which are in turn used by the JAppGen J2EE 
+              MVC application generator, about to become available in alpha 
+              at jappgen.sourceforge.net.
+            </p></td></tr>
+        <tr><td>2006-06-21</td>
+          <td><strong>corexml-0.3.4</strong>
+            <p>This is a minor release.  context/ has been moved to the util 
+              component, and necessary changes in code have been made.  
+              We switch to using junit-4.1 for testing, in line with the 
+              earlier switch to Java 1.5.  And the release is now packaged as a ZIP file instead of a UNIX tarball.</p>
+              
+            <p>As usual, we include source code for this component and jars 
+              for all dependencies.
+            </p></td></tr>
+        <tr><td>2006-06-21</td>
+          <td><strong>projmgr-0.4.0</strong>
+            <p>ProjMgr's first update in a couple of years sees util/context/ 
+              replacing corexml/context/, JUnit updated to 4.1, and the use 
+              of Java 1.5.  We also relax restrictions on version numbers; 
+              any JNLP version number is now acceptable.  Finally, a number 
+              of minor bugs have been fixed.</p>
+              
+            <p>This is a clean-up preparatory to using ProjMgr for
+              project management (meaning largely automatic generation 
+              of configuration
+              files) in the soon-to-be released JAppGen  project.</p>
+
+            <p>As usual, the .ZIP file includes source code for this 
+              component (ProjMgr) and jars for all dependencies.
+            </p></td></tr>
+        <tr><td>2006-06-19</td>
+          <td><strong>util-0.3.8</strong>
+            <p>v0.3.8 makes minor changes to fundamental XLattice classes, 
+              including Transport, Peer, and NodeID. We switch to using 
+              JUnit 4.1 for unit testing. The release is now packaged as 
+              a ZIP file instead of a UNIX tarball. 
+            </p></td></tr>
+        <tr><td>2006-06-15</td>
+          <td><strong>crypto-0.1.2 release</strong>
+            <p>This release adds TLS contexts and sessions which considerably 
+              reduce the effort required to implement peer-to-peer TLS 
+              connections between XLattice Nodes as well as SSL connections 
+              between XLattice-based HTTP clients and servers.
+            </p></td></tr>
+        <tr><td>2006-06-04</td>
+          <td><strong>crypto-0.1.1 release, switch to Java 1.5</strong>
+            <p>Today's crypto-0.1.1 release improves the implementation of 
+              SignedLists and adds the TLSEngine which will be used as the 
+              basis for most node-to-node communications in XLattice networks.
+            </p><p>This is our first release using features of Java 1.5.
+            Excepting only the CryptoServer, all code in CVS has now been 
+            tested using Java 1.5.  All future releases will assume Java 1.5 
+            or better.
+            </p></td></tr>
+        <tr><td>2006-05-24</td>
+          <td><strong>node-0.1.0</strong>
+            <p>This is the first release of XLattice's node component.  A node is
+              the key building block in our approach to peer-to-peer networking.
+              A node has a cryptographic identity (an RSA key and a 160-bit
+              SHA1-derived node ID) and can communicate with other nodes through
+              one or more overlays.  An overlay is a combination of a transport,
+              a protocol, and an address space.  Nodes from this first release
+              communicate using TLS/SSL and UDP.
+            </p><p>This release includes source code for the node component
+            and jars for all earlier components used, as well as unit tests
+            used during the build process.  The unit tests are also working
+            examples of how to use the XLattice code.
+            </p></td></tr>
+        <tr><td>2006-05-21</td>
+          <td><strong>transport-0.1.1</strong>
+            <p>We add both blocking and non-blocking UDP to the 
+              transport component.
+            </p></td></tr>
+        <tr><td>2006-05-05</td>
+          <td><strong>Whoops!</strong>
+            <p>There was a serious bug in 0.1.5 making it difficult 
+              to run the server.  v0.1.6 of the protocol/stunplus 
+              componet went out today.  The 0.1.6 server is running
+              on stun.xlattice.org.
+        </p></td></tr>
+        <tr><td>2006-05-04</td>
+          <td><strong>v0.1.5 protocol, STUN+ GUI client releases</strong>
+            <p>This is version 0.1.5 of the STUN+/protocol package.
+              It corrects bugs reported and makes most enhancements 
+              requested through the Sourceforge tracker.  It also adds
+              the first elements of the XLattice messaging protocol.
+           </p><p>The GUI client now supports encrypted authentication
+           using TLS/TCP.  It also allows users to select most of the
+           standard STUN servers through a pulldown menu.  We would
+           appreciate any further suggestions for GUI client enhancements
+           after user experience with the package.
+           </p><p>As usual, there are three files in the release:
+            protocol-0.1.5.zip, stunplus-0.1.5.zip, and stunplus-current.zip.
+        </p></td></tr>
+        <tr><td>2006-04-25</td>
+          <td><strong>protocol, STUN+ with GUI client releases</strong>
+            <p>The 0.1.4 protocol release adds a GUI client and 
+              corrects all of the more serious limitations reported
+              through the Sourceforge tracker.  We add a facility for
+              testing binding lifetime, but this has not been thoroughly
+              tested.</p>
+            <p>The GUI client should run on any host with a reasonably 
+              recent version of Java.  We would appreciate feedback from users.
+            </p><p>
+            Server discovery is supported in this release but limited to 
+            UDP servers in the GUI client.
+            </p><p>
+            The command line client supports encrypted authentication 
+            using TLS.  The GUI client as yet doesn't.
+            </p><p>
+            As usual, there are three files in the release: 
+            protocol-0.1.4.zip, stunplus-0.1.4.zip, and stunplus-current.zip.
+        </p></td></tr>
+        <tr><td>2006-04-16</td>
+          <td><strong>STUN+, protocol releases</strong>
+            <p>These are bug-fix releases of the protocol component.  As 
+              usual source code is packaged as protocol-0.1.3.zip
+              and the binary release is stunplus-0.1.3.zip AKA
+              stunplus-current.zip.</p></td></tr>
+        <tr><td>2006-04-15</td>
+          <td><strong>component releases</strong>
+            <p>Because Sourceforge CVS is currently running a couple
+              of weeks behind, we put interim releases of several 
+              components on Sourceforge today.  These are</p>
+              <ul>
+                <li>util-0.3.7.tar.gz</li>
+                <li>corexml-0.3.3.tar.gz</li>
+                <li>crypto-0.1.0.zip</li>
+                <li>transport-0.1.0.zip</li>
+              </ul>
+              <p>All of these have been tested on both Linux (Debian) and
+              Windows (XP).  The <strong>util</strong> and 
+              <strong>corexml</strong> releases are packaged as tarballs
+              solely due to lack of time.  In the next release they will
+              be .zip files.
+        </p></td></tr>
+        <tr><td>2006-04-05</td>
+          <td><strong>STUN+ and protocol third releases</strong>
+            <p>This is the third set of XLattice protocol releases
+              in this series.  It incorporates what is as far as we
+              know the first open source version of STUN with TLS-based
+              authentication.  As usual, there are three release: source 
+              code release as protocol-0.1.2.zip, binary as stunplus-0.1.2.zip, 
+              and stunplus-current now mirrors the binary release.
+              The binary package should run on any machine with a 
+              recent Java run-time (1.4 or better JRE).</p>
+            <p>This code has been developed and tested on Debian Linux
+              hosts.  There are several known limitations which will
+              be documented on the Sourceforge project
+              <a href="http://sourceforge.net/tracker/?group_id=92652">
+                tracker</a>.  These will have been corrected and the
+              code tested on Windows XP prior to the next release.
+            </p>
+          </td></tr>
+      <tr><td>2006-03-10</td>
+        <td><strong>STUN+ and protocol second releases</strong>
+          <p>These are the second releases of the XLattice STUN
+            client and server.  The source code release is
+            protocol-0.1.1.zip.  This is accompanied by a 
+            new binary release, stunplus-0.1.1.zip which, as
+            before, is mirrored by an update to stunplus-current.zip.
+            That is, stunplus-current is now identical to stunplus-0.1.1.</p>
+        </td></tr>
+      <tr><td>2006-03-07</td>
+        <td><strong>STUN+ and protocol releases</strong>
+          <p>We published a preliminary release of our STUN client
+            and server on Sourceforge today.  The source code was
+            released as protocol-0.1.0.zip.  The STUN-specific 
+            scripts and documentation plus the jars necessary to
+            run the client and server were packaged as two separate
+            but identical releases.  The first is stunplus-0.1.0.zip.
+            The second is stunplus-current.zip.  This will be kept in
+            sync with the current numbered release (0.1.0 at this time).</p>
+        </td></tr>
+      <tr><td>2006-01-30</td>
+        <td><strong>Web site changes</strong>
+          <p>The Web site is now being generated using Apache Forrest,
+            which has resulted in some glitches.  The process should
+            be completed in a week or so.  </p>
+          <p>The older version of the Web site continues to be 
+            available at <a href="http://www.xlattice.org">
+              www.xlattice.org</a> and will remain unchanged for some
+            time.</p>
+      </td></tr> 
+      <tr><td>2005-09-22</td>
+        <td><strong>CryptoServer 0.0.11 release</strong>
+          <p>
+            This is a minor release to fix a small bug that
+            has shown up in production use of the server.
+          </p>
+        </td></tr> 
+      <tr><td>2005-03-11</td>
+        <td><strong>CryptoServer 0.0.10 release</strong>
+          <p>
+            This is a major upgrade which is now being used
+            to support www.xlattice.org.  That is, 
+            xlattice.sourceforge.net runs on Apache, but 
+            www.xlattice.org runs on CryptoServer 0.0.10.
+            This is a caching server and a secure server:
+            pages are loaded by content key, site build lists
+            are digitally signed, and the master key is on a
+            different machine several thousand miles away.
+          </p>
+        </td></tr>
+      <tr><td>2005-02-15</td>
+        <td><strong>CryptoServer 0.0.9 release</strong>
+          <p>
+            A substantially improved version of the CryptoServer.  
+            It now supports HTTP/1.1 GET and HEAD methods and has 
+            been tested with a number of domain names.  Most HTTP 
+            headers are recognized.
+          </p>
+        </td></tr>
+      <tr><td>2005-02-02</td>
+        <td><strong>CryptoServer 0.0.8 release</strong>
+          <p>
+          This is a tarball release of a minimal server.
+          The .zip file includes all jars necessary to run
+          the server.  Source is not included with the release,
+          except for source for the CryptoServer itself.
+          Source for all XLattice components used IS available in CVS.
+          </p><p>
+          A rudimentary Users Guide is available 
+          <a href="applications/httpd/userguide.html">here</a>.
+          </p><p>
+          In its current form, the CryptoServer software can 
+          load a Web site from disk into a cache keyed by content 
+          hash and serve that single site.  This is 
+          a non-blocking HTTP/0.9 server operating from an
+          in-memory cache.
+          </p>
+        </td></tr>
+      <tr><td>2005-01-30</td>
+        <td><strong>CryptoServer 0.0.6 prerelease</strong>
+          CryptoServer software can now load a Web site from
+          disk into a cache keyed by content hash and serve
+          that single site.  All of the relevant code is in 
+          CVS, including comprehensive unit tests.  This is 
+          a non-blocking HTTP/0.9 server operating from an
+          in-memory cache.
+        </td></tr>
+      <tr><td>2005-01-09</td>
+        <td><strong>CryptoServer 0.0.4 prerelease</strong>
+          Much code for the CryptoServer is now in CVS.  A working
+          server is now expected by the end of January.
+          For further information see
+          the <a href="applications/httpd/roadmap.html">Roadmap.</a>
+        </td></tr>
+      <tr><td>2004-11-01</td>
+        <td><strong>CryptoServer 0.0.1 prerelease</strong>
+          Early code is out for XLattice's first application, a 
+          high performance secure Web server, a front end to 
+          peer-to-peer networks.  For further information see
+          the <a href="applications/httpd/roadmap.html">Roadmap.</a>
+        </td></tr>
+      <tr><td>2004-09-21</td>
+        <td><strong>corexml-0.3 release.</strong>
+          CoreXml's Java data binding facility has been significantly 
+          enhanced.  It now is both capable of converting an XML document 
+          to a tree of Java objects and of the reverse operation, 
+          generating an XML document from a tree of Java objects 
+          conforming to a Mapping.  Documentation for all CoreXml 
+          facilities has also been considerably improved. 
+      </td></tr>
+      <tr><td>2004-09-19</td>
+        <td><strong>util-0.3 release.</strong>
+        Adds support for Web Start (JNLP) version numbers and 
+        brings XLattice Version class in line with this, to 
+        allow XLattice components to be distributed using JNLP.
+      </td></tr>
+      <tr><td>2004-08-13</td>
+        <td><strong>projmgr-0.2 release</strong>
+          A bugfix release, bringing XLattice's project management
+          component up to date with the other two released components,
+          util-0.2 and corexml-0.2.
+      </td></tr>
+      <tr><td>2004-08-13</td>
+        <td><strong>corexml-0.2 release</strong>
+          Fixes some minor bugs in XLattice's core XML 
+          facility and adds the implementation of the corexml.bind 
+          package, which enables programmers to automate the creation 
+          of Java objects from XML input files.
+      </td></tr>
+      <tr><td>2004-08-13</td>
+        <td><strong>util-0.2 release.</strong>
+          This is a minor bugfix release, one of a set of simultaneous
+          releases of XLattice components (util-0.2, corexml-0.2, and 
+          projmgr-0.2)
+      </td></tr>
+      <tr><td>2004-08-04</td>
+        <td><strong>projmgr-0.1 release.</strong>
+          This is a preliminary release of XLattice's ProjMgr component,
+          used for management of software development of XLattice and
+          similar multi-component projects.  It depends upon the recently 
+          released util-0.1 and corexml-0.1 components.
+
+          The release is packaged as a zip file which unzips into a 
+          ./xlattice subdirectory.  In addition to packages included 
+          with other components, ProjMgr depends upon the Antlr 
+          lexer/parser generator, which is included with the distribution.
+
+          Linux/FreeBSD/UNIX users can run unit tests by typing
+          <source>
+cd xlattice/projmgr
+./build.sh test
+</source>
+      </td></tr>
+      <tr><td>2004-07-29</td>
+        <td><p><strong>corexml-0.1 release.</strong>  
+            This is a preliminary release of the CoreXml component, containing
+            XML facilities to be used by most other XLattice components.  It
+            depends upon the recently released util-0.1 module.</p>
+
+           <p>The release is packaged as a zip file which unzips into 
+             a ./xlattice subdirectory.  Necessary jars, including Ant 
+             and JUnit, are included in xlattice/lib.  The corexml-0.1 
+             release jar is in xlattice/lib/xlattice.</p>
+           
+           <p>Linux/FreeBSD/UNIX users can run unit tests by typing</p>
+
+          <source>
+cd xlattice/corexml
+./build.sh test
+</source>
+                
+        </td></tr>
+      <tr><td>2004-07-28</td>
+        <td><p><strong>util-0.1 release.</strong>
+            This is a preliminary release of
+          utilities to be used by most or all
+          XLattice components, including the Version superclass and the
+          cmdline package.</p>
+          <p>The release is packaged as a zip file which unzips into a 
+            ./xlattice subdirectory.  Necessary jars, including Ant and JUnit, 
+            are included in xlattice/lib.  The util-0.1 release jar is in 
+            xlattice/lib/xlattice.  Linux/FreeBSD/UNIX users can run unit 
+            tests by typing</p>
+          <source>
+cd xlattice/util
+./build.sh test
+</source>
+      </td></tr>
+      <tr><td>2004-01-12</td>
+        <td>Bloom filter implementation (org.xlattice.filters)</td></tr>
+      <tr><td>2003-12-21</td>
+        <td>implementation plan for p2p file sharing model application
+      </td></tr>
+    <tr><td>2003-12-11</td>
+      <td>description of 
+        <a href="nodes/byzantine.html">
+          decision-making by authentication server clusters
+      </a></td></tr>
+  </table>
+  </body>
+</document>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>Getting Started</title></header>
+      
+  
+  <body>
+    <section id="overview"><title>Overview</title>
+      <p> Although some software is available, XLattice is still in the
+        discussion and planning stage.  The overall architecture is 
+        not completely settled, and the current interface is almost
+        certainly very much unlike what it will eventually become.
+        The software that exists is there for talking and thinking
+        about.</p>
+
+      <p>There are basically two ways to get XLattice - and most other open
+        source software.  The first is CVS, which gives you access to 
+        last night's version of the code.  The second is to download the 
+        latest release.  This is more likely to work, but is less up to date;
+        current plans are to put out incremental XLattice releases at 
+        roughly monthly intervals.</p>
+      
+      <p>XLattice is being developed on systems running Linux and FreeBSD.
+        If you are working under a Microsoft operating system, you may
+        need to use some initiative to get the advice that follows to
+        work.  We will try to improve on this situation; please be 
+        patient.</p>
+
+      <p><strong>The instructions that follow are suitable for downloading the
+            Java implementation of XLattice to Linux hosts.</strong></p>
+
+      <section id="CVSAccess"><title>CVS Access</title>
+        <p>XLattice is hosted on 
+          <a href="http://www.sourceforge.net">SourceForge.</a>
+          On Unix systems, 
+          you can get a copy of the most recent version of an XLattice 
+          compenent by typing:
+        </p>
+<source>
+cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/xlattice checkout module
+</source>
+        <p>where <strong><em>module</em></strong> represents the component name.</p>
+        
+        <p>This will deliver the very latest version to your desktop,
+          creating a <strong>xlattice</strong> subdirectory in the current 
+          directory if one does not already exist, with the module
+          in a subdirectory below that.</p>
+
+        <p>If you are using another operating system, or have trouble
+          with the instructions above, have a look at 
+          <a href="http://sourceforge.net/docman/display_doc.php?docid=14033&amp;group_id=1">Sourceforge's CVS documentation</a>;
+          this is lucid and reasonably easy to follow.</p>
+      </section>
+
+      <section id="Downloads"><title>Downloads</title>
+        <p>The alternative is downloading a release.  This is very
+          simple indeed.  You should see a <strong>Download</strong> button at
+          the top of this Web page; if you click on it, it will take
+          you to XLattice's Sourceforge download page.  The most recent
+          releases will be listed towards the top.</p>
+        <p>XLattice is divided into a number of components.  Each is
+          released as a zip file containing any jars necessary for 
+          the build, source code, javadocs, and the jar for the 
+          release.</p>
+        <p>The util-0.1 release, for example, is packaged
+          as util-0.1.zip.  This unzips into a local 
+          ./xlattice subdirectory.  xlattice/lib
+          contains the jars, including the release, which is to be found
+          in xlattice/lib/xlattice/util-0.1.jar.</p>
+
+          <p>Click on whichever release
+            you need, and your browser will get it for you.</p>
+
+        <p>Once you have the tarball, put it in the directory where
+          you want your XLattice subdirectory and type </p>
+<source>
+  unzip util-0.1.zip
+</source>
+        <p>(replacing the actual component name and version number
+          as appropriate) and it will be extracted for you.  
+            </p><p>These instructions 
+            are of course suitable for Linux/Unix hosts; if you are 
+            using Windows, you need to adjust appropriately.</p>
+      </section>
+
+      <section id="WherestheJar"><title>Where's the Jar?</title>
+        <p>Either of the procedures above will give you a distribution
+          in a subdirectory named  xlattice and the jar
+          in xlattice/lib/xlattice along with a copy of
+          the XLattice license.</p>
+
+        <p>Other jars are in similarly-named subdirectories.  The
+          Ant jars, for example, are under xlattice/lib/ant.</p>
+
+      </section>
+
+      <section id="ForDevelopers"><title>For Developers</title>
+        <p>Those with an interest in XLattice's inner workings might
+          be interested in getting 
+          the software using CVS.  There are sometimes several 
+        file changes a day.</p>
+
+      <p>Once you have the software, you should go into the 
+        XLattice directory for the component and run the tests.</p>  
+      
+<source>
+  cd xlattice/utl
+  ./build.sh test
+</source>
+      <p>These should execute with no or very few errors.  If you
+        do see serious errors, it is likely that there are problems
+        with the installation.</p>
+
+      <p>The most likely problems are classpath errors and missing
+        jar files.</p>
+      </section>
+    </section>
+  </body>
+</document>

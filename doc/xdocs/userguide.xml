@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+  
+    <header><title>Users Guide</title></header>
+      
+  
+    <body>
+      <note>This section is seriously out of date!</note>
+      <section id="Overlays"><title>Overlays</title>
+        <p>An XLattice user is expected to take part in more than
+          one <strong>overlay</strong> or network.  These are not networks in
+          a conventional sense.  They are overlay networks,
+          application-specific networks built on top of the Internet
+          and other networks.  Each such overlay has a name.
+          Resources are allocated to the overlay under that name.
+          A user has at least one <strong>EndPoint</strong> (address) 
+          in each overlay that the user participates in.</p>
+
+        <p>By default each user participates in the universal
+          overlay and has one node in that overlay.</p>
+      </section>
+
+      <section id="DirectoryStructureforUsers"><title>Directory Structure for Users</title>
+        <p>In UNIX terminology, XLattice directories may be either
+          at the root level or at the user level.  In the first
+          case, XLattice expects to find its files under
+          /usr/local/xlattice. In the second case, which
+          is preferred for security reasons, XLattice will look under
+          $HOME/xlattice, where $HOME
+          represents the user's home directory.</p>
+
+        <p>If, for example, user Fred with home directory
+          /home/fred participated in three overlays,
+          universal, strat_game, and freernet,
+          Fred's directory structure would look like this:</p>
+<source>
+  home
+    fred
+      xlattice
+        bin
+        xlattice.xml
+        overlays
+          universal
+          strat_game
+          freernet
+        lib
+</source>
+        <p>The bin subdirectory contains runnable scripts.
+          In a Java environment, the lib directory contains
+          jars.  Lattice configuration and data files are organized 
+          under the overlay subdirectory.</p>
+      </section>
+
+      <section id="Files"><title>Files</title>
+        <p>Each node has a configuration file, xlattice.xml,
+          that specifies the <strong>NodeID,</strong> its <strong>RSA key,</strong> and
+          the overlays that the node participates in.  The NodeID is a
+          160-bit number that is unique to the node.  The RSA key is its
+          <strong>cryptographic identity,</strong> used by the node to prove its
+          identity to other nodes. </p>
+          
+        <p>Each of the overlay directories contains a configuration file, 
+          two subdirectories reserved for network files, and possibly
+          other application-specific files.  
+        </p>
+        
+        <p>The two subdirectories are .global and
+          .cache.  The first is used by the network.  The
+          second is used by the application running on the overlay to
+          store local, usually temporary, data.  The amount of space
+          allocated to these two subdirectories is set in the
+          configuration file.</p>
+        
+        <p>With these files, Fred's directory structure looks like this:</p>
+<source>
+  home
+    fred
+      xlattice
+        xlattice.xml
+        bin
+        overlays
+          universal
+            .cache
+            .global
+          strat_game
+            .cache
+            .global
+            strat_game.xml
+          freernet
+            .cache
+            .global
+            freernet.cfg
+        lib
+</source>
+
+        <p>The .cache and .global 
+          subdirectories are hidden because of the leading 
+          dot ('.') and so are not normally visible when the directory is
+          listed.</p>
+      </section>
+      
+      <section id="DirectoryStructureforDevelopers"><title>Directory Structure for Developers</title>
+        <p>Anyone who downloads the XLattice source code either 
+          from CVS or by extracting downloaded tarballs will have
+          a number of <strong>additional</strong> 
+          files and directories, including those shown below.</p>
+        <p>XLattice is being developed as a number of components.
+          Each component has its own separate development tree.
+          The example below shows the directory structure for 
+          corexml.  There will be a similar subtree
+          for each XLattice component.
+        </p>
+<source>
+  home
+    fred
+      xlattice
+        corexml
+          build.sh
+          build.xml
+          classpath.sh
+          project.xml
+          src
+            java
+              org
+                xlattice
+                  corexml
+            test
+              org
+                xlattice
+                  corexml
+          target
+            classes
+            test-classes
+</source>
+        <p>build.xml is an Ant build file, Java's 
+          equivalent to the C/C++ Makefile.  Ant is
+          run and the software built and tested by typing</p>
+<source>
+./build.sh test          
+</source>
+        <p>under UNIX/Linux or similarly invoking build.bat
+          in a Windows environment.</p>
+        
+        <p>Java source code is organized below, in this case, 
+          src/java/org/xlattice/corexml.  Tests are in the 
+          parallel src/java/org/xlattice/corexml subdirectory.
+          Compiler output for source code is directed to subdirectories
+          under target/classes/org/xlattice/corexml; compiled test
+          classes are found in the parallel directory structure under
+          target/test-classes.</p>
+      </section>
+
+      <section id="EnvironmentalVariables"><title>Environmental Variables</title>
+        <p>The user needs to define at least one environmental variable,
+          JAVA_HOME, and should define one more, 
+          XLATTICE_HOME.  In addition, it is convenient
+          to add $XLATTICE_HOME/bin to the path.
+          Under UNIX or Linux and bash,
+          these can be accomplished by something similar to</p>
+        
+<source>
+  export JAVA_HOME=/usr/local/java
+  export XLATTICE_HOME=$HOME/xlattice
+  export PATH=$XLATTICE_HOME/bin:${PATH}
+</source>
+      </section>
+
+      <section id="ConfigurationFile"><title>Configuration File</title>
+        <p>Although the configuration files can be created and 
+          edited manually, normally they will be created by the 
+          system from command line arguments.  Long numeric values in
+          the configuration file (such as the NodeID and RSA key) are 
+          base-64 formatted.  IP addresses are in dotted-quad 
+          notation.
+        </p>
+        <note>The example that follows is wrong.  
+          Look at the CryptoServer release for a better model.
+          However, it is likely that this entire approach will be
+          replaced by something like the JCE keystore.
+          </note>
+<source>
+  &lt;overlay name="freernet" cache="756M" global="10G"&gt;
+    &lt;node name="freddyBoy" id="0123456789abcdef"&gt;
+      &lt;key type="..." public="..." private="..."/&gt;
+      &lt;address type="ipv4" value="1.2.3.4:5678"/&gt;
+    &lt;/node&gt;
+    &lt;neighbors&gt;
+      &lt;neighbor id="123456789abcdef0" keytype="..." public="..."&gt;
+        &lt;address type="ipv4" value="2.3.4.5:6789" protocol="tcpip"/&gt;
+      &lt;/neighbor&gt;
+      &lt;neighbor id="23456789abcdef01" keytype="..." public="..."&gt;
+        &lt;address type="ipv4" value="3.4.5.6:7890" protocol="tcpip"/&gt;
+      &lt;/neighbor&gt;
+    &lt;/neighbors&gt;
+  &lt;/overlay&gt;
+</source>
+        <p>
+        </p>
+      </section>
+
+  </body>
+</document>

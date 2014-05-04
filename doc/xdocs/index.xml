@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header><title>XLattice</title></header>
+  <body>
+    <section id="overview"><title>Overview</title>
+      <p>
+        XLattice is a communications infrastructure for peer-to-peer (p2p) 
+        networks.  These networks may be server-assisted.  
+        XLattice is a modular system consisting of components intended 
+        to be usable for a wide variety of purposes, ranging from p2p chat to
+        distributed software development environments.</p>
+      
+      <p>The software will also be useful in applications requiring 
+        anonymity, privacy, and filtering, such as messaging systems
+        for business.</p>
+    </section>
+      
+    <section id="news"><title>Recent News/Changes</title>
+      <table>
+        <tr><td>2007-07-10</td>
+          <td><strong>corexml-0.3.5 release</strong>
+            <p>We add NameGenerator to corexml.bind.  This is a facility 
+              for generating class, method, and variable names in a 
+              standardized way.  These names are to be used in various 
+              types of automatically generated code, as for example in 
+              other bind methods; in XLattice's ProjMgr component; and 
+              in the forthcoming JAppGen J2EE MVC application generator 
+              project, jappgen.sourceforge.net.
+            </p></td></tr>
+        <tr><td>2007-07-10</td>
+          <td><strong>util-0.3.9 release</strong>
+            <p>This release adds ucFirst and lcFirst methods to StringLib. 
+              These are used fairly heavily by upcoming corexml and projmgr 
+              component releases, which are in turn used by the JAppGen J2EE 
+              MVC application generator, about to become available in alpha 
+              at jappgen.sourceforge.net.
+            </p></td></tr>
+        <tr><td>2006-06-21</td>
+          <td><strong>corexml-0.3.4</strong>
+            <p>This is a minor release.  context/ has been moved to the util 
+              component, and necessary changes in code have been made.  
+              We switch to using junit-4.1 for testing, in line with the 
+              earlier switch to Java 1.5. And the release is now packaged as a ZIP file instead of a UNIX tarball.</p>
+              
+            <p>As usual, we include source code for this component and jars 
+              for all dependencies.
+            </p></td></tr>
+        <tr><td>2006-06-21</td>
+          <td><strong>projmgr-0.4.0</strong>
+            <p>ProjMgr's first update in a couple of years sees util/context/ 
+              replacing corexml/context/, JUnit updated to 4.1, and the use 
+              of Java 1.5.  We also relax restrictions on version numbers; 
+              any JNLP version number is now acceptable.  Finally, a number 
+              of minor bugs have been fixed.</p>
+              
+            <p>This is a clean-up preparatory to using ProjMgr for
+              project management (meaning largely automatic generation 
+              of configuration
+              files) in the soon-to-be released JAppGen  project.</p>
+
+            <p>As usual, the .ZIP file includes source code for this 
+              component (ProjMgr) and jars for all dependencies.
+            </p></td></tr>
+        <tr><td>2006-06-19</td>
+          <td><strong>util-0.3.8</strong>
+            <p>v0.3.8 makes minor changes to fundamental XLattice classes, 
+              including Transport, Peer, and NodeID. We switch to using 
+              JUnit 4.1 for unit testing. The release is now packaged as 
+              a ZIP file instead of a UNIX tarball. 
+            </p></td></tr>
+        <tr><td>2006-06-15</td>
+          <td><strong>crypto-0.1.2 release</strong>
+            <p>This release adds TLS contexts and sessions which considerably 
+              reduce the effort required to implement peer-to-peer TLS 
+              connections between XLattice Nodes as well as SSL connections 
+              between XLattice-based HTTP clients and servers.
+            </p></td></tr>
+        <tr><td>2006-06-04</td>
+          <td><strong>crypto-0.1.1 release, switch to Java 1.5</strong>
+            <p>Today's crypto-0.1.1 release improves the implementation of 
+              SignedLists and adds the TLSEngine which will be used as the 
+              basis for most node-to-node communications in XLattice networks.
+            </p><p>This is our first release using features of Java 1.5.
+            Excepting only the CryptoServer, all code in CVS has now been 
+            tested using Java 1.5.  All future releases will assume Java 1.5 
+            or better.
+            </p></td></tr>
+        <tr><td>2006-05-24</td>
+          <td><strong>node-0.1.0</strong>
+            <p>This is the first release of XLattice's node component.  A node is
+              the key building block in our approach to peer-to-peer networking.
+              A node has a cryptographic identity (an RSA key and a 160-bit
+              SHA1-derived node ID) and can communicate with other nodes through
+              one or more overlays.  An overlay is a combination of a transport,
+              a protocol, and an address space.  Nodes from this first release
+              communicate using TLS/SSL and UDP.
+            </p><p>This release includes source code for the node component
+            and jars for all earlier components used, as well as unit tests
+            used during the build process.  The unit tests are also working
+            examples of how to use the XLattice code.
+            </p></td></tr>
+        <tr><td>2006-05-21</td>
+          <td><strong>transport-0.1.1</strong>
+            <p>We add both blocking and non-blocking UDP to the 
+              transport component.
+            </p></td></tr>
+        <tr><td>2006-05-05</td>
+          <td><strong>Whoops!</strong>
+            <p>There was a serious bug in 0.1.5 making it difficult 
+              to run the server.  v0.1.6 of the protocol/stunplus 
+              componet went out today.  The 0.1.6 server is running
+              on stun.xlattice.org.
+        </p></td></tr>
+        <tr><td>2006-05-04</td>
+          <td><strong>v0.1.5 protocol, STUN+ GUI client releases</strong>
+            <p>This is version 0.1.5 of the STUN+/protocol package.
+              It corrects bugs reported and makes most enhancements 
+              requested through the Sourceforge tracker.  It also adds
+              the first elements of the XLattice messaging protocol.
+           </p><p>The GUI client now supports encrypted authentication
+           using TLS/TCP.  It also allows users to select most of the
+           standard STUN servers through a pulldown menu.  We would
+           appreciate any further suggestions for GUI client enhancements
+           after user experience with the package.
+           </p><p>As usual, there are three files in the release:
+            protocol-0.1.5.zip, stunplus-0.1.5.zip, and stunplus-current.zip.
+        </p></td></tr>
+           
+        <tr><td>2006-04-25</td>
+          <td><strong>protocol, STUN+ with GUI client releases</strong>
+            <p>The 0.1.4 protocol release adds a GUI client and 
+              corrects all of the more serious limitations reported
+              through the Sourceforge tracker.  We add a facility for
+              testing binding lifetime, but this has not been thoroughly
+              tested.</p>
+            <p>The GUI client should run on any host with a reasonably 
+              recent version of Java.  We would appreciate feedback from users.
+            </p><p>
+            Server discovery is supported in this release but limited to 
+            UDP servers in the GUI client.
+            </p><p>
+            The command line client supports encrypted authentication 
+            using TLS.  The GUI client as yet doesn't.
+            </p><p>
+            As usual, there are three files in the release: 
+            protocol-0.1.4.zip, stunplus-0.1.4.zip, and stunplus-current.zip.
+        </p></td></tr>
+        <tr><td>2006-04-16</td>
+          <td><strong>STUN+, protocol releases</strong>
+            <p>These are bug-fix releases of the protocol component.  
+              As usual source code is packaged as protocol-0.1.3.zip
+              and the binary release is stunplus-0.1.3.zip AKA
+              stunplus-current.zip.</p></td></tr>
+        <tr><td>2006-04-15</td>
+          <td><strong>component releases</strong>
+            <p>Because Sourceforge CVS is currently running a couple
+              of weeks behind, we put interim releases of several 
+              components on Sourceforge today.  These are</p>
+              <ul>
+                <li>util-0.3.7.tar.gz</li>
+                <li>corexml-0.3.3.tar.gz</li>
+                <li>crypto-0.1.0.zip</li>
+                <li>transport-0.1.0.zip</li>
+              </ul>
+              <p>All of these have been tested on both Linux (Debian) and
+              Windows (XP).  The <strong>util</strong> and 
+              <strong>corexml</strong> releases are packaged as tarballs
+              solely due to lack of time.  In the next release they will
+              be .zip files.
+        </p></td></tr>
+        <tr><td>2006-04-05</td>
+          <td><strong>STUN+ and protocol third releases</strong>
+            <p>This is the third set of XLattice protocol releases
+              in this series.  It incorporates what is as far as we
+              know the first open source version of STUN with TLS-based
+              authentication.  As usual, there are three release: source 
+              code release as protocol-0.1.2.zip, binary as stunplus-0.1.2.zip, 
+              and stunplus-current now mirrors the binary release.
+              The binary package should run on any machine with a 
+              recent Java run-time (1.4 or better JRE).</p>
+            <p>This code has been developed and tested on Debian Linux
+              hosts.  There are several known limitations which will
+              be documented on the Sourceforge project
+              <a href="http://sourceforge.net/tracker/?group_id=92652">
+                tracker</a>.  These will have been corrected and the
+              code tested on Windows XP prior to the next release.
+            </p>
+          </td></tr>
+        <tr><td>2006-03-10</td>
+          <td><strong>STUN+ and protocol second releases</strong>
+            <p>These are the second releases of the XLattice STUN
+              client and server.  The source code release is
+              protocol-0.1.1.zip.  This is accompanied by a 
+              new binary release, stunplus-0.1.1.zip which, as
+              before, is mirrored by an update to stunplus-current.zip.
+              That is, stunplus-current is now identical to stunplus-0.1.1.</p>
+          </td></tr>
+        <tr><td>2006-03-07</td>
+          <td><strong>STUN+ and protocol releases</strong>
+            <p>We published a preliminary release of our STUN client
+              and server on Sourceforge today.  The source code was
+              released as protocol-0.1.0.zip.  The STUN-specific 
+              scripts and documentation plus the jars necessary to
+              run the client and server were packaged as two separate
+              but identical releases.  The first is stunplus-0.1.0.zip.
+              The second is stunplus-current.zip.  This will be kept in
+              sync with the current numbered release (0.1.0 at this time).</p>
+          </td></tr>
+        <tr><td>2006-02-08</td>
+          <td><strong>STUN and Kademlia</strong>
+            <p>Implementation of the STUN protocol is well underway;
+              code can be found in CVS.  An overview of STUN is 
+              now available 
+              <a href="components/protocol/stun/index.html">here</a> and
+              design specifications for Kademlia 
+              <a href="components/protocol/kademlia/index.html">here</a>.</p>
+        </td></tr>
+        <tr><td>2006-01-30</td>
+          <td><strong>Web site changes</strong>
+            <p>The Web site is now being generated using Apache Forrest,
+              which has resulted in some glitches.  The process should
+              be completed in a week or so.</p>
+            <p>The older version of the Web site continues to be 
+              available at <a href="http://www.xlattice.org">
+                www.xlattice.org</a> and will remain unchanged for some
+              time.</p>
+          </td></tr> 
+        <tr><td>2005-09-22</td>
+          <td><strong>CryptoServer 0.0.11 release</strong>
+            <p>
+              This is a minor release to fix a bug that
+              has shown up in production use of the server.
+            </p>
+          </td></tr> 
+        <tr><td>2005-03-11</td>
+          <td><strong>CryptoServer 0.0.10 release</strong>
+            <p>
+              This is a major upgrade which is now being used
+              to support www.xlattice.org.  That is, 
+              xlattice.sourceforge.net runs on Apache, but 
+              www.xlattice.org runs on CryptoServer 0.0.10.
+              This is a caching server and a secure server:
+              pages are loaded by content key, site build lists
+              are digitally signed, and the master key is on a
+              different machine several thousand miles away.
+            </p>
+          </td></tr>
+        <tr><td>2005-02-15</td>
+          <td><strong>CryptoServer 0.0.9 release</strong>
+            <p>
+              A substantially improved version of the CryptoServer.  
+              It now supports HTTP/1.1 GET and HEAD methods and has 
+              been tested with a number of domain names.  Most HTTP 
+              headers are recognized.
+            </p>
+          </td></tr>
+      </table>
+    </section>
+
+    <section id="ModelApplications"><title>Model Applications</title>
+      <p>XLattice is to some degree still in the planning stage; 
+        it is not fully specified.  To advance this process, we have 
+        sketched out a number of 
+        <a href="model-apps/">model applications.</a>
+        These are meant
+        to be typical of the applications that can be built on top of XLattice.
+        They are not necessarily part of the XLattice project.  They should
+        be understood as <em>use cases</em>, aids in specifying and
+        developing XLattice's external interface, its API.</p>
+    </section>
+
+    <section id="Nodes"><title>Nodes</title>
+      <p>An XLattice node is a network component that can send and 
+        receive messages and has some (potentially shared) local 
+        store.  The node has at least one logical address; such
+        addresses may 
+        contain some sort of physical address, such as an Internet
+        Protocol (IP) address and port number.
+      </p>
+      <p>There are several types of XLattice nodes.  An XLattice 
+        network will typically connects  mix of nodes of various types.
+        The client node, used to connect users (human beings), is the
+        most basic type.  Most networks will also include servers of
+        one type or another.  
+      </p>
+    </section>
+
+    <section id="overlays"><title>Overlays</title>
+      <p>As used here, an <strong>Overlay</strong> consists of</p>
+      <ul>
+        <li>a protocol, as described <a href="#protocols">below</a>; 
+          essentially this is a set of message types
+        </li>
+        <li>an address space, a set of addresses</li> 
+        <li>a transport mechanism such as TCP/IP or UDP</li>
+        <li>and optionally a set of rules for routing the messages</li>
+      </ul>
+      
+      <p>As an example, a set of nodes might be organized as 
+        an N-dimensional hypercube or torus.  In this case each 
+        would have an address specifying its position on the 
+        hypercube.  Messages could be routed through the neighbor
+        nearest to the destination node.</p>
+
+      <p>Overlays may be nested.  The hypercube, for example, might
+        be overlaid on an IP network, the Internet.
+      </p>
+
+      <p>Where an overlay allows messages to be routed to specific nodes,
+        then it can be used as a transport.</p>
+      
+      <p>The expectation is that most nodes will belong to a number of
+        overlays and that many overlays will be relatively short-lived,
+        with lifetimes ranging from tens of minutes to a few hours.</p>
+
+      <p>Most node-node communications are expected to be direct.  Where
+        broadcast is involved, messages might be sent to peers in distinct
+        sub-hypercubes, so that the load is distributed evenly.</p>
+    </section>
+
+    <section id="protocols"><title>Protocols</title>
+      <note>What follows is a preliminary description of our use
+        of the term <strong>protocol</strong>.  We have been 
+        implementing a number of protocols, including STUN, 
+        to get a better 
+        understanding of what the term should mean; click 
+        <a href="components/protocol/examples.html">here</a>  
+        for the current state of play.
+      </note>
+      <p>As we use the term, a <strong>protocol</strong> is a set of 
+        message definitions and rules governing the sequencing of
+        the messages.
+      </p>
+      <p>Message definitions specify how messages are constructed and
+        serialized into and deserialized from wire format.  In other
+        words, a message definition tells you how to interpret the 
+        binary data sent over the network.
+      </p>
+
+      <p>Individual messages normally form part of a sequence.  The
+        protocol will specify which message types start such a sequence and
+        which may follow.  Generally such sequences branch.  The type of
+        reply sent as well as its content will vary according to the 
+        state of the recipient and the content of the message received.
+        Almost always, for example, the recipient will examine the 
+        incoming message to see that it is well-formed.  If not, either
+        the message will be ignored or an error reply will be sent.
+        Otherwise some other action will be taken, which may include a
+        reply in an appropriate format.  
+      </p>
+      <p>A protocol is distinct from the underlying transport.  The HTTP
+        protocol used to carry Web traffic, for example, is usually 
+        implemented over TCP/IP.  However, HTTP could also be
+        used to manage information transfers over SMTP (the email 
+        transport protocol) or any other transport, so long as both
+        parties to the communication agreed.</p>
+
+      <p>On the other hand, a transport always has an underlying 
+        protocol which is in general not visible through the transport's
+        API.</p>
+    </section>
+
+    <section id="transport"><title>Transport</title>
+      <p>A <strong>transport</strong> is a block of software that 
+        enables a node to send and receive messages.  Transports 
+        are either block or stream oriented.  In the first case 
+        the transport sends and receives fixed-length blocks of 
+        data, arrays of bytes.  UDP follows this model.  In the
+        second case the application opens a connection which 
+        enables it to reliably send or receive an indefinite 
+        number of bytes.
+      </p>
+      <p>The initial implementation will emphasize TCP/IP and sockets.
+        Support for UDP, HTTP, and SMTP (email) will follow.</p>
+
+      <p>The assumption is that UDP will provide better performance 
+        for many applications.  However, some company firewalls will
+        block UDP and some will only permit HTTP.</p>
+
+      <p>In the longer term, XLattice will provide a discovery
+        facility that probes node-to-node connections and settles 
+        on the best transport protocol available.  Some method
+        of expressing a preferred transport will be provided.</p>
+
+      <p>See the section on 
+        <a href="components/transport/index.html">transport</a>
+        for further discussion of the ideas involved; from there
+        you can get to the API and source code from the menu.</p>
+    </section>
+
+    <section id="Encryption"><title>Encryption</title>
+      <p>It is expected that most communications will be encrypted,
+        either using standard XLattice components or application-specific
+        modules.</p>
+      
+      <p>XLattice will provide similar mechanisms for encrypting 
+        data in local file systems and support application-specific
+        encryption methods.</p>
+
+      <p>However, the initial implementation 
+        may only support encryption of messages.</p>
+    </section>
+
+    <section id="ImplementationLanguages">
+                              <title>Implementation Languages</title>
+      <section id="java"><title>Java</title>
+        <p>The initial reference implementation of XLattice is in 
+        Java.  The software is being developed incrementally
+        using test-driven development techniques, so that it is thoroughly 
+        tested before deployment.  The emphasis in Java development will 
+        be on correctness rather than performance.</p>
+
+      <p>Until very recently XLattice has been being implemented
+        using Java 1.4.2, for greater compatibility.  However we have
+        now begun using Java 1.5, principally to make use of non-blocking
+        TLS.
+      </p>
+      </section>
+    
+      <section id="cpp"><title>C/C++</title>
+        <p>C/C++ development is following the Java implementation.  Insofar
+          as possible the same interface and the same tests will be used
+          for both.  Interoperability with the Java version of the code
+          is a primary objective.</p>
+
+        <p>Further information on XLattice's C++ implementation can 
+          be found <a href="components/cpp/index.html">here</a>.
+        </p>
+      </section>
+    </section>
+
+    <section id="Platforms"><title>Platforms</title>
+      <p>For our purposes here, a <strong>platform</strong> is a machine of
+        one type or another running a specific operating system. 
+        So a platform might be a Sun Sparc machine running Linux 
+        or a box with an x86 processor running Windows.</p>
+
+      <p>The intention is that XLattice should run on all common 
+        platforms, specifically including mobile (cellular) telephones 
+        and J2ME.</p>
+
+      <p> Initial development in Java is on x86 hosts running several
+        flavors of Linux (RedHat, Debian, and Fedora).</p>
+    </section>
+
+    <section id="ProjectStatus"><title>Project Status</title>
+      <p>XLattice is still fairly early in development, although
+        we have released a couple of applications, including a 
+        secure Web server (the 
+        <a href="applications/httpd/index.html">CryptoServer</a>)
+        and <a href="components/protocol/stun/index.html">STUN+</a>.
+        The latter is
+        an implementation of STUN, the IETF's protocol 
+        for determining the characteristics of NATs, network address 
+        translation boxes that commonly sit between users and the global
+        Internet, especially on broadband networks.</p>
+     
+      <p>Most components are now available in CVS. Several are
+        also available as separate tarballs containg both Java
+        source code and the jars necessary to run the software,
+        including all external (non-XLattice) dependencies.
+        All software is open source.
+      </p>
+
+      <p>At the time of writing, separate component tarballs are
+        largely out of date.  However, component jars released 
+        with applications such as the CryptoServer or STUN+ are
+        those current at the time of release.</p>
+
+      <p>See 
+        <a href="components/index.html">components</a> for more
+        specific information.
+      </p>
+
+    </section> 
+  </body>
+</document>
