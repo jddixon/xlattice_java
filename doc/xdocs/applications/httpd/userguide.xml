@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+
+<header><title>
+CryptoServer User's Guide</title></header>
+
+<body>
+<p>
+
+</p>
+<section id="SunJavaandLinux"><title>Sun Java and Linux</title>
+<p>
+These instructions are suitable for and have been tested with Sun's
+Java and Linux, specifically Debian.  They should work equally well
+with any other standard Java implementation and any version of 
+Linux and most of UNIX.  
+ 
+</p>
+</section>
+<section id="DownloadtheTarball"><title>Download the Tarball</title>
+<p>
+The distribution is available at Sourceforge, on the 
+<a href="http://sourceforge.net/project/showfiles.php?group_id=92652">
+XLattice project page</a>
+ or simply by clicking
+<a href="http://prdownloads.sourceforge.net/xlattice/cryptoserver-0.0.9.zip?download">
+here.</a>
+                                                      ||
+</p>
+</section>
+<section id="UnzipIt"><title>Unzip It</title>
+<p>
+If, for example, you intend to put your <code>
+xlattice</code>
+ directory below
+<code>
+abc</code>
+, you would
+</p>
+<source>
+mv cryptoserver-0.0.9.zip abc
+unzip cryptoserver-0.0.9.zip</source>
+<p>
+
+</p>
+<p>
+This creates <code>
+xlattice</code>
+ and a number of subdirectories.
+</p>
+</section>
+<section id="MakeThingsExecutable"><title>Make Things Executable</title>
+<source>
+cd xlattice/cryptoserver
+chmod u+x *.sh</source>
+<p>
+
+</p>
+</section>
+<section id="PutaWebSiteintheExpectedPlace"><title>Put a Web Site in the Expected Place</title>
+<p>
+The server expects to find configuration files in the <code>
+xlattice</code>
+
+subdirectory and content files for Web sites in named subdirectories 
+of the <code>
+sites</code>
+ subdirectory.  In our example, this gives you a 
+directory structure like this
+</p>
+<source>
+abc
+  xlattice
+    lib
+      xlattice
+        cryptoserver-0.0.9.jar
+        ... etc ...
+    cryptoserver
+      sites
+        www.siteA.com
+          ... files and subdirectories ...
+        www.siteB.com
+          ... files and subdirectories ...
+      xlattice
+        ... configuration files ...</source>
+<p>
+
+</p>
+<p>
+The various jars used by the Cryptoserver are organized under
+<code>
+xlattice/lib</code>
+ by vendor name.  All are open source.  Licenses
+are included in the same subdirectories as the jars.
+</p>
+<p>
+If the URL for your Web site were for example <a href="http://www.siteA.com,">
+http://www.siteA.com,</a>
+
+then you would need to put the files for your Web site below 
+<strong>
+www.siteA.com.</strong>
+  The home
+page, for example, should be at <code>
+www.siteA.com/index.html.</code>
+
+</p>
+<p>
+This week's CryptoServer should be able to handle more than 
+one Web site but this functionality has not been thoroughly
+tested.
+</p>
+</section>
+<section id="RuntheServer"><title>Run the Server</title>
+<p>
+Just type
+</p>
+<source>
+./cryptoserver.sh -n www.siteA.com -p 8080</source>
+<p>
+
+</p>
+<p>
+The name after <strong>
+-n</strong>
+ is the Web site name.  The number after <strong>
+-p</strong>
+
+is the port number.  This defaults to 80, but if you run the
+server at this or any other port less than 1024, it must be run
+as root.
+</p>
+<p>
+Logs are found in the directory you execute the above command from.
+There are three
+</p>
+<ul>
+<li>
+  <strong>
+access.log,</strong>
+ which logs every hit
+</li>
+<li>
+  <strong>
+error.log,</strong>
+ which records misses and other faults
+</li>
+<li>
+  <strong>
+debug.log,</strong>
+ which babbles at some length 
+</li>
+</ul>
+<p>
+The last log is of little value to anyone but developers.
+</p>
+<p>
+If the log files grow too large they can be renamed and then
+trimmed, compressed, or deleted.  The server will create a new 
+file when it next uses the log.  It is probably best to pause
+shortly after renaming.
+</p>
+</section>
+<section id="SeeingYourStuff"><title>Seeing Your Stuff</title>
+<p>
+If your server is for example <code>
+myserver.abc.com</code>
+ and on port 80,
+the default, then you would browse to
+</p>
+<source>
+http://myserver.abc.com</source>
+<p>
+
+</p>
+<p>
+The CryptoServer will continue to serve pages until you kill it.
+</p>
+</section>
+</body>
+</document>

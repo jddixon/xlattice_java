@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+
+<header><title>Httpd</title></header>
+
+<body>
+<p>
+
+</p>
+<section id="CryptoServer"><title>CryptoServer</title>
+  
+<p>
+XLattice's CryptoServer is a lightweight Web server for the truly
+paranoid: nothing is displayed without being authorized and having
+its integrity guaranteed, and any user interaction with the server 
+can be authenticated and logged.
+</p>
+  <note>The name <strong>CryptoServer</strong> is provisional.</note>
+<p>
+The CryptoServer is a daemon which listens for HTTP requests on a 
+single port, normally port 80.  When a request is received, the 
+daemon first checks the source of the request against a blacklist.  
+If there is a match, the connection is silently closed.  Otherwise 
+the server checks the
+name or IP address to which the request is addressed against a list
+of site names.  If there is no match, the connection is dropped.
+Otherwise the server checks the file requested against a list for 
+that site.  If the file name is not present, the server returns a 
+<strong>404</strong>
+ message, "file not found".  Otherwise the request is valid 
+and the server attempts to return the file
+from an in-memory cache.  If the file is not actually present in
+memory, the memory cache retrieves it from a disk cache.  If the 
+file is not present there, the disk cache retrieves it from another
+server, usually using TCP/IP, the standard Internet protocol for 
+reliable communications.
+</p>
+<p>
+At each step in the process there are cryptographic checks to 
+ensure the integrity of the data being returned.  
+</p>
+<section id="Hashes"><title>Hashes</title>
+<p>
+Except where otherwise qualified, by <strong>
+hash</strong>
+ we mean a 160-bit 
+binary value.  This 20-byte value is most often a <strong>
+content key,</strong>
+ 
+an SHA-1 digest of a file's contents.  SHA-1 is one of the two 
+most commonly used 
+algorithms for generating hashes from binary data; the other, MD5,
+is believed to be less secure.  SHA-1 is quite widely
+used in business and mandated by the US government for use in 
+communicating and storing sensitive Federal data.  Like the title keys
+discussed below, content keys are guaranteed to be unique: given a
+document with a particular SHA-1 digest, it is for all practical 
+purposes impossible to find another document with the same digest.
+</p>
+<p>
+<em>
+More precisely these hashes are</em>
+ <strong>
+quasi-unique:</strong>
+ <em>
+there is a theoretical
+possibility that two files or build lists will have the same hash, 
+but this is exceedingly unlikely to occur within the lifespan of the 
+universe.</em>
+
+</p>
+<p>
+The other type of XLattice hash is a <strong>
+title key.</strong>
+   The integrity of a file
+with a content key is determined simply by running the SHA-1 
+algorithm on its contents: if the result doesn't match the SHA-1
+digest that is the basis of the file name, the file has been tampered
+with or is otherwise corrupt.  This is good for invariant data but
+not where you want to assign the same name to data that changes from
+time to time.
+</p>
+<p>
+A title key is an SHA-1 digest obtained from the author's public
+key, normally a 1024 bit quantity, and the document title, where the
+"title" will most often be a directory name.   The title key 
+can identify a single document but more often identifies a particular 
+<strong>
+build file,</strong>
+ a dated and digitally signed list of names and their hashes.  
+</p>
+<p>
+A file is retrieved from disk or the Net using its hash.  The file
+is identified in storage by that hash.  In the simplest implementation,
+the file name is the hash itself, base-64 encoded.
+This scheme encodes 6 bits into a byte, so that 
+encoding three bytes of binary data gives you four bytes of printable
+ASCII text.  A 20-byte hash therefore encodes into 28 bytes.
+</p>
+</section>
+<section id="CryptographicIdentities"><title>Cryptographic Identities</title>
+<p>
+In the sense in which we use the term, a cryptographic identity is a
+pair of keys.  One of these, the <strong>
+public key,</strong>
+ is published and so can
+be used 
+to identify an entity (a human being, XLattice node, authority, whatever).
+The other, the <strong>
+private key,</strong>
+ is held secret.  The owner of the key
+pair can use the private key to encrypt data or digitally sign a document.
+Using the public key, anyone else can verify that the document was 
+signed or encrypted by the author.  Alternatively, anyone can use the
+public key to encrypt messages which can only be decrypted by the holder 
+of the private key.
+</p>
+<p>
+The security of systems employing such key pairs is assumed to be 
+related to the length of the keys, with each additional bit doubling
+the cryptographic strength.  Currently keys are usually 1024 bits long.
+</p>
+<p>
+There are two such systems in common use, DSA and RSA.  RSA is generally
+used both for digital signatures and for message encryption.  DSA is
+normally used only for digital signatures.
+</p>
+</section>
+<section id="MasterDomainMasterKey"><title>Master Domain, Master Key</title>
+<p>
+When the CryptoServer first boots it is assigned a <strong>
+master domain</strong>
+ and may 
+be assigned a <strong>
+master key.</strong>
+  These assignments are made either in a 
+configuration file or on the command line.
+</p>
+<p>
+The <strong>
+master domain</strong>
+ is a qualified Internet domain name such as 
+<code>
+xlattice.org</code>
+ or <code>
+planetlink.ltd.uk.</code>
+  The master domain may not be
+a top level domain (TLD) such as <code>
+.com, .net,</code>
+ or <code>
+.org,</code>
+ nor may it be
+a so-called CCTLD <em>
+(country code TLD)</em>
+ like <code>
+.fr</code>
+ or <code>
+.de.</code>
+  Nor may it
+be a domain managed by the national registry like <code>
+.co.uk</code>
+ or <code>
+.ltd.uk.</code>
+
+The domain name must be one managed by whoever operates the CryptoServer.
+It can of course be that of the server itself.
+</p>
+<p>
+The <strong>
+master key</strong>
+ is a RSA public key associated with the master domain.
+It can either be set in the CryptoServer configuration file or retrieved
+from the Internet domain name system, the global DNS.  The public key 
+is normally a 1024-bit value.  This key will be used to validate
+digital signatures on configuration files and control messages sent to 
+the server.
+</p>
+<p>
+If it is to be obtained from the DNS, the master key must be put in
+a text record associated with the master domain
+(see <a href="http://www.ietf.org/rfc/rfc1035.txt?number=1035">
+RFC 1035</a>
+).
+This will contain a quoted string representing the master key's 
+value, base-64 encoded.
+</p>
+<p>
+The private key corresponding to the master key must <strong>
+not</strong>
+ be present 
+on the server.  Specifically, the master key is not the same as the
+public key of the XLattice node on the CryptoServer.
+</p>
+<p>
+The public key is made visible in the global DNS by adding a line like
+</p>
+<source>
+www.xlattice.org.  IN TXT "rsa 1234567890...abcdefghijklmnopq 3"</source>
+<p>
+
+to the domain's name server configuration file.  This is a <strong>
+Resource
+Record</strong>
+ or <strong>
+TXT RR.</strong>
+  The value after <em>
+rsa</em>
+ is a base-64 encoded
+RSA public key, the master key.  If the key is 1024 bits (128 bytes), 
+then that part of the encoded key is 178 bytes long.
+</p>
+<p>
+By default the master domain is <code>
+www.xlattice.org</code>
+ and by default the 
+master key is the www.xlattice.org public key.
+</p>
+<p>
+Changes to the DNS can take a long time to propagate over the Internet, 
+weeks in extreme cases.  Because of this it might sometimes be 
+advantageous to reserve a set of names just for announcing keys.
+</p>
+<source>
+key1.xlattice.org.  IN TXT "rsa NNNN...NNNN1 3"
+key2.xlattice.org.  IN TXT "rsa NNNN...NNNN2 3"</source>
+<p>
+
+</p>
+</section>
+<section id="FiltersBlacklistsandWhitelists"><title>Filters: Blacklists and Whitelists</title>
+<p>
+A <strong>
+filter</strong>
+ consists of a set of IP address ranges 
+and a list of domain names.  If the filter is used to reject matching
+hosts, it is a <strong>
+blacklist.</strong>
+  If the filter is used as a basis for 
+deciding that a request should be served, it is a <strong>
+whitelist.</strong>
+
+</p>
+<p>
+Address ranges are inclusive:
+A source address is in range if it is equal to the low-order IP address 
+in the range, the high-order address, or anything in between.
+If the filter is a blacklist and the IP address from which a request 
+comes is in one of the blacklisted ranges, the connection is silently closed.  
+</p>
+<p>
+Domain names are matched from right to left.  In making the comparison,
+names are divided into parts at the dots and only the parts are 
+compared.  If a source address contains or equals a blacklisted
+domain, the connection is dropped.  So if for example <code>
+xyz.com</code>
+ were
+to be blacklisted, then <code>
+xyz.com</code>
+ and <code>
+abc.xyz.com</code>
+ would be rejected,
+but <code>
+xyz1.com</code>
+ and <code>
+wxyz.com</code>
+ would not be.
+</p>
+<p>
+In the longer run, the intention is to automatically detect abusive 
+contacts and add them to the blacklist.  However this functionality
+will not be implemented soon.
+</p>
+<p>
+The blacklist is loaded when the daemon boots.  The blacklist is 
+digitally signed using the SHA1withRSA algorithm, which uses 
+the CryptoServer's master key.
+</p>
+</section>
+<section id="SiteList"><title>Site List</title>
+<p>
+A <strong>
+site list</strong>
+ is a build file (see below) containing a list of domain names.
+The site list is 
+signed using the private key corresponding to the CryptoServer's master key.
+</p>
+<p>
+The site list is a list of the Web sites supported by the CryptoServer.
+</p>
+<p>
+The title of the site list is <strong>
+site.cfg.</strong>
+  Given this title and the
+RSA public key, it is straightforward to determine the title key of
+the site list and retrieve it, if it is not otherwise available.
+</p>
+</section>
+<section id="BuildFiles"><title>Build Files</title>
+<p>
+A <strong>
+build file</strong>
+ consists of
+</p>
+<ul>
+<li>
+  a title line
+</li>
+<li>
+  a line holding the base-64 encoded public key of the signer
+</li>
+<li>
+  a timestamp 
+</li>
+<li>
+  zero or more data lines containing the extended hash of a file followed
+      by the path to the file relative to the title
+</li>
+<li>
+  a blank line
+</li>
+<li>
+  and a digital signature
+</li>
+</ul>
+<p>
+Each line is CRLF-terminated.  That is, each line ends with an ASCII-13
+character (carriage return) followed by ASCII-10 (line feed).
+</p>
+<p>
+The title line is commonly a UNIX-style path using a single slash ('/')
+as the separator.   The path is <strong>
+not</strong>
+ terminated with a separator.
+</p>
+<p>
+If the build file represents a subdirectory tree, then the path is 
+prepended to the file names in the data lines.  Each such name is 
+a path relative to the title and must begin with a UNIX-style separator,
+a forward slash ('/').
+</p>
+<p>
+If the build file represents a site list, the title line is the path
+to the directory containing the build files for each site.
+</p>
+<p>
+The digital signature is generated from the concatenated title,
+public key, timestamp, and data lines, if any, including their 
+terminating CRLFs.
+</p>
+<p>
+The build file itself has a hash, the <strong>
+title key.</strong>
+  
+This is the SHA-1 digest of a function 
+of the title and the signer's public key.  Because of the way in which
+the hash is calculated (it is independent of the timestamp, content,
+and digital signature line), this is a permanent, globally unique identifier 
+for the build list.  When XLattice key-based storage systems are presented
+with a candidate replacement for a build list, they should only replace
+the existing build file under its title key if
+</p>
+<ul>
+<li>
+  the replacement has the same owner (public key line) and title
+</li>
+<li>
+  the replacement has a valid digital signature
+</li>
+<li>
+  and the replacement has a more recent time stamp
+</li>
+</ul>
+<p>
+Current build lists are stored twice, once by title key and once by
+content key.  When the build list is replaced by a newer list, the
+version stored by title key is replaced, but not the version 
+stored by content key.
+</p>
+</section>
+<section id="In-memoryCache"><title>In-memory Cache</title>
+<p>
+The CryptoServer should normally serve Web pages from its in-memory
+cache.  The cache should be large enough so that most (say 90% or 
+more) requested pages are in it.  The cache is read-through, meaning
+that if a page is not found it is read into the cache before being
+served.  Pages are always served from the cache.
+</p>
+<p>
+If the cache fills up, infrequently used pages are dropped from the 
+cache using an <strong>
+LRU</strong>
+ (least recently used) algorithm.
+</p>
+</section>
+<section id="DiskCache"><title>Disk Cache</title>
+<p>
+Pages not found in the in-memory cache are fetched from the disk
+cache manager.  Any page retrieved is always subject to an integrity
+check.  If it has a content hash, the disk manager first reads the
+file into memory and then takes an SHA-1 hash of its contents, verifying
+the SHA-1 hash against the content hash.  If the file is a build list,
+</p>
+<ul>
+<li>
+  its hash (a function of public key and title) is verified
+</li>
+<li>
+  and then its digital signature is verified
+</li>
+</ul>
+<p>
+In either case, if verification succeeds, the file is passed to the in-memory 
+cache manager.  Otherwise the file is discarded and the disk file deleted.
+</p>
+<p>
+In such cases and also where the file is simply not present in the disk
+cache, the data is retrieved from the network using the hash as a
+key.  The disk cache is also read-through and managed using an LRU
+algorithm:
+data retrieved from the Net will be written to disk before being
+passed to the memory cache manager, and if there is insufficient
+room, the least recently used data on the disk will be removed to
+make room for the new data.
+</p>
+</section>
+<section id="RetrievalfromtheNet"><title>Retrieval from the Net</title>
+<p>
+Where a file is not found in the disk cache, it is fetched from
+the Net using its hash as a key.  The Web site's owner, the signer 
+of the build list, will normally be an XLattice Peer of the 
+CryptoServer.
+</p>
+<p>
+It is likely that for most early applications the entire Web site will
+be loaded directly into the CryptoServer's disk cache or will 
+be fetched from a single backing server.  However, as XLattice's 
+routing protocols are developed, it will become possible for 
+the server to fetch files by key from arbitrarily complex networks.
+</p>
+</section>
+<section id="HTTPProtocolVersionSupport"><title>HTTP Protocol Version Support</title>
+<p>
+CryptoServer will first support HTTP/0.9, then HTTP/1.0 as defined
+by 
+<a href="http://www.faqs.org/rfcs/rfc1945.html">
+RFC 1945</a>
+, 
+and then HTTP/1.1 as specified in 
+<a href="http://www.faqs.org/rfcs/rfc2616.html">
+RFC 2616</a>
+. 
+More 
+detailed information on the implementation plan can be found in the
+<a href="roadmap.html">
+Roadmap</a>
+.
+</p>
+</section>
+<section id="Dependencies"><title>Dependencies</title>
+<p>
+The server software depends upon a number of XLattice components
+and other jars.
+At the time of writing these are
+</p>
+<ul>
+<li>
+  util-0.3.<strong>
+x</strong>
+.jar
+</li>
+<li>
+  xpp3-1.1.3.4.C.jar
+</li>
+<li>
+  corexml-0.3.x.jar
+</li>
+<li>
+  crypto-0.0.<strong>
+x</strong>
+.jar
+</li>
+<li>
+  node-0.0.<strong>
+x</strong>
+.jar
+</li>
+<li>
+  protocol-0.0.<strong>
+x</strong>
+.jar
+</li>
+<li>
+  overlay-0.0.<strong>
+x</strong>
+.jar
+</li>
+</ul>
+<p>
+The 'x' in the XLattice component version number 
+is currently 1 in each case, but this will be changing 
+frequently as implementation progresses.  The xpp3 jar is an 
+<a href="http://www.extreme.indiana.edu/xgws/xsoap/xpp/">
+XML pull parser.</a>
+
+</p>
+<p>
+Current jars for all dependencies will be included
+in the CryptoServer distribution, excepting only Java's runtime
+libraries.
+</p>
+</section>
+<section id="Security"><title>Security</title>
+<p>
+Because the private keys used to sign build files should not be 
+present on the CryptoServer, it should not be possible to modify
+the server's configuration or any of the files being served without
+this being detected.  When the server detects that a file has been
+modified, it will attempt to replace it from a secure source.  If
+it cannot, it will either do nothing (fail to respond to the request)
+or shut down entirely.
+</p>
+<p>
+This means that the server should be secure 
+against all but very determined attackers with very large resources.
+If the attacker has complete control of the server and the necessary
+technical skills, he or she could simply replace the server or its
+software entirely.
+However, it is very likely that this would be quickly detected.
+</p>
+<p>
+More subtle changes would require compromising the keys used to sign
+configuration files.  This is for all practical purposes impossible
+so long as the operator of the CryptoServer takes realistic steps
+to safeguard the physical security of these keys.
+</p>
+<p>
+
+</p>
+</section>
+</section>
+</body>
+</document>

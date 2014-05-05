@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+
+<header><title>
+CryptoServer</title></header>
+
+<body>
+<p>
+
+</p>
+<section id="Roadmap"><title>Roadmap</title>
+<p>
+The table below summarizes the functionality that the CryptoServer
+is expected to have at revision <strong>
+n.n.n.</strong>
+
+In other words, these
+are milestones in the implementation of the CryptoServer.
+</p>
+<p>
+This roadmap is necessarily provisional.  When some progress
+has been made, real dates (in <strong class="done">green</strong>)
+and projected dates (in <strong class="late">red</strong>) will be added.
+Dates are in YY-MM-DD format.  (We are not unduly concerned about
+the Y2100 bug.)
+</p>
+<p>
+Because CryptoServer is dependent upon functionality which does not
+yet exist in other XLattice components, this roadmap includes steps
+in the development of those components to the degree necessary to
+support the CryptoServer.  References to such components look like
+<code>
+node-0.0.1,</code>
+ which represents version 0.0.1 of XLattices <code>
+node</code>
+
+component.
+</p>
+<p>
+CryptoServer tarballs (in zip format) are now being released 
+regularly.  All of the XLattice components used by the CryptoServer
+are current in CVS.
+</p>
+
+<table>
+<tr>
+<td>
+<strong>
+n</strong>
+</td>
+<td>
+<strong>
+n</strong>
+</td>
+<td>
+<strong>
+n</strong>
+</td>
+<td>
+<strong>
+date</strong>
+</td>
+<td>
+<strong>
+capability at this revision number</strong>
+             </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ <strong class="done">04-11-01</strong></td>
+<td>
+
+                Node can read node configuration file, extracting the
+                NodeID and RSA Key if they are present, and
+                overlay subdirectory and class names <br/>
+                <code>
+util-0.3.1: Node, NodeID, Key, Overlay;</code>
+ <br/>
+                <code>
+node-0.0.1: Configurer and supporting classes, NodeImpl;</code>
+ <br/>
+                <code>
+crypto-0.0.1: RSAKey</code>
+                              </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 2 </td>
+<td>
+ <strong class="done">04-11-07</strong>  </td>
+<td>
+
+                can generate public/private key pair, the node's
+                cryptographic identity. <br/>
+                <code>
+node-0.0.2; util-0.3.2: KeyGen, PublicKey;</code>
+ <br/>
+                <code>
+crypto-0.0.2: RSAKeyGen</code>
+                           </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 3 </td>
+<td>
+<strong class="done">05-01-09</strong> </td>
+<td>
+
+                can get a NodeID from a registry server if it does not
+                have a nodeID (exchanged for RSA public key). <br/>
+                <code>
+util-0.3.3: Address, EndPoint, DigSigner, SigVerifier;
+                Acceptor, Connection, Connector, Base64Coder, threads</code>
+ <br/>
+                <code>
+crypto-0.0.3: Key64Coder, RSAPublicKey, SignedList,
+                  BuildList, BuildMaker utility;</code>
+
+                <code>
+node-0.0.3: nodereg.Client, NodeRegSListener</code>
+ <br/>
+                <code>
+transport-0.0.1: IOScheduler,
+                Schedulable{Acceptor,Connection,Connector},
+                {Acceptor,Connection,Connector}Listener,tcpip</code>
+      </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 4 </td>
+<td>
+<strong class="done">05-01-09</strong>  </td>
+<td>
+
+                can rewrite the XLattice configuration file if
+                changed.<br/>
+                <code>
+node-0.0.4</code>
+                                        </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 5 </td>
+<td>
+<strong class="done">05-01-24</strong> </td>
+<td>
+
+                <code>
+overlay-0.0.1: DataKeyed, NameKeyed,
+                  namekeyed/DiskByName</code>
+ <br/>
+                <code>
+httpd-0.0.1: Http{C,S}Listener</code>
+                    </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 6 </td>
+<td>
+<strong class="done">05-01-30</strong> </td>
+<td>
+
+                <code>
+httpd-0.0.1: SiteList</code>
+ <br/>
+                <code>
+overlay-0.0.1: namekeyed/Name2Hash,
+                 datakeyed/MemCache</code>
+                                </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 7 </td>
+<td>
+<strong class="done">05-01-31</strong> </td>
+<td>
+
+                working CryptoServer running from cache             </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 8 </td>
+<td>
+<strong class="done">05-02-02</strong> </td>
+<td>
+
+                non-blocking, caching HTTP/0.9 GET CryptoServer
+                release limited to a single site                    </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+ 9 </td>
+<td>
+<strong class="done">05-02-15</strong> </td>
+<td>
+
+                <code>
+httpd-0.0.2: parsing and constructing HTTP/1.1
+                 GET, HEAD, FullRequest/Response</code>
+                   </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+10 </td>
+<td>
+<strong class="done">05-03-11</strong> </td>
+<td>
+
+                <code>
+httpd-0.0.3: fully tested multi-site GETs</code>
+ <br/>
+                <code>
+overlay-0.0.2: DiskCache, FlatDisk</code>
+                </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+11 </td>
+<td>
+<strong class="done">05-09-22</strong> </td>
+<td>
+
+                <code>
+util-0.3.4: fixed bugs in util.threads, added util.context</code>
+ <br/>
+                <code>
+corexml-0.3.2: context.* deprecated</code>
+ <br/>
+                <code>
+overlay-0.0.3: mods to use new util.threads API</code>
+ <br/>
+                <code>
+httpd-0.0.4: minor fixes</code>
+                          </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 0 </td>
+<td>
+12 </td>
+<td>
+ </td>
+<td>
+
+                <code>
+util-0.3.5:  template.*</code>
+ <br/>
+                <code>
+crypto-0.0.5: </code>
+ <br/>
+                <code>
+transport-0.0.3: </code>
+ <br/>
+                <code>
+overlay-0.0.4: </code>
+ <br/>
+                <code>
+node-0.0.6: </code>
+ <br/>
+                <code>
+httpd-0.0.5: preliminary POST, templates</code>
+          </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ 0 </td>
+<td>
+ </td>
+<td>
+
+                <code>
+httpd-0.0.5: POST and templates; 
+                 HttpEcho (server), HttpView (client side)</code>
+ <br/>
+                secure caching Cryptoserver release                 </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ 1 </td>
+<td>
+ </td>
+<td>
+
+                <code>
+httpd-0.0.6,</code>
+ HttpSListener with filtering         
+                <code>
+overlay-0.0.3: rudimentary DataNet</code>
+                </td>
+</tr>
+<tr>
+<td>
+ 0 </td>
+<td>
+ 1 </td>
+<td>
+ 2 </td>
+<td>
+ </td>
+<td>
+
+                <code>
+overlay-0.0.4: Disk256x16, Filter</code>
+ <br/>
+                secure, caching, filtering CryptoServer release 
+</td>
+</tr>
+</table>
+</section>
+</body>
+</document>
