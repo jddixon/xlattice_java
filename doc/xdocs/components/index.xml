@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header><title>Components</title></header>
+  
+  <body>
+    <p>Further information on the components described below can be
+      found by selecting from the menu to the left.  Sourcecode and
+      API links are to the Java implemtation; the C++ code is handled 
+      separately.
+    </p>
+    
+    <section id="released">
+      <title>Already Released or About To Be Released</title>
+      <p>
+      XLattice currently has five separately-released Java components:
+      </p>
+      
+      <ul>
+        <li><strong>util-0.3.7</strong></li>
+        <li><strong>corexml-0.3.3</strong></li>
+        <li><strong>crypto-0.1.0</strong></li>
+        <li><strong>transport-0.1.1</strong></li>
+        <li><strong>protocol-0.1.6</strong></li>
+        <li><strong>node-0.1.0</strong></li>
+      </ul>
+
+      <p>In each case the next decimal version is available in CVS.
+       So for example util-0.3.8 is currently in CVS at Sourceforge.</p>
+     
+      <p>The releases can be downloaded by clicking on the 
+        <strong>other downloads</strong>
+        button in the menu bar at the left of this screen.  
+        Some are currently packaged as UNIX <strong>tarballs</strong>
+        (files with .tar.gz extensions) but all will be
+        packaged as zip files in future.</p>
+      
+      <p>All releases include comprehensive unit test software and
+        all jars necessary to run the tests.  This means that 
+        <strong>each component release includes jars for any other
+          XLattice components used</strong>.  Each is also a source code 
+        release, except that <strong>protocol</strong> is accompanied by
+        a <strong>stun+</strong> binary release with the same version
+      number.</p>
+    </section>
+    
+    <section id="cryptoServer">
+      <title>Components Released with CryptoServer</title>
+      
+      <p>For some time development effort was focused on the
+      <a href="/applications/httpd/index.html">CryptoServer,</a>
+      a secure Web server being built from XLattice components.  
+      Like the component releases, the CryptoServer tarball includes
+      all jars necessary to run it.
+    </p>
+
+    <p>In addition to the components listed above, the CryptoServer
+      uses:</p>
+    
+    <table>
+        <tr><td><strong>overlay</strong></td><td>0.0.1</td>
+          <td><code>DataKeyed, NameKeyed</code> 
+            key-based message routing</td></tr>
+        <tr><td><strong>node</strong></td><td>0.0.4</td>
+          <td>reads configuration files, orchestrates node functions</td></tr>
+        <tr><td><strong>httpd</strong></td><td>0.0.1</td>
+          <td>Web server (HTTP) functionality</td></tr>
+      </table>
+
+      <p>At the time of writing, the source code in CVS for these
+        components is the most recent source code.</p>
+      
+      <p>For more specific information on the CryptoServer, see the
+      <a href="../applications/httpd/roadmap.html">
+      CryptoServer development roadmap.</a> </p>
+  </section>
+  <section id="cpp"><title>C++ Implementation</title>
+    <p>The discussion above relates to XLattice's Java implementation.
+      C++ work is being handled separately.  Further information will
+      be available shortly, when a C++ tab will appear at the top of
+      this page.</p>
+  </section>
+  </body>
+</document>
