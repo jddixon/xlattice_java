@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+
+<header><title>
+CoreXml</title></header>
+
+<body>
+<p>
+
+</p>
+<section id="Overview"><title>Overview</title>
+<p>
+CoreXml currently has the following subcomponents.
+</p>
+<ul>
+<li>
+<strong>
+SimpleConfig</strong>
+ is a facility for interfacing an XML
+  configuration file to a program
+</li>
+<li>
+<strong>
+context</strong>
+ allows program components to share variable definitions
+  through the use of (possibly nested) symbol tables
+</li>
+<li>
+<strong>
+expr</strong>
+ provides limited XPath 1.0 expression support
+</li>
+<li>
+<strong>
+bind</strong>
+ is a data binding facility allowing programmers to describe an
+XML file with a data structure which automates the production of Java
+objects from the XML and vice versa.  
+</li>
+<li>
+<strong>
+om</strong>
+ is CoreXml's Object Model for XML
+</li>
+</ul>
+<p>
+Each of these is documented in the Javadocs, which can be reviewed
+by clicking on <strong>
+API</strong>
+ in the menu to the left.  <strong>
+Source</strong>
+ code is also
+available on this Web site.
+</p>
+</section>
+<section id="SimpleConfig"><title>SimpleConfig</title>
+<p>
+This is used to import values from an XML configuration file into 
+a Java program.  
+</p>
+<p>
+The configuration file
+</p>
+<ul>
+<li>
+may have an XML declaration
+</li>
+<li>
+may contain comments
+</li>
+<li>
+must have one top-level element
+</li>
+<li>
+and may contain any number of simple subelements
+</li>
+</ul>
+<p>
+<code>
+SimpleConfig.bind(obj, reader)</code>
+ 
+reads the configuration file; discards any
+XML declaration, comments, and the top-level element; and then
+uses each subelement to set a value in the object.  It does this
+by assuming that each subelement tag has a corresponding setter
+in the object's class.  So if, for example, the subelements include
+</p>
+<source>
+&lt;amp&gt;2.0&lt;/amp&gt;
+&lt;volt&gt;115&lt;/volt&gt;
+&lt;hertz&gt;60&lt;/hertz&gt;</source>
+<p>
+
+</p>
+<p>
+then <code>
+bind()</code>
+ will in effect make a series of mactching calls
+</p>
+<source>
+obj.setAmp(2);
+obj.setVolt(115);
+obj.setHertz(60);</source>
+<p>
+
+to set field values in the object.  
+</p>
+<p>
+Attributes are ignored.  Values may only be set in one object, although
+any number of distinct values may be set. If you need something more
+powerful, use <code>
+corexml.bind</code>
+, below.
+</p>
+</section>
+<section id="Context"><title>Context</title>
+<p>
+A context is a symbol table.  Given a context, you can then 
+add symbols and definitions to it.
+</p>
+<source>
+Context context = new Context();
+    context.bind("abc", "def")
+           .bind("ghi", "jkl")
+           .bind("mno", "pqr");</source>
+<p>
+
+The context can then be passed to other program modules and the
+symbols retrieved by a simple lookup call.
+</p>
+<source>
+String value = context.lookup(name);</source>
+<p>
+
+</p>
+<p>
+You can build context hierarchies:
+</p>
+<source>
+Context a = new Context().bind("abc", "dog's dinner");
+Context b = new Context(a).bind ("def", "jolly good fellow");</source>
+<p>
+
+</p>
+<p>
+In this case, because context <code>
+a</code>
+ is the parent of <code>
+b</code>
+, a 
+<code>
+b.lookup("abc")</code>
+ will return "dog's dinner", because when a lookup
+in context <code>
+b</code>
+ fails the search automatically continues in the parent.
+</p>
+<p>
+What gives contexts real power is the possibility of using them 
+to perform symbol substition in texts.  If you are familiar with
+Ant, then you have used this.  CoreXml's <code>
+context</code>
+ package allows
+you to automatically convert text containing variables, symbolic
+expressions like <code>
+${abc}</code>
+.  Anything found between the opening <code>
+${</code>
+ 
+and the closing <code>
+}</code>
+ is regarded as a variable, is looked up in the
+context, and replaced with its value.
+</p>
+<source>
+Context a = new Context( ).bind("abc", "dog's dinner")
+                          .bind("def jolly good fellow", "dunno who");
+Context b = new Context(a).bind ("def", "jolly good fellow");
+String s = new Expr("${abc} is a ${def}").resolve(b);</source>
+<p>
+
+</p>
+<p>
+The <code>
+Expr(s)</code>
+ constructor parses <code>
+s</code>
+ into a series of literals 
+and Symbols.  <code>
+resolve(context)</code>
+ then uses the <code>
+context</code>
+ to 
+replace the symbols with their values, recursing as necessary.
+</p>
+<p>
+As you might expect, <code>
+s</code>
+ has become "dog's dinner is a jolly good fellow".
+</p>
+<p>
+Symbols can be nested, making it possible to write things like
+</p>
+<source>
+&lt;abc attr="${abc ${def}}"&gt;</source>
+<p>
+
+When this is evaluated, first the inner symbol, <code>
+${def}</code>
+, will 
+be evaluated, producing, in this case, <code>
+"jolly good fellow"</code>
+.
+This will then be concatenated with the literal preceding it 
+to produce <code>
+"${abc jolly good fellow}"</code>
+.   The software will 
+then look this up in the context, replacing the entire substring
+with its match, resulting in
+</p>
+<source>
+&lt;abc attr="dunno who"&gt;</source>
+<p>
+  
+</p>
+<p>
+Contexts are particularly useful in conjunction with
+<code>
+corexml.expr</code>
+ XPath expressions.
+</p>
+</section>
+<section id="Expr"><title>Expr</title>
+<p>
+<code>
+corexml.expr</code>
+ is a partial implementation of the W3C's
+<strong>
+XPath</strong>
+ expression language.  This interprets expressions 
+</p>
+<ul>
+<li>
+  relative to the current Node
+</li>
+<li>
+  and against a specified Context
+</li>
+</ul>
+<p>
+Expressions are singly or doubly quoted strings.  They may contain
+<em>
+steps;</em>
+ a common example would be the familiar "../.." meaning
+'something two levels above the current node'.  They can also contain
+variables to be resolved against the context, such as "${partNumber}".
+</p>
+<p>
+XPath has four data types:
+</p>
+<ul>
+<li>
+  <strong>
+boolean</strong>
+
+</li>
+<li>
+  <strong>
+number</strong>
+
+</li>
+<li>
+  <strong>
+string</strong>
+
+</li>
+<li>
+  <strong>
+node set</strong>
+
+</li>
+</ul>
+<p>
+There are rules for casting these types to one another, but none of
+the other types can be cast to a NodeSet.  Some of the rules for
+casting are less than intuitive.  The empty string, for example,
+casts to <code>
+false,</code>
+ but any other string to <code>
+true,</code>
+
+so both boolean("true") and boolean("false") resolve to <code>
+true.</code>
+
+The numeric type is equivalent to Java's Double.  That is, it is an
+object.
+</p>
+<p>
+<code>
+corexml.expr</code>
+ will correctly parse all XPath expressions,
+but only a fraction of the standard library functions have been 
+implemented and only steps along the child axis will be evaluated
+correctly.
+</p>
+<p>
+XPath is expected to be used by the XLattice project primarily in
+</p>
+<ul>
+<li>
+  extracting data from specification documents and
+</li>
+<li>
+  generating Web pages and other such documents
+</li>
+</ul>
+<p>
+We will be coding more of XPath as necessary to meet these ends.
+</p>
+</section>
+<section id="Bind"><title>Bind</title>
+<p>
+This is a Java data binding facility.
+</p>
+<p>
+XML documents are bound to instances of Java classes by 
+writing what amounts to a description of the binding in terms
+of a number of classes:
+</p>
+<ul>
+<li>
+a <strong>
+Mapping,</strong>
+ which relates the top-level XML element
+to the topmost Java class instance
+</li>
+<li>
+<strong>
+SubMappings,</strong>
+ used where a subelement maps into a
+child object
+</li>
+<li>
+<strong>
+Collectors,</strong>
+ signalling the presence of a element 
+in the XML which does not cause the creation of a Java object
+on input, and
+</li>
+<li>
+<strong>
+Bindings,</strong>
+ which relate XML values to values of fields 
+in objects
+</li>
+</ul>
+<p>
+There are several types of bindings.
+</p>
+<ul>
+<li>
+<strong>
+AttrBindings,</strong>
+ connecting attributes to fields
+</li>
+<li>
+<strong>
+EmptyElBindings,</strong>
+ which set a boolean to true if a 
+subelement is present
+</li>
+<li>
+<strong>
+SubElBindings,</strong>
+ which connect the value of a 
+subelement to a field value, and
+</li>
+<li>
+<strong>
+TextBindings,</strong>
+ relating the text within a
+subelement to a String field in the corresponding object
+</li>
+</ul>
+<p>
+The constituents may be either optional or may be allowed to repeat.
+</p>
+<p>
+Additional descriptor classes will be added after more experience
+with the package in its current form.  We also intend to add a 
+facility for generating the mapping from an XML description.
+</p>
+</section>
+<section id="XLatticeXMLObjectModel"><title>XLattice XML Object Model</title>
+<p>
+All of the above functionality, except for <code>
+corexml.context,</code>
+
+is implemented using <code>
+corexml.om,</code>
+ XLattice's XML object
+model and the XML pull parser.
+</p>
+<p>
+The primary objects are
+</p>
+<ul>
+<li>
+  <strong>
+Node,</strong>
+ which the objects that follow extend
+</li>
+<li>
+  <strong>
+Document</strong>
+
+</li>
+<li>
+  <strong>
+DocumentType,</strong>
+ which is stubbed
+</li>
+<li>
+  <strong>
+Element</strong>
+
+</li>
+<li>
+  <strong>
+Holder,</strong>
+ a superclass for <em>
+Document</em>
+ and <em>
+Element</em>
+
+</li>
+<li>
+  <strong>
+Attr</strong>
+
+</li>
+<li>
+  <strong>
+Comment</strong>
+
+</li>
+<li>
+  <strong>
+Text</strong>
+
+</li>
+<li>
+  <strong>
+Cdata,</strong>
+ which extends <em>
+Text</em>
+, and
+</li>
+<li>
+  <strong>
+ProcessingInstruction</strong>
+
+</li>
+</ul>
+<p>
+There are also a number of containers:
+</p>
+<ul>
+<li>
+  <strong>
+NodeList,</strong>
+ used by <em>
+Holders</em>
+ to contain child Nodes
+</li>
+<li>
+  <strong>
+AttrList,</strong>
+ used by <em>
+Elements</em>
+ to contain attributes
+</li>
+</ul>
+<p>
+While this intention has not been fully realized, the objective
+has been to provide a set of constructors and related methods
+which are uniform in their use and will only generate internally
+consistent objects.  As shortcomings in this direction are identified,
+they will be corrected.
+</p>
+<p>
+The <strong>
+XmlParser</strong>
+ class transforms an XML document into a tree of <em>
+Nodes</em>
+
+with a <em>
+Document</em>
+ at its root.  Each of the <em>
+Node</em>
+ subclasses has a 
+<code>
+toXml()</code>
+ method which recursively generates a String 
+representation of the <em>
+Node</em>
+ and its descendents.  This means that
+any Document <code>
+doc</code>
+ can be converted to XML text by invoking
+<code>
+doc.toXml()</code>
+.
+</p>
+<p>
+For convenience in writing unit tests, JUnit's <code>
+TestCase</code>
+ class
+has been extended.  <code>
+org.xlattice.corexml.CoreXmlTestCase</code>
+ has a 
+<code>
+assertSameSerialization(String s1, String s2)</code>
+ method 
+which ignores whitespace while comparing <code>
+s1</code>
+ and <code>
+s2</code>
+. 
+</p>
+<p>
+  The <a href="api/">
+Javadocs</a>
+ should be helpful for those needing to use or
+modify any of this code.  Thorough unit tests exist for all of these
+classes, providing very detailed examples of how to use the software.
+</p>
+</section>
+</body>
+</document>
