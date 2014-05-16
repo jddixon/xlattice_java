@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+
+<header><title>Some Examples</title></header>
+
+<body>
+  <p> 
+    This section provides information on two protocols, STUN and Kademlia.
+  </p>
+  <p>
+    Kademlia is a DHT which uses XOR as a metric.  That is, items in the
+    DHT are represented by fixed-length binary keys, and the distance 
+    between any two items is the byte-wise exclusive OR (XOR) of their
+    keys.  Items might be either nodes or data being stored.  The Kademlia
+    protocol is specified as running over UDP, although this does not seem
+    to be an essential part of the protocol.
+  </p>
+  <p>
+    STUN is a protocol used by clients behind NATs, network address
+    translation devices, to discover information about the NATs and
+    what the outside world sees as a client's IP address and port 
+    number.
+  </p>
+</body>
+</document>

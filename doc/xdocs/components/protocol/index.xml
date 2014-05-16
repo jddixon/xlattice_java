@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+
+<header><title>Protocol</title></header>
+
+<body>
+  <p> As the term is used in XLattice, a <strong>protocol</strong> is a set
+    of message types and a set of rules governing the sequencing of the
+    messages.  We want to be able to describe protocols in abstract 
+    terms and to be able to register handlers for specific types or
+    messages or groups of message types within a protocol.
+  </p>
+  <section id="messages"><title>Messages</title>
+    <p>
+    </p>
+    <section id="tlv"><title>Type-Length-Value Fields (Attributes)</title>
+      <p>A TLV is a common structure in messages consisting
+        of a numeric type followed by the length of the value in bytes
+        and then a byte array of that length.  We shall implement two
+        subtypes:
+      </p>
+      <ul>
+        <li>a <strong>TLV8</strong> in which the type and length are
+          both unsigned bytes, 8-bit integers</li>
+        <li>a <strong>TLV16</strong> in which the type and length are
+          both unsigned 16-bit integers</li>
+      </ul>
+    </section>
+  </section>
+  <section id="sequencing"><title>Sequencing</title>
+    <p>
+    </p>
+  </section>
+  <section id="examples"><title>Examples</title>
+    <p>
+    </p>
+  </section>
+</body>
+</document>
