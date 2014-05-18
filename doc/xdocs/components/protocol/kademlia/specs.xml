@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>Kademlia: A Design Specification</title>
+  </header>
+  <body>
+    <section id="intro">
+      <title>Introduction</title>
+
+      <p>Kademlia is a communications protocol for peer-to-peer networks.  
+        It is one of many
+        versions of a DHT, a <strong>Distributed Hash Table</strong>.</p>
+
+    </section>
+
+    <section id="constants"><title>Network Characterization</title>
+      <p>A Kademlia network is characterized by three constants, which
+        we call <strong>alpha</strong>, <strong>B</strong>, and 
+        <strong>k</strong>.  The first and last
+        are standard terms.  The second is introduced because some
+        Kademlia implementations use a different key length.</p>
+
+      <ul>
+        <li><strong>alpha</strong> is a small number representing the degree of
+          parallelism in network calls, usually <strong>3</strong></li>
+        <li><strong>B</strong> is the size in bits of the keys used to identify
+          nodes and store and retrieve data; in basic Kademlia this is
+          <strong>160</strong>, the length of an SHA1 digest (hash)</li>
+        <li><strong>k</strong> is the maximum number of contacts stored in a
+          bucket; this is normally <strong>20</strong></li>
+      </ul>
+
+      <p>It is also convenient to introduce several other constants
+        not found in the original Kademlia papers.</p>
+      <ul>
+        <li><strong>tExpire</strong> = 86400s, the time after which
+          a key/value pair expires; this is a time-to-live (TTL) from
+          the <em>original</em> publication date
+        </li>
+        <li><strong>tRefresh</strong> = 3600s, after which an 
+          otherwise unaccessed bucket must be refreshed
+        </li>
+        <li><strong>tReplicate</strong> = 3600s, the interval 
+          between Kademlia replication events, when a node is 
+          required to publish its entire database
+        </li>
+        <li><strong>tRepublish</strong> = 86400s, the time after
+          which the original publisher must republish a key/value pair
+        </li>
+      </ul>
+      <note>The fact that tRepublish and tExpire are equal introduces
+        a race condition.  The STORE for the data being published may 
+        arrive at the node just after it has been expired, so that it
+        will actually be necessary to put the data on the wire.  A
+        sensible implementation would have tExpire significantly
+        longer than tRepublish.  Experience suggests that tExpire=86410
+        would be sufficient.
+      </note>
+    </section>
+    <section id="node"><title>The Node</title>
+
+      <p>A Kademlia network consists of a number of cooperating
+        <strong>nodes</strong> that
+        communicate with one another and store information for one
+        another.  Each node has a <strong>nodeID</strong>, a quasi-unique
+        binary number that identifies it in the network.</p>
+      
+      <p>Within the network, a block of data, a <strong>value</strong>, 
+        can also be associated with 
+        a binary number of the same fixed length B, the value's 
+        <strong>key</strong>.</p>
+      
+      <p>A node needing a value searches for it at the nodes it considers 
+        closest to the key.  A node needing to save a value stores it at
+        the nodes it considers closest to the key associated with the 
+        value.
+      </p>
+
+      <section id="nodeID"><title>NodeID</title>
+        <p>NodeIDs are binary numbers of length B = 160 bits.  In basic
+          Kademlia, each node chooses its own ID by some unspecified
+          quasi-random procedure.  It is important that nodeIDs be
+          uniformly distributed; the network design relies upon this.</p>
+
+        <p><em>While the protocol does not mandate this, there are 
+          possibleadvantages
+          to the node's using the same nodeID whenever it joins the 
+          network, rather than generating a new, session-specific
+          nodeID.</em></p>
+      </section>
+
+      <section id="key"><title>Keys</title>
+        <p>Data being stored in or retrieved from a Kademlia network
+          must also have a key of length B.  These keys should also be
+          uniformly distributed.  There are several ways to guarantee
+          this; the most common is to take a hash, such as the 160 bit
+          SHA1 digest, of the value. </p>
+      </section>
+
+      <section id="distance"><title>Distance: the Kademlia Metric</title>
+        <p>Kademlia's operations are based upon the use of exclusive
+          OR, XOR, as a metric.  The distance between any two keys or
+          nodeIDs x and y is defined as </p>
+
+        <source>
+          distance(x, y) = x ^ y
+        </source>
+
+        <p>where <strong>^</strong> represents the XOR operator.  The result
+          is obtained by taking the bytewise exclusive OR of each byte
+        of the operands.</p>
+
+        <note>Kademlia follows Pastry in interpreting keys (including
+          nodeIDs) as <strong>bigendian</strong> numbers.  This means that the
+          low order byte in the byte array representing the key is
+          the most significant byte and so if two keys are close together
+          then the low order bytes in the distance array will be zero.</note>
+      </section>
+
+      <section id="bucket"><title>The K-Bucket</title>
+        <p>A Kademlia node organizes its <strong>contacts</strong>, other
+          nodes known to it, in <strong>buckets</strong> which hold a maximum
+          of k contacts.  These are known as k-buckets.</p>
+
+        <p>The buckets are organized by the distance between the
+          node and the contacts in the bucket.  Specifically, for
+          bucket j, where 0 &lt;= j &lt; k, we are guaranteed that</p>
+        <source>
+      2^j &lt;= distance(node, contact) &lt; 2^(j+1)
+        </source>
+        <p>Given the very large address space, this means that
+          bucket zero has only one possible member, the key which differs
+          from the nodeID only in the high order bit, and for all 
+          practical purposes is never populated, except perhaps
+          in testing.  On other hand, if nodeIDs are evenly distributed,
+          it is very likely that half of all nodes will lie in the range 
+          of bucket B-1 = 159.</p>
+    
+        <section id="size"><title>Bucket Size</title>
+          <p>The Kademlia paper says that k is set to a value such that
+            it is very unlikely that in a large network all contacts
+            in any one bucket will have disappeared within an hour.  Anyone
+            attempting to calculate this probability should take into 
+            consideration policies that lead to long-lived contacts being
+            kept in the table in preference to more recent contacts.  </p>
+        </section>
+      
+        <section id="contacts"><title>Contacts</title>
+          <p>A <strong>contact</strong> is at least a triple:</p>
+          <ul>
+            <li>the bigendian <strong>nodeID</strong> for the other node</li>
+            <li>its IP address</li>
+            <li>its UDP port address</li>
+          </ul>
+          <p>The IP address and port address should also be treated as
+          bigendian numbers.</p>
+
+          <p>Kademlia's designers do not appear to have taken into
+            consideration the use of IPv6 addresses or TCP/IP instead 
+            of UDP or the possibility
+            of a Kademlia node having multiple IP addresses.</p>
+        </section>
+      
+        <section id="sort"><title>Sorting</title>
+          <p>Within buckets contacts are sorted by the time of the most recent 
+          communication, with those which have most recently communicated
+          at the end of the list and those which have least recently
+          communicated at the front, regardless of whether the node or
+          the contact initiated the sequence of messages.</p>
+        </section>
+      
+        <section id="updates"><title>Updates</title>
+          <p>Whenever a node receives a communication from another, 
+            it updates the corresponding bucket.  If the contact 
+            already exists, it is moved to the end of the bucket.  
+            Otherwise, if the bucket is not full, the new contact is
+            added at the end.  If the bucket is full, the node pings
+            the contact at the head of the bucket's list.  If that 
+            least recently seen 
+            contact fails to respond in an <em>(unspecified)</em> 
+            reasonable time, it is dropped from the list, and the 
+            new contact is added at the tail.  Otherwise the new 
+            contact is ignored for bucket updating purposes.</p>
+
+          <warning>In a large, busy network, it is possible that while 
+            a node is waiting for a reply from the contact at the
+            head of the list there will be another communication
+            from a contact not in the bucket.  This is most likely
+            for bucket B-1 = 159, which is responsible for roughly half
+            of the nodes in the network.  Behaviour in this case 
+            is unspecified and seems likely to provide an opening
+            for a DOS (Denial of Service) attack. </warning>
+        </section>
+
+        <section id="rationale"><title>Rationale</title>
+          <p>Experience has shown that nodes tend to group into
+          two clearly distinguished categories, the transient and 
+          the long-lived.  This update
+          policy gives strong preference to the long-lived and so promotes
+          network stability.  It also provides a degree of protection
+          from certain types of denial of service (DOS) attacks,
+          including, possibly, Sybil attacks, discussed below.</p>
+        </section>
+      </section>
+
+    </section>
+
+    <section id="protocol"><title>Protocol</title>
+      <p>The original Kademlia paper, 
+              <a href="references.html#maymo02">maymo02</a>,
+      says that the Kademlia protocol consists of four remote 
+      procedure calls ("RPCs") but then goes on to specify procedures 
+      that must be followed in executing these as well as certain
+      other protocols.  It seems best to add these procedures and
+      other protocols to what we call here the Kademlia protocol. 
+      </p>
+      
+      <section id="PING"><title>PING</title>
+        <p>This RPC involves one node sending a PING message to 
+          another, which presumably replies with a PONG.  </p>
+        <p>This has a two-fold effect: the recipient of the PING
+          must update the bucket corresponding to the sender;  and,
+          if there is a reply, the sender must update the bucket 
+          appropriate to the recipient.</p>
+        <p> All RPC packets are required to carry an RPC identifier 
+          assigned by the sender and echoed in the reply.  This is
+          a quasi-random number of length B (160 bits).</p>
+
+        <note> Implementations using shorter message
+          identifiers must consider the <strong>birthday paradox</strong>, which
+          in effect makes the probability of a collision depend upon
+          half the number of bits in the identifier.  For example, a
+          32-bit RPC identifier would yield a probability of collision 
+          proportional to 2^-16, an uncomfortably small number in a busy 
+          network.
+          <br/><br/>
+          If the identifiers are initialized to zero or are generated by 
+          the same random number generator with the same seed, the probability
+          will be very high indeed. 
+        </note>
+      
+        <p>It must be possible to piggyback PINGs onto RPC replies
+          to force or permit the originator, the sender of the RPC, to provide
+          additional information to its recipient.
+          <strong>This might be a different IP address or a preferred
+            protocol for future communications.</strong>
+        </p>
+      </section>
+
+      <section id="STORE"><title>STORE</title>
+        <p>The sender of the STORE RPC provides a key and a block
+          of data and requires that the recipient store the data and
+          make it available for later retrieval by that key.</p>
+
+        <p>This is a primitive operation, not an iterative one.</p>
+
+        <note>While this is not formally specified, it is clear that the
+          initial STORE message must contain in addition to the 
+          message ID at least the data to be stored (including its
+          length) and the associated key.  As the transport may be UDP,
+          the message needs to also contain at least the nodeID of the sender,
+          and the reply the nodeID of the recipient.
+          <br/><br/>
+          The reply to any RPC should also contain an indication of the 
+          result of the operation.  For example, in a STORE while no maximum 
+          data length has been specified,
+          it is clearly possible that the receiver might not be able to
+          store the data, either because of lack of space or because of
+          an I/O error.
+          </note>
+      </section>
+    
+      <section id="FIND_NODE"><title>FIND_NODE</title>
+        <p>The FIND_NODE RPC includes a 160-bit key.  
+          The recipient of the RPC returns up to k triples 
+          (IP address, port, nodeID) for the contacts that it knows to
+          be closest to the key.</p>
+      
+        <p>The recipient must return k triples if at all possible.
+          It may only return fewer than k if it is returning all
+          of the contacts that it has knowledge of.</p>
+      
+        <p>This is a primitive operation, not an iterative one.</p>
+
+        <note>The name of this RPC is misleading.  Even if the 
+          key to the RPC is the nodeID of an existing contact or
+          indeed if it is the nodeID of the recipient itself, the
+          recipient is still required to return k triples.
+          A more descriptive name would be FIND_CLOSE_NODES.
+          <br/><br/>
+          The recipient of a FIND_NODE should never return a triple
+            containing the nodeID of the requestor.  If the requestor
+            does receive such a triple, it should discard it.  A node 
+            must never put its own nodeID into a bucket as a contact.
+        </note>
+      </section>
+    
+      <section id="FIND_VALUE"><title>FIND_VALUE</title>
+        <p>A FIND_VALUE RPC includes a B=160-bit key.  If a corresponding
+          value is present on the recipient, the associated data is 
+          returned.  Otherwise the RPC is equivalent to a FIND_NODE
+          and a set of k triples is returned.</p>
+        
+        <p>This is a primitive operation, not an iterative one.</p>
+
+      </section>
+    
+      <section id="lookup"><title>Node Lookup</title>
+        <p>This section describes the algorithm that Kademlia uses
+          for locating the k nodes nearest to a key.  It must be understood
+          that these are not necessarily closest in a strict sense.
+          Also, the algorithm is <strong>iterative</strong> although the paper 
+          describes it as recursive.</p>
+          
+        <p>The search begins by selecting alpha contacts from the
+          non-empty k-bucket closest to the bucket appropriate to the
+          key being searched on.  If there are fewer than alpha contacts in
+          that bucket, contacts are selected from other buckets.  The
+          contact closest to the target key, <strong>closestNode</strong>, 
+          is noted.</p>
+      
+        <note>The criteria for selecting the contacts within the
+          closest bucket are not specified.  Where there are fewer than alpha
+          contacts within that bucket and contacts are obtained from
+          other buckets, there are no rules for selecting the other
+          buckets or which contacts are to be used from such buckets.</note>
+
+        <p>The first alpha contacts selected are used to create a 
+          <strong>shortlist</strong> for the search.
+        </p>
+        <p>The node then sends parallel, asynchronous FIND_* RPCs
+          to the alpha contacts in the shortlist.  Each contact, if it is live,
+          should normally return k triples.  If any of the alpha contacts
+          fails to reply, it is removed from the shortlist,
+          at least temporarily.</p> 
+          
+        <p>The node then fills the shortlist with contacts from the
+          replies received.  These are those closest to the target.
+          From the shortlist it selects another alpha contacts.  The only 
+          condition for this selection is that they have not already
+          been contacted.  Once again a FIND_* RPC is sent to each
+          in parallel.</p>
+      
+        <p>Each such parallel search updates <strong>closestNode</strong>,
+          the closest node seen so far.</p>
+        
+        <p>The sequence of parallel searches is continued until either 
+          no node in the sets returned is closer than the closest node 
+          already seen or the initiating node has accumulated k probed
+          and known to be active contacts.</p>
+      
+        <p>If a cycle doesn't find a closer node, if 
+          <strong>closestNode</strong> is unchanged, then the initiating
+          node sends a FIND_* RPC to each of the k closest nodes that it
+          has not already queried.</p>
+      
+        <p>At the end of this process, the node will have accumulated
+          a set of k active contacts or (if the RPC was FIND_VALUE) may have
+          found a data value.
+          Either a set of triples or the value is returned to the caller.</p>
+      
+        <note>The original algorithm description is not clear in detail.
+          However, it appears that the initiating node maintains a 
+          <strong>shortlist</strong> of k closest nodes.  
+          During each iteration alpha of these are 
+          selected for probing and marked accordingly.  If a probe 
+          succeeds, that shortlisted node is marked as active.  If 
+          there is no reply
+          after an unspecified period of time, the node is dropped from
+          the shortlist.  As each set of replies comes back, it is used
+          to improve the shortlist: closer nodes in the reply replace
+          more distant (unprobed?) nodes in the shortlist.  Iteration
+          continues until k nodes have been successfully probed or there
+          has been no improvement.
+        </note>
+    
+        <section id="alpha"><title>Alpha and Parallelism</title>
+          <p>Kademlia uses a value of 3 for alpha, the degree of
+            parallelism used.  It appears that (see
+              <a href="references.html#stutz06">stutz06</a>)
+              this value is optimal.</p>
+        
+            <p>There are at least three approaches to managing 
+            parallelism.  The first is to launch alpha probes and
+            wait until all have succeeded or timed out before iterating.
+            This is termed <strong>strict parallelism</strong>.  The second
+            is to limit the number of probes in flight to alpha; whenever
+            a probe returns a new one is launched.  We might call this
+            <strong>bounded parallelism</strong>.  A third is to iterate after 
+            what seems to be a reasonable delay (duration unspecified),
+            so that the number of probes in flight is some low multiple
+            of alpha.  This is <strong>loose parallelism</strong> and 
+            the approach used by Kademlia.</p>
+        </section>
+        <section id="iterativeStore"><title>iterativeStore</title>
+          <p>This is the Kademlia store operation.  The initiating 
+            node does an iterativeFindNode,
+            collecting a set of k closest contacts, and then sends a 
+            primitive STORE RPC to each.</p>
+          <p>iterativeStores are used for publishing or replicating
+            data on a Kademlia network.</p>
+        </section>
+        <section id="iterativeFindNode"><title>iterativeFindNode</title>
+          <p>This is the basic Kademlia node lookup operation.  As described
+            above, the initiating node builds a list of k "closest" 
+            contacts using iterative node lookup and the FIND_NODE RPC.  
+            The list is returned to the caller.</p>
+        </section>
+        <section id="iterativeFindValue"><title>iterativeFindValue</title>
+          <p>This is the Kademlia search operation.  It is conducted
+            as a node lookup, and so builds a list of k closest 
+            contacts.  However, this is done using the FIND_VALUE RPC
+            instead of the FIND_NODE RPC.  If at any time during the node 
+            lookup the value is returned instead of a set of contacts,
+            the search is abandoned and the value is returned.  Otherwise,
+            if no value has been found, the list of k closest contacts
+            is returned to the caller.
+          </p>
+          <p>When an iterativeFindValue succeeds, the initiator 
+            must store the key/value pair at the closest node seen which did 
+            <strong>not</strong> return the value.</p>
+        </section>
+      </section>
+      <section id="refresh"><title>Refresh</title>
+        <p>If no node lookups have been performed in any given bucket's
+          range for tRefresh (an hour in basic Kademlia), 
+          the node selects a random number in that 
+          range and does a <strong>refresh</strong>,
+          an iterativeFindNode using that number as key.
+        </p>
+      </section>
+    
+      <section id="join"><title>Join</title>
+        <p>A node joins the network as follows:</p>
+        <ol>
+          <li>if it does not already have a nodeID <strong>n</strong>,
+            it generates one
+          </li>
+          <li>it inserts the value of some known node <strong>c</strong> into 
+            the appropriate bucket as its first contact</li>
+          <li>it does an iterativeFindNode for <strong>n</strong></li>
+          <li>it refreshes all buckets further away than its closest
+            neighbor, which will be in the occupied bucket with the 
+            lowest index.</li>
+        </ol>
+        <p>If the node saved a list of good contacts and used one of
+          these as the "known node" it would be consistent with this 
+          protocol.</p>
+      </section>
+      
+      <section id="replication"><title>Replication Rules</title>
+        <ul>
+          <li>Data is stored using an <strong>iterativeStore</strong>,
+            which has the effect of replicating it over the k nodes 
+            closest to the key.</li>
+          <li>Each node republishes each key/value pair that it contains
+            at intervals of tReplicate seconds (every hour).  The 
+            republishing node must not be seen as the original publisher
+            of the key/value pair.
+          </li>
+          <li>The original publisher of a key/value pair republishes it
+            every tRepublish seconds (every 24 hours).</li>
+          <li>When an iterativeFindValue succeeds, the initiator 
+            must store the key/value pair at the closest node seen which did 
+            <strong>not</strong> return the value.</li>
+        </ul>
+      </section>
+      <section id="expiration"><title>Expiration Rules</title>
+        <ul>
+          <li>All key/value pairs expire tExpire seconds (24 hours) 
+            after the original publication.</li>
+          <li>All key/value pairs are assigned an <strong>expiration time</strong>
+            which is "exponentially inversely proportional to the number of nodes
+            between the current node and the node whose ID is 
+            closest to the key", where this number is "inferred from 
+            the bucket structure of the current node".</li>
+        </ul>
+        <p>The writer would calculate the expiration time when
+          the key/value pair is stored using something similar 
+          to the following: </p>
+        <ul>  
+          <li>find the index <strong>j</strong> of the bucket corresponding
+            to the key</li>
+          <li> count the total number of contacts <strong>Ca</strong> in buckets 
+            0..j-1</li>
+          <li> count the number of contacts <strong>Cb</strong> in 
+            bucket <strong>j</strong> closer than the key</li>
+          <li> if <strong>C</strong> = Ca + Cb, then the interval to the 
+            expiration time is
+            <ul>
+              <li>24 hours if C &gt; k</li>
+              <li>24h * exp( k / C ) otherwise</li>
+            </ul>
+          </li>  
+        </ul>
+        <note>
+          The requirement that data expires tExpire (one day) after the
+          <em>original</em> publication date is more than ambiguous
+          and would seem to mean that no data can ever be republished.
+          <br/><br/>
+
+          In any case, the system is required to mark the stored 
+          key/value pair with an original publication timestamp.
+          If this is to be accurate, the timestamp must be set by 
+          the publisher, which means that clocks must be at least
+          loosely synchronized across the network.
+          <br/><br/>
+          It would seem sensible to mark the key/value pair with a time
+          to live (TTL) from the arrival of the data, tExpire 
+          (one day) or a fraction thereof.
+        </note>
+      </section>
+    </section>
+    <section id="implementation"><title>Implementation Suggestions</title>
+      
+      <section id="contact"><title>Contact</title>
+        <p>It would seem useful to add to the Contact data structure
+          at least:</p>
+        <ul>
+          <li>an RTT (round trip time) value or a set of such values,
+            measured in ms</li>
+          <li>more IP addresses, together with perhaps
+            <ul>
+              <li>protocol used (TCP/IP, UDP)</li>
+              <li>NAT information, if applicable</li>
+              <li>whether the address is local and so reachable 
+                by broadcast</li>
+            </ul>
+          </li>
+        </ul>
+        <p>Adding an RTT or set of RTTs to the Contact data structure
+          would enable better decisions to be made when selecting which
+          to use.</p>
+        <p>The round trip 
+          time (RTT) to the contact could be as measured using
+          a PING RPC or using a conventional Internet network ping.</p>
+      </section>
+
+      <section id="convoys"><title>Possible Convoy Effects</title>
+        <p>Implementors should take care to avoid convoy effects.
+          These occur when a number of processes need to use a 
+          resource in turn.  There is a tendency for such bursts
+          of activity to drift towards synchronization, which can
+          be disasterous.  In Kademlia all nodes are requird to 
+          republish their contents every hour (tReplicate).  A
+          convoy effect might lead to this being synchronized 
+          across the network, which would appear to users as the
+          network dying every hour.</p>
+      </section>
+      
+      <section id="rng"><title>Random Number Generation</title>
+        <p>Implementors should remember that random number generators
+          are usually not re-entrant and so access from different 
+          threads needs to be synchronized.</p>
+        <p>Also, beware of clock
+          granularity: it is possible that where the clock is used
+          to seed the random number generator, successive calls could
+          use the same seed.
+        </p>
+      </section>
+      <section id="store"><title>STORE</title>
+        <p>For efficiency, the STORE RPC should be two-phase.  In the 
+          first phase the initiator sends a key and possibly length and 
+          the recipient replies with either something equivalent to OK
+          or a code signifying that it already has the value or some
+          other status code.  If the reply was OK, then the initiator
+          may send the value.</p>
+        <p>Some consideration should also be given to the development
+          of methods for handling hierarchical data.  Some values will
+          be small and will fit in a UDP datagram.  But some messages
+          will be very large, over say 5 GB, and will need to be chunked.
+          The chunks themselves might be very large relative to a UDP
+          packet, typically on the order of 128 KB, so these chunks will
+          have to be shredded into individual UDP packets.</p>
+      </section>
+      
+      <section id="tExpire"><title>tExpire</title>
+        <p>As noted earlier, the requirement that tExpire and tRepublish
+          have the same value introduces a race condition: data will
+          frequently be republished immediately after expiration.  It
+          would be sensible to make the expiration interval tExpire
+          somewhat greater than the republication interval tRepublish.
+          The protocol should certainly also allow the recipient of
+          a STORE RPC to reply that it already has the data, to save on
+          expensive network bandwidth.
+        </p>
+      </section>
+    </section>
+    <section id="problems"><title>Possible Problems with Kademlia</title>
+      <section id="sybil"><title>The Sybil Attack</title>
+        <p>A paper by John Douceur, 
+          <a href="references.html#douceur02">douceur02</a>, 
+          describes a network 
+          attack in which attackers select nodeIDs whose values enable
+          them to position themselves in the network in patterns 
+          optimal for disrupting operations.  For example, to remove
+          a data item from the network, attackers might cluster around 
+          its key, accept any attempts to store the key/value pair, but 
+          never return the value when presented with the key.</p>
+        <p>A Sybil variation is the <strong>Spartacus attack</strong>, where an 
+          attacker joins the network claiming to have the same nodeID
+          as another member.  As specified, Kademlia has no defense. In
+          particular, a long-lived node can always steal a short-lived
+          node's nodeID.
+        </p>
+        <p>Douceur's solution is a requirement that all nodes get their
+          nodeIDs from a central server which is responsible at least for 
+          making sure that the distribution of nodeIDs is even.</p>  
+        <p>A weaker solution would be
+          to require that nodeIDs be derived from the node's network
+          address or some other quasi-unique value.</p>
+      </section>
+    </section>
+  </body>
+</document>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+
+<header><title>Kademlia</title></header>
+
+<body>
+  <p>Kademlia is a UDP-based peer-to-peer communications protocol,
+    a variation on the DHT (distributed hash table).  It is distinguished
+    by its use of XOR as a metric.  
+  </p>
+  <p>Kademlia is widely copied.  
+    <a href="http://en.wikipedia.org/wiki/EMule">eMule</a>
+    and 
+    <a href="http://en.wikipedia.org/wiki/EDonkey">eDonkey</a>
+    in particular are hugely successful, with millions of users.
+    However, implementations diverge quite widely from the original
+    protocol.
+  </p>
+  <p>Because the original Kademlia paper was somewhat less than clear
+    on certain aspects, we provide a 
+    <a href="specs.html">design specification</a> for the Kademlia
+    protocol.  An implementation spec will follow.
+  </p>
+</body>
+</document>
