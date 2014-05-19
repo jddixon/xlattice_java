@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+    <document>
+
+<header><title>Stun</title></header>
+
+<body>
+  <section id="overview"><title>Overview</title>
+    <p>STUN is fully documented in 
+      <a href="http://www.ietf.org/rfc/rfc3489.txt">RFC 2782</a>.
+      The discussion here provides additional information to ease
+      the learning curve.</p>
+  </section>
+  <section id="protocol"><title>The Protocol</title>
+    <p>STUN can be broken down into three parts:</p>
+    <ul>
+      <li>server discovery</li>
+      <li>binding</li>
+      <li>shared secrets and authentication</li>
+    </ul>
+    <section id="server-discovery"><title>Server Discovery</title>
+      <p>Server discovery is a procedure for locating the STUN servers
+        provided by a particular domain.  It is not essential and seems
+        to be little used.</p>
+
+      <p>STUN servers can be discovered through the DNS.  Full details
+        can be found in 
+        <a href="http://www.ietf.org/rfc/rfc2782.txt">RFC 2782</a>
+        but a summary is provided here.
+      </p>
+      <section id="dns-config"><title>DNS Configuration</title>
+        <p>In order to configure the service you must have admin
+          privileges for the domain name being configured.  The
+          exact way of effecting this varies with the name server
+          being used.  With BIND you add a line like</p>
+        <source>
+_stun._udp      SRV  10 0 3478  stun.xlattice.org.
+        </source>
+        <p>This says that a STUN UDP service is supplied at port 3478
+        at stun.xlattice.org.  The <strong>10 0</strong> are the
+        priority and weight respectively and are not important if
+        only one stun server is on line.</p>
+        <p>A second <strong>_stun._tcp</strong> line is necessary if
+        the shared secret service part of the protocol is also being
+        supplied over a TCP TLS connection.</p>
+        <p>Under UNIX/Linux you can query the  availability of one of 
+        the services with a line like</p>
+        <source>
+dig -t SRV _stun._udp.xten.com
+        </source>
+        <p>The reply will look like</p>
+        <source>
+_Service._Proto.Name TTL   Class SRV Priority Weight Port Target
+_stun._udp.xten.net. 3600    IN  SRV    10      0    3478 xtunnels.xten.net.
+        </source>
+        <p>We have added the first line to make the layout clear; 
+          only the second line will actually appear.</p>
+        <p>These records are conventionally attached to an organization's
+          top-level domain.  In the case above, for example, the
+          service record is attached to <strong>xten.com</strong> 
+          rather than say <strong>stun.xten.com</strong>.  This makes
+          sense, as the query is in essence "what STUN-udp servers are 
+          available in your organization?" and the reply will be a 
+          list of available servers, with the <strong>priority</strong>
+          and <strong>weight</strong> numbers providing a guide as to
+          which should be used.</p>
+      </section>
+    </section>
+    <section id="binding"><title>Binding</title>
+      <p>Binding is another discovery procedure: it enables a client 
+        behind a NAT to determine what its public IP address and port
+        are, and it allows the client to explore how these change if
+        the server's IP address and/or port number change.  This 
+        information can be used to guess what kind of NAT the client is
+        behind.</p>
+      <p>This is the basic STUN service, the one that must be supported
+        by any STUN client or server.
+      </p>
+    </section>
+    <section id="shared-secret"><title>SharedSecret</title>
+      <p>If authentication and security are issues, the client can 
+        obtain a short-lived shared secret from the server.  This is done 
+        over a TCP connection running TLS.  The shared secret can then
+        be used to attach an SHA1-HMAC to messages between the client and
+        the STUN server.  See
+        <a href="http://www.ietf.org/rfc/rfc2104.txt">RFC 2104</a>
+        for further information on HMACs.
+      </p>
+      <p>
+        Many public servers do not provide this part of the STUN protocol.
+      </p>
+    </section>
+    <section id="tls"><title>TLS</title>
+      <p>TLS is the IETF's version of SSL, the protocol used for secure
+        Web connections (https).</p>
+      <p>In Java there are two commonly used TLS packages,
+        <a href="www.rtfm.com/puretls/">PureTLS</a>
+        and 
+        <a href="http://java.sun.com/products/jsse/">JSSE</a>.  
+        Tomcat uses these as alternatives, first trying
+        to load PureTLS and then looking for JSSE.  
+      </p>  
+      <p>It appears that PureTLS is no longer being supported.  We
+        have as yet not been able to make it work with Java 1.5.
+      </p>
+    </section>
+  </section>
+  <section id="servers"><title>Public STUN Servers</title>
+    <p>The table below lists STUN servers that we know to provide
+      the basic UDP BindingRequest/Response service.  If the
+      <strong>DNS?</strong> column has a Y in it, there is an SRV
+      record.  If there is a Y in the <strong>tcp?</strong> column, the
+      SRV record claims that they provide the TLS authentication service,
+      but we haven't tested this.</p>
+    <table>
+      <tr><th>domain name</th><th>DNS?</th><th>tcp?</th><th>remarks</th></tr>
+      <tr><td>stun.fwdnet.net</td><td>Y</td><td>Y</td><td/></tr>
+      <tr><td>stun01.sipphone.com</td><td>Y</td><td>Y</td><td/></tr>
+      <tr><td>stun.softjoys.com</td><td>Y</td><td>Y</td><td/></tr>
+      <tr><td>stun.voipbuster.com</td><td>N</td><td>?</td><td/></tr>
+      <tr><td>stun.voxgratia.org</td><td>N</td><td>?</td>
+        <td>SRV record says services not provided</td></tr>
+      <tr><td>stun.xten.net</td><td>N</td><td>N</td><td/></tr>
+      <tr><td>stun1.noc.ams-ix.net</td><td>Y</td><td>N</td><td/></tr>
+    </table>
+    <section id="vovida-software"><title>Vovida Software</title>
+      <p>The open source C++ STUN server/client code available for 
+        <a href="http://sourceforge.net/project/showfiles.php?group_id=47735">
+          download</a>
+        is commonly used on the public servers 
+        but does not support authentication.
+        The tlsServer does not compile.  The udp server returns an
+        extension attribute <strong>ServerName</strong> which has a value 
+        of "Vovida.org 0.96".</p>
+      <p>This software is from a SourceForge project, 
+        <a href="http://sourceforge.net/projects/stun">
+          http://sourceforge.net/projects/stun</a>.
+        At the time of writing the project has an open tracker item dated
+        2004-04-16 and entitled "support user/password hmac stuff".
+     </p>
+   </section>
+  </section>
+</body>
+</document>
