@@ -12,7 +12,7 @@ public class Version extends org.xlattice.Version {
         super(  "org.xlattice.httpd.cryptoserver",
                 0,          // major
                 2,          // minor
-                0,          // decimal
+                1,          // decimal
                 0           // build
         );
     }

@@ -1,5 +1,13 @@
 pa:~jdd/dev/java/xlattice_j/TODO
 
+2014-08-05
+    * version number in Version.java in all components must be
+        derived from the version number in build.xml
+        - add python script to enforce this?
+    * projmgr build fails because antlr jar missing
+    * antlr4-4.1 build fails because 'lib creation was not 
+        successful for an unknown reason'  hmmmmm...
+
 2013-12-31
     * rebuild dist after reconcileJava run
         - util                                                      * DONE

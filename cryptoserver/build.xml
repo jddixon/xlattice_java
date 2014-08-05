@@ -155,7 +155,7 @@
     </copy>
     <!-- dependencies -->
     <copy todir="${dist_dir}/lib/xlattice" >
-        <fileset dir="${root_dir}"         includes="LICENSE.txt"/>
+        <fileset dir="${root_dir}"         includes="LICENSE.html"/>
         <fileset dir="${lib_dir}/xlattice" includes="util-0.3.10.jar"/>
         <fileset dir="${lib_dir}/xlattice" includes="corexml-0.3.7.jar"/>
         <fileset dir="${lib_dir}/xlattice" includes="crypto-0.2.0.jar"/>
@@ -175,7 +175,7 @@
     </copy>
 
     <!-- project control files -->
-    <copy todir="${dist_dir}/${component}" file="${root_dir}/LICENSE.txt" />
+    <copy todir="${dist_dir}/${component}" file="${root_dir}/LICENSE.html" />
     <copy todir="${dist_dir}/${component}" file="build.xml" />
     <copy todir="${dist_dir}/${component}" file="CHANGES" />
     <!--

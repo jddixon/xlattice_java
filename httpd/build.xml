@@ -429,7 +429,7 @@
 
     <!-- project control files -->
 
-    <copy todir="${dist_dir}/${component}" file="${root_dir}/LICENSE.txt" />
+    <copy todir="${dist_dir}/${component}" file="${root_dir}/LICENSE.html" />
 
     <copy todir="${dist_dir}/${component}" file="build.xml" />
 
