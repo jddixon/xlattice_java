@@ -3,7 +3,7 @@ package org.xlattice.util;
 
 /**
  * @author Jim Dixon
- **/
+ */
 
 // XXX TEMPORARY ONLY
 import sun.misc.BASE64Decoder;
