@@ -1,5 +1,10 @@
 ~/dev/java/xlattice/httpd/TODO
 
+2015-06-11
+    * some files under httpd/generated/xlattice/overlays/store
+        have base64 file names, and so contain '=', which are
+        rejected by the regexp.  Quick solution: add generated to 
+        java .gitignore
 2013-06-12
     * Build "succeeds" despite (minor) errors being reported
 
