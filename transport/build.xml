@@ -3,7 +3,8 @@
 <project default="test" name="transport" basedir=".">
 
   <property name="name"           value="transport"/>
-  <property name="version"        value="0.2.1"/>
+  <property name="version"        value="0.2.2"/>
+  <property name="version_date"   value="2015-08-18"/>
   <property name="projectName"    value="xlattice"/>
   <property file="project.properties"/>
 
