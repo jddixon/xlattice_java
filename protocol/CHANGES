@@ -1,5 +1,8 @@
 ~/dev/java/xlattice_j/protocol/CHANGES
 
+v0.2.2
+    2015-08-19
+        * add build.sh, classpath.sh, version_date                  SLOC 5679
 v0.2.1
     2013-12-29                                                      SLOC 5485
         * jdk 1.7, ant 1.8.2
