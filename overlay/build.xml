@@ -8,7 +8,8 @@
 
   <property name="name"           value="overlay"/>
 
-  <property name="version"        value="0.2.2"/>
+  <property name="version"        value="0.2.3"/>
+  <property name="version_date"   value="2015-08-20"/>
 
   <!-- manual addition -->
 
