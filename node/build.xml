@@ -2,7 +2,8 @@
 
 <project default="install-jar" name="node" basedir=".">
   <property name="name"           value="node"/>
-  <property name="version"        value="0.2.1"/>
+  <property name="version"        value="0.2.2"/>
+  <property name="version_date"   value="2015-08-21"/>
   <!-- manual addition -->
   <property name="projectName"    value="xlattice"/>
 
