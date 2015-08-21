@@ -1,5 +1,9 @@
 // ~/dev/java/xlattice_j/node/CHANGES
 
+v0.2.2                                                             
+    2015-08-21
+        * add {build,classpath}.sh, version_date                    SLOC 3060
+
 v0.2.1                                                              SLOC 2841
     2013-12-29
         * jdk 1.7, ant 1.8.2; build.xml fixes
