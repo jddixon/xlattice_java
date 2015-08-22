@@ -1,5 +1,8 @@
 ~/dev/java/xlattice/cryptoserver/CHANGES
 
+v0.2.2
+    2015-08-22
+        * added version_date, {build,classpath}.sh                  SLOC  678
 v0.2.0
     2011-08-23 
         * stepped version number for move to Stockton svn
