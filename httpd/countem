@@ -1,0 +1,4 @@
+pySloc -v -C java:sh   \
+    -X target       \
+    $@
+
