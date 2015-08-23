@@ -1,6 +1,10 @@
 ~/dev/java/xlattice_j/httpd/CHANGES
 
-0.2.0        
+0.2.2
+    2015-08-23
+        * added version_date, countem, {build,classpath}.sh         SLOC 5022
+
+0.2.1       
     2013-12-29                                                      SLOC 5583
         * jdk 1.7, ant 1.8.2
 0.2.0                                                               SLOC 4988
