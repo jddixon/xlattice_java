@@ -3,7 +3,8 @@
 <project default="test" name="projmgr" basedir=".">
 
   <property name="name"           value="projmgr"/>
-  <property name="version"        value="0.4.2"/>
+  <property name="version"        value="0.4.3"/>
+  <property name="version_date"   value="2015-08-24"/>
   <property name="projectName"    value="xlattice" />
   <!-- ======================================================= -->
   <!-- S O U R C E   P R O P E R T I E S                       -->
