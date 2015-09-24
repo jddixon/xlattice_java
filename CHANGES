@@ -1,8 +1,15 @@
 /* xlattice_java/CHANGES */
 
+v0.3.13
+    2015-09-22
+        * version set to util version
+        * add more detail to project docs
+    
 v0.3.12 
     2015-06-11
         * mods to util
+    2015-08-26
+        * correct error in component countem files
 
 v0.0.0
     2003-01-01
