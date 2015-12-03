@@ -1,5 +1,8 @@
 pa:~jdd/dev/java/xlattice_j/TODO
 
+2015-09-22
+    * FIX: index.html not being updated to github
+
 2014-08-05
     * version number in Version.java in all components must be
         derived from the version number in build.xml

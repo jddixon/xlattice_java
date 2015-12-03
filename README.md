@@ -7,7 +7,7 @@ changes in the global environment, the Internet, over the last several
 years.
 
 XLattice consists of a number of components.  The Java version includes
-jars for 
+jars for
 
 * **util**, basic facilities such as string and file handling;
 * **corexml**, routines for building and navigating XML documents;
@@ -23,7 +23,7 @@ jars for
 ## Project Status
 
 The Java version of XLattice is reasonably stable and well-tested.
-It is a more complete implementation than the 
+It is a more complete implementation than the
 (Go version of XLattice)[https://jddixon.github.io/xlattice_go]
 and far more complete than the
 (Pytho version of XLattice)[https://jddixon.github.io/xlattice_py],
@@ -31,5 +31,5 @@ which is a library supporting some XLattice functionality.
 
 ## On-line Documentation
 
-More information on the **xlattice_java** project can be found 
-[here](https://jddixon.github.io/xlattice_java)
+More information on the **xlattice_java** project can be found
+[here](://jddixon.github.io/xlattice_java)
