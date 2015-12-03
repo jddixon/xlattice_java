@@ -3,10 +3,10 @@
 <project default="test" name="util" basedir=".">
 
   <property name="name"           value="util"/>
-  <property name="version"        value="0.3.12"/>
-  <property name="version_date"   value="2015-06-11"/>
+  <property name="version"        value="0.3.13"/>
+  <property name="versionDate"    value="2015-12-03"/>
   <!-- manual addition -->
-  <property name="projectName"    value="xlattice"/>
+  <property name="projectName"    value="xlattice_java"/>
   <!-- ======================================================= -->
   <!-- S O U R C E   P R O P E R T I E S                       -->
   <!-- ======================================================= -->
@@ -58,7 +58,7 @@
       </src>
       <classpath>
         <fileset dir="${lib_dir}">
-          <include name="**/*.jar"/>      
+          <include name="**/*.jar"/>
         </fileset>
       </classpath>
     </javac>
@@ -132,7 +132,7 @@
   <!-- ======================================================= -->
   <target name="install-jar"      description="o Copy jar to lib"
                                                     depends="jar">
-    <copy file="${build_dir}/${dist_name}.jar" 
+    <copy file="${build_dir}/${dist_name}.jar"
         todir="${lib_dir}/${projectName}"/>
   </target>
   <!-- ======================================================= -->
@@ -246,3 +246,4 @@
     <delete dir="${dist_dir}"/>
   </target>
 </project>
+
