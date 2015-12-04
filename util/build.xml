@@ -4,9 +4,9 @@
 
   <property name="name"           value="util"/>
   <property name="version"        value="0.3.13"/>
-  <property name="versionDate"    value="2015-12-03"/>
+  <property name="version_date"   value="2015-12-03"/>
   <!-- manual addition -->
-  <property name="projectName"    value="xlattice_java"/>
+  <property name="project_name"   value="xlattice_java"/>
   <!-- ======================================================= -->
   <!-- S O U R C E   P R O P E R T I E S                       -->
   <!-- ======================================================= -->
@@ -34,7 +34,7 @@
   <property name="zip_dir"          value="distribution"/>
   <!-- where a clean set of files is collected before zipping -->
   <property name="dist_base"        value="dist-files"/>
-  <property name="dist_dir"         value="${dist_base}/${projectName}"/>
+  <property name="dist_dir"         value="${dist_base}/${project_name}"/>
   <property name="dist_lib"         value="${dist_dir}/lib"/>
   <property name="dist_name"        value="${name}-${version}"/>
   <!-- ======================================================= -->
@@ -133,7 +133,7 @@
   <target name="install-jar"      description="o Copy jar to lib"
                                                     depends="jar">
     <copy file="${build_dir}/${dist_name}.jar"
-        todir="${lib_dir}/${projectName}"/>
+        todir="${lib_dir}/${project_name}"/>
   </target>
   <!-- ======================================================= -->
   <!-- G E N E R A T E   J A V A D O C                         -->
@@ -221,11 +221,11 @@
     <tar longfile="gnu"
          destfile="${zip_dir}/${dist_name}.tar">
         <tarfileset dir="${dist_base}" mode="744">
-            <include name="${projectName}/${component}/build.sh" />
+            <include name="${project_name}/${component}/build.sh" />
         </tarfileset>
         <tarfileset dir="${dist_base}">
             <include name="**" />
-            <exclude name="${projectName}/${component}/build.sh" />
+            <exclude name="${project_name}/${component}/build.sh" />
         </tarfileset>
     </tar>
     <gzip zipfile="${zip_dir}/${dist_name}.tar.gz"

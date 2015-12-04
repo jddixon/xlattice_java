@@ -1,5 +1,8 @@
 // ~/dev/java/xlattice_j/corexml/CHANGES
 
+v0.3.10
+    2015-12-04
+        * minor changes to build.xml                                SLOC 8889
 0.3.7
     2013-12-29                                                      SLOC 8829
         * regenerated with Java 1.7, ant 1.8.2
@@ -30,3 +33,4 @@
         * removed context/, which has been moved to util; made 
             necessary changes
         * switched to using junit-4.1
+
