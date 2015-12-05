@@ -1,3 +1,4 @@
+cd ~/dev/java/xlattice_java/corexml
 pySloc $@ -v -C java:sh \
     -X target           \
     bash:countem      
