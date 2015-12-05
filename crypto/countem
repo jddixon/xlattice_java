@@ -1,4 +1,4 @@
 pySloc $@ -v -C java:sh \
-    -X target           \
-    bash:countem      
+    -X target -X w3c    \
+    bash:countem
 
