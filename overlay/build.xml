@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-
 <project default="test" name="overlay" basedir=".">
-
-
-
   <property name="name"           value="overlay"/>
-
-  <property name="version"        value="0.2.3"/>
-  <property name="version_date"   value="2015-08-20"/>
-
+  <property name="version"        value="0.2.4"/>
+  <property name="versionDate"    value="2015-12-08"/>
   <!-- manual addition -->
-
-  <property name="projectName"    value="xlattice"/>
+  <property name="project_name"    value="xlattice_java"/>
 
   <!-- ======================================================= -->
 
@@ -281,7 +272,7 @@
 
     <copy file="${build_dir}/${dist_name}.jar" 
 
-        todir="${lib_dir}/${projectName}"/>
+        todir="${lib_dir}/${project_name}"/>
 
   </target>
 
@@ -479,3 +470,4 @@
   </target>
 
 </project>
+
