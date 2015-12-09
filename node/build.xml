@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project default="install-jar" name="node" basedir=".">
+<project default="test" name="node" basedir=".">
   <property name="name"           value="node"/>
-  <property name="version"        value="0.2.2"/>
-  <property name="version_date"   value="2015-08-21"/>
+  <property name="version"        value="0.2.3"/>
+  <property name="versionDate"    value="2015-12-09"/>
   <!-- manual addition -->
-  <property name="projectName"    value="xlattice"/>
+  <property name="project_name"    value="xlattice_java"/>
 
   <!-- ======================================================= -->
   <!-- S O U R C E   P R O P E R T I E S                       -->
@@ -258,7 +258,7 @@
 
     <copy file="${build_dir}/${dist_name}.jar" 
 
-        todir="${lib_dir}/${projectName}"/>
+        todir="${lib_dir}/${project_name}"/>
 
   </target>
 
@@ -476,5 +476,6 @@
   </target>
 
 </project>
+
 
 
