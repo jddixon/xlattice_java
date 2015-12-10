@@ -8,9 +8,9 @@ public class Version extends org.xlattice.Version {
 
     public Version () {
         super("org.xlattice.httpd", // package
-            0,                       // minor
+            0,                       // major
             2,                       // minor
-            1,                       // decimal
+            3,                       // decimal
             0);                      // build
     }
 };
