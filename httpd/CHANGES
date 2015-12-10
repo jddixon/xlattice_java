@@ -1,5 +1,8 @@
 ~/dev/java/xlattice_j/httpd/CHANGES
 
+v0.2.3
+    2015-12-10
+        * minor edits to build.xml                                  SLOC 5035
 0.2.2
     2015-08-23
         * added version_date, countem, {build,classpath}.sh         SLOC 5022
@@ -13,3 +16,4 @@
     2011-08-21 
         * stepped version number for move to Stockton svn
         * dropped build.sh, classpath.sh, added CHANGES
+
