@@ -2,6 +2,7 @@
 
 2015-12-11
     * weirdness: Version.java written to cryptoserver subdirectory
+    * cryptoserver/Version.java not on github
 2013-06-11
     * create cryptoserver.sh, add to build.xml
 2011-08-23 
