@@ -3,10 +3,10 @@
 <project default="test" name="cryptoserver" basedir=".">
 
   <property name="name"           value="cryptoserver"/>
-  <property name="version"        value="0.2.2"/>
-  <property name="version_date"   value="2015-08-22"/>
+  <property name="version"        value="0.2.3"/>
+  <property name="versionDate"    value="2015-12-11"/>
   <!-- manual addition -->
-  <property name="projectName"    value="xlattice"/>
+  <property name="project_name"   value="xlattice_java"/>
   <!-- ======================================================= -->
   <!-- S O U R C E   P R O P E R T I E S                       -->
   <!-- ======================================================= -->
@@ -133,7 +133,7 @@
   <target name="install-jar"      description="o Copy jar to lib"
                                                     depends="jar">
     <copy file="${build_dir}/${dist_name}.jar" 
-        todir="${lib_dir}/${projectName}"/>
+        todir="${lib_dir}/${project_name}"/>
   </target>
   <!-- ======================================================= -->
   <!-- D I S T R I B U T I O N                                 -->
@@ -208,3 +208,4 @@
     <delete dir="${dist_dir}"/>
   </target>
 </project>
+
