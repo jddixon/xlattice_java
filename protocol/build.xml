@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project default="test" name="protocol" basedir=".">
-
   <property name="name"           value="protocol"/>
   <property name="version"        value="0.2.3"/>
   <property name="versionDate"    value="2015-12-07"/>
@@ -10,628 +8,298 @@
   <!-- ======================================================= -->
   <!-- S O U R C E   P R O P E R T I E S                       -->
   <!-- ======================================================= -->
-
   <!-- this is an XLattice subproject, so root_dir is one up   -->
-
   <property name="root_dir"       value=".."/>
-
   <property name="src_dir"        value="src/java"/>
-
   <property name="test_src_dir"   value="src/test"/>
-
   <property name="jml_dir"        value="jml"/>
-
   <property name="xdoc_dir"       value="xdocs"/>
-
   <!-- ======================================================= -->
-
   <!-- B U I L D   P R O P E R T I E S                         -->
-
   <!-- ======================================================= -->
-
   <property name="build_dir" value="target"/>
-
   <property name="keystore_dir"     value="keystores"/>
-
   <property name="classes_dir"      value="${build_dir}/classes"/>
-
   <property name="lib_dir"          value="${root_dir}/lib"/>
-
   <property name="test_classes_dir" value="${build_dir}/test-classes"/>
-
   <property name="test_report_dir"  value="${build_dir}/test-reports"/>
-
   <property name="javadoc_dir"
-
                     value="${root_dir}/xdocs/components/${name}/api"/>
-
   <!-- ======================================================= -->
-
   <!-- D I S T R I B U T I O N   P R O P E R T I E S           -->
-
   <!-- ======================================================= -->
-
   <property name="component"        value="${name}"/>
-
   <!-- *.bat and *.sh scripts -->
-
   <property name="bin_dir"          value="bin"/>
-
   <!-- where the zip files go -->
-
   <property name="zip_dir"          value="distribution"/>
-
   <!-- where a clean set of files is collected before zipping -->
-
   <property name="dist_base"        value="dist-files"/>
-
   <property name="dist_dir"         value="${dist_base}/xlattice"/>
-
   <property name="dist_name"        value="${name}-${version}"/>
-
-
-
   <property name="stunplus_base"    value="stunplus-files"/>
-
   <property name="stunplus_dir"     value="${stunplus_base}/xlattice"/>
-
   <property name="stunplus_name"    value="stunplus-${version}"/>
-
   <!-- ======================================================= -->
-
   <!-- T E S T   P R O P E R T I E S                           -->
-
   <!-- ======================================================= -->
-
-
-
   <property name="stun.primary.host"    value="192.168.152.100"/>
-
-  <property name="stun.secondary.host"  value="192.168.152.101"/> 
-
+  <property name="stun.secondary.host"  value="192.168.152.101"/>
   <property name="stun.primary.port"    value="34567"/>
-
   <property name="stun.secondary.port"  value="34568"/>
-
-  
-
   <property name="serverPassword"       value="87654321"/>
-
   <property name="clientPassword"       value="12345678"/>
-
   <property name="stun.server.keystore" value="${keystore_dir}/test.server.private"/>
-
   <property name="stun.client.keystore" value="${keystore_dir}/test.client.private"/>
-
   <!-- ======================================================= -->
-
   <!-- I N I T                                                 -->
-
   <!-- ======================================================= -->
-
   <target name="init"
-
       description="o Initializes some properties">
-
     <mkdir dir="${lib_dir}"/>
-
     <condition property="clientKeystoresExist">
-
       <and>
-
         <available file="${keystore_dir}/test.client.private"/>
-
         <available file="${keystore_dir}/test.client.public"/>
-
       </and>
-
     </condition>
-
     <condition property="serverKeystoresExist">
-
       <and>
-
         <available file="${keystore_dir}/test.server.private"/>
-
         <available file="${keystore_dir}/test.server.public"/>
-
       </and>
-
     </condition>
-
   </target>
-
-
-
   <!-- ======================================================= -->
-
   <!-- K E Y S T O R E                                         -->
-
   <!-- ======================================================= -->
-
-
-
   <!-- M A K E  P R I V A T E                                  -->
-
   <target name="makePrivate">
-
     <echo message="makePrivate ${which}, password is ${pwd}"/>
-
     <!-- generate an RSA key pair and put it in a keystore -->
-
     <exec executable="keytool">
-
       <arg line="-genkey -alias ${which}private -keyalg RSA"/>
-
-      <arg line="-keystore ${keystore_dir}/test.${which}.private -storetype JKS" /> 
-
+      <arg line="-keystore ${keystore_dir}/test.${which}.private -storetype JKS" />
       <arg line="-storepass ${pwd} -keypass ${pwd}"/>
-
       <arg line="-dname 'CN=test, OU=test, O=XLattice Project,L=town, S=region, C=country'"/>
-
     </exec>
-
     <!-- export the RSA public key to a temporary file -->
-
     <exec executable="keytool">
-
       <arg line="-export -alias ${which}private -keystore test.${which}.private"/>
-
       <arg line="-file temp.key -storepass ${pwd}"/>
-
     </exec>
-
     <!-- import that RSA public key into a separate keystore -->
-
     <exec executable="keytool">
-
       <arg line="-import -noprompt -alias ${which}public -keystore ${keystore_dir}/test.${which}.public"/>
-
       <arg line="-file temp.key -storepass ${pwd}"/>
-
     </exec>
-
     <!-- remove the temporary file -->
-
     <delete file="temp.key"/>
-
-  
-
   </target>
-
-  
-
-
-
   <!-- K E Y S T O R E S                                       -->
-
   <!--
-
     There are two pairs of keystores, client and server.  Each
-
-    pair has a public and private keystore.  The rule is: if 
-
+    pair has a public and private keystore.  The rule is: if
     either keystore is missing, delete the other and regenerate
-
-    both.  The private keystore is generated using a keygen 
-
-    call.  The public key is then exported from the private 
-
-    keystore to a file and the file then used to create the 
-
+    both.  The private keystore is generated using a keygen
+    call.  The public key is then exported from the private
+    keystore to a file and the file then used to create the
     public keystore.
-
     -->
-
-
-
   <target name="clientKeystores" unless="clientKeystoresExist">
-
     <delete file="${keystore_dir}/test.client.private"/>
-
     <delete file="${keystore_dir}/test.client.public"/>
-
-    <antcall target="makePrivate"> 
-
+    <antcall target="makePrivate">
         <param name="which"      value="client"/>
-
         <param name="pwd"        value="${clientPassword}"/>
-
     </antcall>
-
   </target>
-
-
-
   <target name="serverKeystores" unless="serverKeystoresExist">
-
     <delete file="${keystore_dir}/test.server.private"/>
-
     <delete file="${keystore_dir}/test.server.public"/>
-
-    <antcall target="makePrivate"> 
-
+    <antcall target="makePrivate">
         <param name="which"      value="server"/>
-
         <param name="pwd"        value="${serverPassword}"/>
-
     </antcall>
-
-  </target> 
-
-
-
+  </target>
   <target name="keystores" description="o create keystores"
-
                    depends="init,clientKeystores,serverKeystores">
-
-      
-
   </target>  <!-- FOO -->
-
-  
-
   <!-- ======================================================= -->
-
   <!-- C O M P I L E   S O U R C E   F I L E S                 -->
-
   <!-- ======================================================= -->
-
   <target name="compile"         description="o Compile the code"
-
                                                    depends="init">
-
     <mkdir dir="${classes_dir}"/>
-
     <javac destdir="${classes_dir}" deprecation="true"
-
          debug="true" optimize="false" excludes="**/package.html">
-
       <src>
-
         <pathelement location="${src_dir}"/>
-
       </src>
-
       <classpath>
-
         <fileset dir="${lib_dir}">
-
           <include name="xlattice/util-0.3.10.jar"/>
-
           <include name="xlattice/crypto-0.2.0.jar"/>
-
           <include name="xlattice/transport-0.2.1.jar"/>
         </fileset>
-
       </classpath>
-
     </javac>
-
   </target>
-
   <!-- ======================================================= -->
-
   <!-- C O M P I L E   T E S T S                               -->
-
   <!-- ======================================================= -->
-
   <target name="compile-tests" description="o Compile unit tests"
-
                                                 depends="compile">
-
     <mkdir dir="${test_classes_dir}"/>
-
     <javac destdir="${test_classes_dir}" deprecation="true"
-
          debug="true" optimize="false" excludes="**/package.html"
-
         >
-
       <src>
-
         <pathelement location="${test_src_dir}"/>
-
       </src>
-
       <classpath>
-
         <fileset dir="${lib_dir}">
-
           <include name="junit/junit*.jar"/>
-
           <include name="xlattice/util-0.3.10.jar"/>
-
           <include name="xlattice/crypto-0.2.0.jar"/>
-
           <include name="xlattice/transport-0.2.1.jar"/>
         </fileset>
-
         <pathelement path="${classes_dir}"/>
-
       </classpath>
-
     </javac>
-
   </target>
-
   <!-- ======================================================= -->
-
   <!-- U N I T  T E S T S                                      -->
-
   <!-- ======================================================= -->
-
   <target name="test"          description="o Run the unit tests"
-
                                depends="compile-tests,keystores">
-
     <mkdir dir="${test_report_dir}"/>
-
     <junit dir="./" failureproperty="test_failure" fork="true"
-
          haltonerror="false" printSummary="yes" >
-
       <sysproperty key="basedir" value="."/>
-
       <sysproperty key="STUN_PRIMARY_HOST"    value="${stun.primary.host}"/>
-
       <sysproperty key="STUN_SECONDARY_HOST"  value="${stun.secondary.host}"/>
-
       <sysproperty key="STUN_PRIMARY_PORT"    value="${stun.primary.port}"/>
-
       <sysproperty key="STUN_SECONDARY_PORT"  value="${stun.secondary.port}"/>
-
       <sysproperty key="STUN_SERVER_PASSWORD" value="${serverPassword}"/>
-
       <sysproperty key="STUN_CLIENT_PASSWORD" value="${clientPassword}"/>
-
       <sysproperty key="STUN_SERVER_KEYSTORE" value="${stun.server.keystore}"/>
-
       <sysproperty key="STUN_CLIENT_KEYSTORE" value="${stun.client.keystore}"/>
-
       <formatter type="xml"/>
-
       <formatter usefile="false" type="plain"/>
-
       <classpath>
-
         <fileset dir="${lib_dir}">
-
           <include name="junit/junit*.jar"/>
-
           <include name="xlattice/util-0.3.10.jar"/>
-
           <include name="xlattice/crypto-0.2.0.jar"/>
-
           <include name="xlattice/transport-0.2.1.jar"/>
         </fileset>
-
         <pathelement path="${test_classes_dir}"/>
-
         <pathelement path="${classes_dir}"/>
-
       </classpath>
-
-
-
       <batchtest todir="${test_report_dir}">
-
         <fileset dir="${test_src_dir}">
-
           <include name="**/Test*.java"/>
-
           <include name="**/TestClient.java"/>
-
         </fileset>
-
       </batchtest>
-
       <!-- the usual collection
-
           FAILING:
-
           <include name="**/TestClient.java"/>
-
-
-
           END FAILING
-
-
-
-          <include name="**/xl/Test*.java"/>      
-
+          <include name="**/xl/Test*.java"/>
           <include name="**/TestClient.java"/>
-
           <include name="**/protocol/**/Test*.java"/>
-
-          
-
-          <include name="**/Test*.java"/>      
-
+          <include name="**/Test*.java"/>
           <include name="**/TestClient.java"/>
-
           <include name="**/TestServer.java"/>
-
           <include name="**/TestSecretServer.java"/>
-
-
-
           <include name="**/TestBindingServer.java"/>
-
           <include name="**/TestMessageIntegrity.java"/>
-
           <include name="**/TestServer.java"/>
-
           <include name="**/TestStunAttr.java"/>
-
           <include name="**/TestTLV16.java"/>
-
-
-
         -->
-
     </junit>
-
   </target>
-
   <!-- ======================================================= -->
-
   <!-- C R E A T E   J A R                                     -->
-
   <!-- ======================================================= -->
-
   <target name="jar"               description="o Create the jar"
-
                                                    depends="test">
-
     <jar jarfile="${build_dir}/${dist_name}.jar"
-
                 excludes="**/package.html" basedir="${classes_dir}"/>
-
   </target>
-
   <!-- ======================================================= -->
-
   <!-- I N S T A L L   J A R                                   -->
-
   <!-- ======================================================= -->
-
   <target name="install-jar"      description="o Copy jar to lib"
-
                                                     depends="jar">
-
-    <copy file="${build_dir}/${dist_name}.jar" 
-
+    <copy file="${build_dir}/${dist_name}.jar"
         todir="${lib_dir}/${project_name}"/>
-
   </target>
-
   <!-- ======================================================= -->
-
   <!-- G E N E R A T E   J A V A D O C                         -->
-
   <!-- ======================================================= -->
-
   <target name="javadoc"         description="o Generate javadoc"
-
                                             depends="install-jar">
-
     <mkdir dir="${javadoc_dir}"/>
-
     <tstamp>
-
       <format pattern="2004-yyyy" property="year"/>
-
     </tstamp>
-
     <property name="copyright"
-
       value="Copyright &amp;copy;  The XLattice Project. All Rights Reserved.">
-
     </property>
-
     <property name="title" value="XLattice Protocol latest API">
-
     </property>
-
     <javadoc use="true" package="true" destdir="${javadoc_dir}"
-
         Overview="true" author="true" version="true"
-
         sourcepath="${src_dir}" packagenames="org.xlattice.*">
-
       <classpath>
-
         <pathelement location="${build_dir}/${dist_name}.jar"/>
-
         <fileset dir="${lib_dir}">
-
           <include name="junit/junit*.jar"/>
-
           <include name="xlattice/util-0.3.10.jar"/>
-
           <include name="xlattice/transport-0.2.1.jar"/>
         </fileset>
-
       </classpath>
-
     </javadoc>
-
   </target>
-
-
-
   <!-- ======================================================= -->
-
   <!-- S T U N P L U S                                         -->
-
   <!-- ======================================================= -->
-
-  <target name="stunplus" 
-
+  <target name="stunplus"
                 description="o temporary, should be part of dist "
-
                 depends="init">
-
     <!-- don't keep -->
-
     <mkdir  dir="${zip_dir}"/>
-
     <!-- end don't keep -->
-
-    
-
     <delete dir="${stunplus_base}"/>
-
     <mkdir  dir="${stunplus_dir}"/>
-
-    
-
     <!-- IMAGES - NOT YET -->
-
-    
-
     <!-- text files   -->
-
     <copy todir="${stunplus_dir}">
-
       <fileset dir="${basedir}" includes="README*,INSTALL*"/>
       <fileset dir="${root_dir}" includes="LICENSE*"/>
-
     </copy>
-
     <!-- secrets -->
-
     <copy file="${keystore_dir}/test.server.private" tofile="keystores/stun.server.private"/>
-
     <copy todir="${stunplus_dir}">
       <fileset dir="${basedir}" includes="stun.server.properties"/>
     </copy>
-
     <!-- scripts     -->
-
     <copy todir="${stunplus_dir}/bin">
-
       <fileset dir="${bin_dir}" includes="stun*.sh,stun*.bat"/>
-
     </copy>
-
     <!-- keystores  -->
     <copy todir="${stunplus_dir}/keystores">
       <fileset dir="${keystore_dir}" includes="stun.server.private"/>
     </copy>
-
-
     <!-- jar for this component -->
-
     <copy todir="${stunplus_dir}/lib/xlattice" >
-
       <fileset dir="${build_dir}" includes="${component}-${version}.jar"/>
-
     </copy>
-
     <!-- dependencies -->
-
     <copy todir="${stunplus_dir}/lib/xlattice" >
       <fileset dir="${root_dir}">
         <include name="LICENSE*"/>
@@ -643,212 +311,100 @@
         <include name="transport-0.2.1.jar"/>
       </fileset>
     </copy>
-
     <!-- make the zip file -->
-
     <zip destfile="${zip_dir}/${stunplus_name}.zip"
-
         basedir="${stunplus_base}"/>
-
     <copy file="${zip_dir}/${stunplus_name}.zip"
-
           tofile="${zip_dir}/stunplus-current.zip" />
-
-  </target>                 
-
+  </target>
   <!-- ======================================================= -->
-
   <!-- D I S T R I B U T I O N                                 -->
-
   <!-- ======================================================= -->
-
   <target name="dist"   description="o Create a full distribution"
-
                                       depends="javadoc, stunplus">
-
     <mkdir  dir="${zip_dir}"/>
-
     <delete dir="${dist_dir}"/>
-
     <mkdir  dir="${dist_dir}/${component}"/>
-
-
-
     <!-- IMAGES - NOT YET -->
-
-    
-
     <!-- text files   -->
-
     <copy todir="${dist_dir}/${component}" >
-
       <fileset dir="${basedir}" includes="LICENSE*, README*,INSTALL*"/>
-
     </copy>
-
     <!-- jar for this component -->
-
     <copy todir="${dist_dir}/lib/xlattice" >
-
       <fileset dir="${build_dir}" includes="*.jar"/>
-
     </copy>
-
     <!-- dependencies -->
-
     <copy todir="${dist_dir}/lib/ant" >
-
         <fileset dir="${lib_dir}/ant" includes="*"/>
-
     </copy>
-
     <copy todir="${dist_dir}/lib/junit" >
-
         <fileset dir="${lib_dir}/junit" includes="*"/>
-
     </copy>
-
     <copy todir="${dist_dir}/lib/xlattice" >
-
       <fileset dir="${lib_dir}/xlattice">
-
         <include name="LICENSE*"/>
-
         <include name="util-0.3.10.jar"/>
-
         <include name="crypto-0.2.0.jar"/>
-
         <!--
-
         <include name="corexml-0.3.7.jar"/>
-
           -->
-
         <include name="transport-0.2.0.jar"/>
-
       </fileset>
-
     </copy>
-
-
-
     <!-- project control files -->
-
     <copy todir="${dist_dir}/${component}" file="${root_dir}/LICENSE.html" />
-
     <copy todir="${dist_dir}/${component}" file="build.xml" />
-
     <copy todir="${dist_dir}/${component}" file="CHANGES" />
-
     <copy todir="${dist_dir}/${component}" file="project.properties" />
-
     <copy todir="${dist_dir}/${component}" file="project.xml" />
-
     <!-- NOT FOUND
-
     <copy todir="${dist_dir}/${component}" file="stun.server.properties" />
-
     -->
-
     <copy todir="${dist_dir}/${component}/${bin_dir}" file="${bin_dir}/stun.client.bat"/>
-
     <copy todir="${dist_dir}/${component}/${bin_dir}" file="${bin_dir}/stun.client.sh"/>
-
     <copy todir="${dist_dir}/${component}/${bin_dir}" file="${bin_dir}/stun.gui.bat"/>
-
     <copy todir="${dist_dir}/${component}/${bin_dir}" file="${bin_dir}/stun.gui.sh"/>
-
     <copy todir="${dist_dir}/${component}/${bin_dir}" file="${bin_dir}/stun.server.bat"/>
-
     <copy todir="${dist_dir}/${component}/${bin_dir}" file="${bin_dir}/stun.server.sh"/>
-
     <copy todir="${dist_dir}/${component}/${bin_dir}" file="${bin_dir}/stop.stun.server.sh"/>
-
     <copy todir="${dist_dir}/${component}" file="TODO" />
-
-
-
     <!-- source code -->
-
     <copy todir="${dist_dir}/${component}/${src_dir}" >
-
       <fileset dir="${src_dir}" includes="*.jar"/>
-
       <fileset dir="${src_dir}" includes="**/*.java"/>
-
     </copy>
-
     <copy todir="${dist_dir}/${component}/${test_src_dir}" >
-
       <fileset dir="${test_src_dir}" includes="**/*.java"/>
-
     </copy>
-
-    <!-- any documentation 
-
+    <!-- any documentation
     <copy todir="${dist_dir}/${component}/${jml_dir}" >
-
         <fileset dir="${jml_dir}" includes="**/*.jml"/>
-
     </copy>
-
     <copy todir="${dist_dir}/${component}/${xdoc_dir}" >
-
       <fileset dir="${xdoc_dir}" includes="**/*.css"/>
-
       <fileset dir="${xdoc_dir}" includes="**/*.gif"/>
-
       <fileset dir="${xdoc_dir}" includes="**/*html"/>
-
       <fileset dir="${xdoc_dir}" includes="**/*.jpg"/>
-
       <fileset dir="${xdoc_dir}" includes="**/*.php"/>
-
       <fileset dir="${xdoc_dir}" includes="**/*.png"/>
-
       <fileset dir="${xdoc_dir}" includes="**/*.xml"/>
-
     </copy>
-
          end any documentation -->
-
-
-
     <zip destfile="${zip_dir}/${dist_name}.zip"
-
          basedir="${dist_base}"/>
-
   </target>
-
   <!-- ========================================================== -->
-
   <!-- C L E A N                                                  -->
-
   <!-- ========================================================== -->
-
   <target name="clean"
-
                  description="o Clean up the generated directories">
-
-                  
-
     <delete file="${lib_dir}/xlattice/${dist_name}.jar"/>
-
     <delete dir="${build_dir}"/>
-
     <delete dir="${dist_dir}"/>
-
-    
-
     <delete file="./test.client.private"/>
-
     <delete file="./test.client.public"/>
-
     <delete file="./test.server.private"/>
-
     <delete file="./test.server.public"/>
-
   </target>
-
 </project>
-
