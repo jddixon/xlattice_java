@@ -1,4 +1,6 @@
 pySloc $@ -v -C java:sh \
     -X target           \
-    bash:countem      
+    bash:countem        \
+    xml:build.xml
+
 

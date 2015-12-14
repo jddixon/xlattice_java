@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="test" name="protocol" basedir=".">
   <property name="name"           value="protocol"/>
-  <property name="version"        value="0.2.3"/>
-  <property name="versionDate"    value="2015-12-07"/>
+  <property name="version"        value="0.2.4"/>
+  <property name="versionDate"    value="2015-12-13"/>
   <!-- manual addition -->
   <property name="project_name"   value="xlattice_java"/>
   <!-- ======================================================= -->
@@ -408,3 +408,4 @@
     <delete file="./test.server.public"/>
   </target>
 </project>
+
