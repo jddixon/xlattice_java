@@ -1,5 +1,8 @@
 pa:~jdd/dev/java/xlattice/util/CHANGES
 
+v0.3.14
+    2015-12-15
+        * add DecimalVersion and Test                               SLOC 3924
 v0.3.13
     2015-12-03
         * minor edits to *.md                                       SLOC 3649
@@ -14,5 +17,6 @@ v0.3.10                                                             SLOC 3554
         * created TestStack by cloning TestArrayStack and then 
             editing; this becomes a guide to how to replace 
             ArrayStack (deprecated) with util.Stack
+
 
 
