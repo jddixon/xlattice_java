@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project default="test" name="crypto" basedir=".">
-
   <property name="name"           value="crypto"/>
-  <property name="version"        value="0.2.3"/>
-  <property name="versionDate"    value="2015-12-05"/>
+  <property name="version"        value="0.2.4"/>
+  <property name="versionDate"    value="2015-12-16"/>
   <!-- manual addition -->
-  <property name="project_name"   value="xlattice_java"/>
+  <property name="project_name"   value="xlattice"/>
   <!-- ======================================================= -->
   <!-- S O U R C E   P R O P E R T I E S                       -->
   <!-- ======================================================= -->
@@ -19,7 +17,6 @@
   <!-- B U I L D   P R O P E R T I E S                         -->
   <!-- ======================================================= -->
   <property name="build_dir" value="target"/>
-
   <property name="classes_dir"      value="${build_dir}/classes"/>
   <property name="lib_dir"          value="../lib"/>
   <property name="test_classes_dir" value="${build_dir}/test-classes"/>
@@ -37,7 +34,6 @@
   <property name="dist_dir"         value="${dist_base}/xlattice"/>
   <property name="dist_lib"         value="${dist_dir}/lib"/>
   <property name="dist_name"        value="${name}-${version}"/>
-
   <!-- ======================================================= -->
   <!-- T E S T   P R O P E R T I E S                           -->
   <!-- ======================================================= -->
@@ -47,7 +43,6 @@
   <property name="client.public.keystore.name"  value="test.client.public"/>
   <property name="server.private.keystore.name" value="test.server.private"/>
   <property name="server.public.keystore.name"  value="test.server.public"/>
-
   <!-- ======================================================= -->
   <!-- I N I T                                                 -->
   <!-- ======================================================= -->
@@ -67,11 +62,9 @@
       </and>
     </condition>
   </target>
-
   <!-- ======================================================= -->
   <!-- K E Y S T O R E                                         -->
   <!-- ======================================================= -->
-
   <!-- M A K E  P R I V A T E                                  -->
   <target name="makePrivate">
     <echo message="makePrivate ${which}, password is ${pwd}"/>
@@ -94,10 +87,7 @@
     </exec>
     <!-- remove the temporary file -->
     <delete file="temp.key"/>
-
   </target>
-
-
   <!-- K E Y S T O R E S                                       -->
   <!--
     There are two pairs of keystores, client and server.  Each
@@ -108,7 +98,6 @@
     keystore to a file and the file then used to create the
     public keystore.
     -->
-
   <target name="clientKeystores" unless="clientKeystoresExist">
     <delete file="${client.private.keystore.name}"/>
     <delete file="${client.public.keystore.name}"/>
@@ -117,7 +106,6 @@
         <param name="pwd"        value="${clientPassword}"/>
     </antcall>
   </target>
-
   <target name="serverKeystores" unless="serverKeystoresExist">
     <delete file="${server.private.keystore.name}"/>
     <delete file="${server.public.keystore.name}"/>
@@ -126,10 +114,8 @@
         <param name="pwd"        value="${serverPassword}"/>
     </antcall>
   </target>
-
   <target name="keystores" description="o create keystores"
                    depends="init,clientKeystores,serverKeystores">
-
   </target>  <!-- FOO -->
   <!-- ======================================================= -->
   <!-- C O M P I L E   S O U R C E   F I L E S                 -->
@@ -179,7 +165,7 @@
     <junit dir="./" failureproperty="test_failure" fork="true"
 	       haltonerror="false" printSummary="yes" >
       <sysproperty key="basedir" value="."/>
-      <!-- useful in transport/build.xml, but not here    
+      <!-- useful in transport/build.xml, but not here
       <sysproperty key="STUN_PRIMARY_ADDR"   value="${STUN_PRIMARY_ADDR}"/>
       <sysproperty key="STUN_SECONDARY_ADDR" value="${STUN_SECONDARY_ADDR}"/>
         -->
@@ -203,7 +189,6 @@
         <pathelement path="${test_classes_dir}"/>
         <pathelement path="${classes_dir}"/>
       </classpath>
-
       <batchtest todir="${test_report_dir}">
         <fileset dir="${test_src_dir}">
           <include name="**/u/Test*.java"/>
@@ -219,7 +204,6 @@
           <include name="**/TestSignedList.java"/>
           <include name="**/tls/TestSslEngine.java"/>
           <include name="**/u/Test*.java"/>
-          
           <include name="**/TestSyncSecureRandom.java"/>
         -->
     </junit>
@@ -237,7 +221,7 @@
   <!-- ======================================================= -->
   <target name="install-jar"      description="o Copy jar to lib"
                                                     depends="jar">
-    <copy file="${build_dir}/${dist_name}.jar" 
+    <copy file="${build_dir}/${dist_name}.jar"
         todir="${lib_dir}/${project_name}"/>
   </target>
   <!-- ======================================================= -->
@@ -275,7 +259,6 @@
     <mkdir  dir="${zip_dir}"/>
     <delete dir="${dist_dir}"/>
     <mkdir  dir="${dist_dir}/${component}"/>
-
     <!-- text files   -->
     <copy todir="${dist_dir}/${component}" >
       <fileset dir="${basedir}" includes="LICENSE*, README*"/>
@@ -292,14 +275,12 @@
     <copy todir="${dist_dir}/lib/junit" >
         <fileset dir="${lib_dir}/junit" includes="*"/>
     </copy>
-
     <!-- project control files -->
     <copy todir="${dist_dir}/${component}" file="../LICENSE.html" />
     <copy todir="${dist_dir}/${component}" file="build.xml" />
     <copy todir="${dist_dir}/${component}" file="CHANGES" />
     <copy todir="${dist_dir}/${component}" file="project.properties" />
     <copy todir="${dist_dir}/${component}" file="project.xml" />
-
     <!-- source code -->
     <copy todir="${dist_dir}/${component}/${src_dir}" >
       <fileset dir="${src_dir}" includes="*.jar"/>
@@ -318,7 +299,6 @@
       <fileset dir="${xdoc_dir}" includes="**/*.png"/>
       <fileset dir="${xdoc_dir}" includes="**/*.xml"/>
     </copy>
-
     <zip destfile="${zip_dir}/${dist_name}.zip"
          basedir="${dist_base}"/>
   </target>

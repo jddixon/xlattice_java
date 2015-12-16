@@ -261,4 +261,3 @@
     <delete dir="${dist_dir}"/>
   </target>
 </project>
-
