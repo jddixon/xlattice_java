@@ -1,5 +1,9 @@
 pa:~jdd/dev/java/xlattice_j/util/TODO
 
+2015-12-15
+    * FIX: install-jar is copying jar file into ../lib/xlattice_java,
+        should be ../lib/xlattice
+
 2013-12-29
     * ant build fails, can't find JunitTask                             * DONE
         - fixed: on ubuntu aptitude install ant-optional                * DONE
