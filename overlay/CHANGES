@@ -1,3 +1,6 @@
+v0.2.5
+    2015-12-18
+        * fixes to build.xml                                        SLOC 2244
 v0.2.4
     2015-12-08
         * minor edits to build.xml                                  SLOC 2011
@@ -15,4 +18,5 @@ v0.2.1                                                              SLOC 3063
     2011-08-21 
         * stepped version number for move to Stockton svn
         *dropped build.sh, classpath.sh, added CHANGES
+
 

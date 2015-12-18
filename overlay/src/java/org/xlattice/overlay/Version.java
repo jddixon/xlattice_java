@@ -10,7 +10,7 @@ public class Version extends org.xlattice.Version {
         super("org.xlattice.overlay", // package
             0,                       // major
             2,                       // minor
-            4,                       // decimal
+            5,                       // decimal
             0);                      // build
     }
 };
