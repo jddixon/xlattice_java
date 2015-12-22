@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project default="test" name="util" basedir=".">
-
   <property name="name"           value="util"/>
-  <property name="version"        value="0.3.14"/>
-  <property name="versionDate"    value="2015-12-15"/>
+  <property name="version"        value="0.3.15"/>
+  <property name="versionDate"    value="2015-12-22"/>
   <!-- manual addition -->
-  <property name="project_name"   value="xlattice_java"/>
+  <property name="project_name"   value="xlattice"/>
   <!-- ======================================================= -->
   <!-- S O U R C E   P R O P E R T I E S                       -->
   <!-- ======================================================= -->
@@ -19,7 +17,6 @@
   <!-- B U I L D   P R O P E R T I E S                         -->
   <!-- ======================================================= -->
   <property name="build_dir" value="target"/>
-
   <property name="classes_dir"      value="${build_dir}/classes"/>
   <property name="lib_dir"          value="../lib"/>
   <property name="test_classes_dir" value="${build_dir}/test-classes"/>
@@ -44,7 +41,6 @@
                       description="o Initializes some properties">
     <mkdir dir="${lib_dir}"/>
   </target>
-
   <!-- ======================================================= -->
   <!-- C O M P I L E   S O U R C E   F I L E S                 -->
   <!-- ======================================================= -->
@@ -101,7 +97,6 @@
         <pathelement path="${test_classes_dir}"/>
         <pathelement path="${classes_dir}"/>
       </classpath>
-
       <batchtest todir="${test_report_dir}">
         <fileset dir="${test_src_dir}">
           <include name="**/Test*.java"/>
@@ -165,7 +160,6 @@
     <mkdir  dir="${zip_dir}"/>
     <delete dir="${dist_dir}"/>
     <mkdir  dir="${dist_dir}/${component}"/>
-
     <!-- text files   -->
     <copy todir="${dist_dir}/${component}" >
       <fileset dir="${basedir}" includes="../LICENSE*, README*"/>
@@ -183,7 +177,6 @@
         <fileset dir="${lib_dir}/junit" includes="cpl-v10.html"/>
         <fileset dir="${lib_dir}/junit" includes="junit-4.1.jar"/>
     </copy>
-
     <!-- project control files -->
     <copy todir="${dist_dir}/${component}" file="../LICENSE.html" />
     <copy todir="${dist_dir}/${component}" file="build.xml" />
@@ -216,7 +209,6 @@
       <fileset dir="${xdoc_dir}" includes="**/*.xml"/>
     </copy>
     -->
-
     <!--
     <tar longfile="gnu"
          destfile="${zip_dir}/${dist_name}.tar">
@@ -232,7 +224,6 @@
         src="${zip_dir}/${dist_name}.tar"/>
     <delete file="${zip_dir}/${dist_name}.tar"/>
     -->
-
     <zip destfile="${zip_dir}/${dist_name}.zip"
          basedir="${dist_base}"/>
   </target>
@@ -246,5 +237,4 @@
     <delete dir="${dist_dir}"/>
   </target>
 </project>
-
 
