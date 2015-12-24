@@ -1,5 +1,8 @@
 // ~/dev/java/xlattice_j/crypto/CHANGES
 
+v0.2.5
+    2015-12-24
+        * fix version_date in build.xml; ant install-jar
 v0.2.4
     2015-12-16
         * clean build.xml; ant install-jar                          SLOC 6224
@@ -19,5 +22,6 @@ v0.2.0
         * added xdocs/ directory
     2011-08-23
         * uncommented SignedList.getVerifier()
+
 
 
