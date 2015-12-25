@@ -1,5 +1,8 @@
 ~/dev/java/xlattice_j/protocol/CHANGES
 
+v0.2.5
+    2015-12-25
+        * actually s/versionDate/version_date
 v0.2.4
     2015-12-13
         * cleaned build.xml; s/versionDate/version_date/            SLOC 6017
@@ -18,5 +21,6 @@ v0.2.0                                                              SLOC 5485
     2011-08-21
         * stepped version number for move to Stockton   
         * dropped build.sh, classpath.sh, added CHANGES
+
 
 
