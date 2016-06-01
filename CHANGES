@@ -1,5 +1,9 @@
 /* xlattice_java/CHANGES */
 
+v0.4.0
+    2016-06-01
+        * subprojects util,...  split off as separate projects      SLOC 273849
+
 v0.3.13
     2015-09-22
         * version set to util version

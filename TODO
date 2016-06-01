@@ -1,5 +1,8 @@
-pa:~jdd/dev/java/xlattice_j/TODO
+xlattice_java/TODO
 
+2016-06-01
+    * subprojects (util, corexml, crypto, etc) split off as separate
+        projects                                                        * DONE
 2015-09-22
     * FIX: index.html not being updated to github
 
@@ -19,8 +22,8 @@ pa:~jdd/dev/java/xlattice_j/TODO
 
 2013-12-31
     * rebuild dist after reconcileJava run
-        - util                                                      * DONE
-        - corexml                                                   * DONE
+        - util                                                          * DONE
+        - corexml                                                       * DONE
         - crypto
         - transport
         - protocol
