@@ -1,5 +1,0 @@
-pySloc $@ -v -C java:sh \
-    -X target -X w3c    \
-    bash:countem        \
-    xml:build.xml
-
