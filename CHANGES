@@ -1,8 +1,15 @@
 /* xlattice_java/CHANGES */
 
+v0.4.1
+    2016-07-10
+        * stepped version manually
+        * manually edit countem, adding -X xdocs
+        * add ghpDoc/{css,img}                                      SLOC 2197
+
 v0.4.0
     2016-06-01
-        * subprojects util,...  split off as separate projects      SLOC 273849
+        ADJUSTED COUNT TO IGNORE xdocs/
+        * subprojects util,...  split off as separate projects      SLOC  199
 
 v0.3.13
     2015-09-22

@@ -5,7 +5,7 @@ then
   cd $DEV_BASE/java/xlattice_java
   
   
-  pySloc -L java  -X target -v $@
+  pySloc -L java  -X target -X xdocs -v $@
 else
   echo "DEV_BASE is not defined"
 fi

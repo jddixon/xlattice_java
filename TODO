@@ -3,6 +3,22 @@ xlattice_java/TODO
 2016-06-01
     * subprojects (util, corexml, crypto, etc) split off as separate
         projects                                                        * DONE
+    * doc/ and xdocs/ need to be merged 
+    * must ensure that xlattice_java subprojects use LICENSE.html,
+        the XLattice license
+        - this seems to be correct on project websites; must verify 
+            in each case
+            * confusion: both LICENSE.md and LICENSE.html present
+                in at least some cases
+        - text on jddixon.github.io websites incorrectly states 
+            that project software is under an MIT license
+
+
+#####################################################################
+# ITEMS BELOW GENERALLY REFER TO UTIL OR OTHER SUBPROJECTS AND SHOULD
+# BE DROPPED 
+#####################################################################
+
 2015-09-22
     * FIX: index.html not being updated to github
 

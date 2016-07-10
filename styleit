@@ -4,7 +4,7 @@ if [ ! -z "${DEV_BASE// }" ]
 then
   cd $DEV_BASE/java/xlattice_java
   
-  echo "DON'T KNOW HOW TO STYLE THIS PROJECT"
+  echo "DON'T KNOW HOW TO STYLE JAVA YET"
   
 else
   echo "DEV_BASE is not defined"
