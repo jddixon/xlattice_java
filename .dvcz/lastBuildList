@@ -1,0 +1,130 @@
+-----BEGIN RSA PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoM2sBgX0ChP2JriXkOxS
+e2FjHYVzBGkNvgf0vIAa7FFYZi2pWmxBAVXgl3tTiB3quqqud/MbKqdejM6gkKBK
+v8f7hlcBQLD6BLIZ/RRfhIElc+WlDVfKSnBTB4va5qTQAgvuq5i8+oMj7G8WEy5d
+7cYucWyUJMtHvT4pCDtBWeeqQ62tByWjv34Ud/+A9Mjf0leiWxM3tiToVsqIKb4s
+zPjEShF9rvcNa9XEy1dKpcDz9Szbm2SlxOgM83fDDGtOq4SSCSqndtxrOvXXPB57
+H1mJV/FmerbXRPm5ERJVNIxtLk7Gr2Ce45FVlWyJGMhpfVlKkkk+bRQ02OFfazJI
+GQIDAQAB
+-----END RSA PUBLIC KEY-----
+xlattice_java v0.4.2
+2016-09-26 19:54:44
+# BEGIN CONTENT #
+xlattice_java
+ .dvcz
+  builds 20d1c506f8b809d9f7cb9c7bbd95e2b7a94f4bec
+  copyright a7c9234fcaa5abc6b4f18c80d7e71e07d73d4540
+  lastBuildList c2d2337ab0ebf1047f40f777829976bc33c60273
+  license 31158001bd41a34771e96dad11a089f4863dea28
+  projCfg d39e5528cda9bd7f50fb6479b94489085004d408
+  projCfg.local dc03ee4fa527a8287fd5a44dbf089a8a321f9e1f
+  version 3cf7d2543ac24cdecd5c4c29dd51a857010396a4
+ .gitignore fc81623b8b01a2d6868e76390d3b3ea220f662de
+ .gitignore.local 9218c2d0e6ce50d34941e5e0deceddcbdcaa059b
+ CHANGES 76b30e60c88cc95b86e621384beaf275024817a1
+ LICENSE-XLATTICE.html db61c19b9e668d625d8767cd0a5325aa04111336
+ LICENSE-XLATTICE.md d1eaa588caa6017fee950e92242099a8ae900dcd
+ README.md 73d57d67d646aba96ca984029436c3a4d1b781fe
+ TODO c65e60de9a49a80a716ab5298d665cf97ae2ab95
+ bkp2U 46d524ead35648731a922ce9e7b2a87bdc97ce67
+ countem 42b75780c7f8f3a1c1940c396170025a2c41eee7
+ doc
+ ghpDoc
+  css
+   LICENSE.html5-boilerplate.md ded771b3245b190da0e81c76de5a80d41392c0a6
+   ghp.css 1d6ebe8a6cf8f61f4645a793cb087dfae2420f33
+   main.css 018ed80b8a6e6607bc7c08595fa5a7fa56853885
+   normalize.css cba40c7ce3d558d00ff79d7505ac3d348015ec9c
+  img
+   GitHub-Mark-32px.png fabe53eb72f9b6d3d47cd95aff31ffc45c2fdbf8
+   chunk.jpg de2b27e41f1547fc14b13399f5906b4303b49657
+   chunk2.jpg d0593d312dbb8ea837c17b28cb639726e29ea93b
+   cluster-with-clients.jpg c167d04c0c6b5736ef9fe4cdc3fcce1956fdea78
+   simple-cluster.jpg 6b223ddd25937c1ef75ef328f36fc3436f10bd62
+   xl-registration.jpg 15cbf951f9db173a45428b32dcec87aca83bbdf0
+   xlattice-2014.jpg f185aaad06db71acd9454f31054c62c56d36f37f
+  index.md 4d223fd0bf0d32e60fa5d2d2bb0bb07cdce0df2c
+ installit ddc9e607f5a19ac33fd393c404998763802df331
+ lib
+  ant
+   LICENSE 93163ec19caa03f187161dde2c43308753313ef5
+   ant-1.5.4.jar e90f39118b6c2a0d0849a11f30a18c69d0588804
+   ant-junit.jar 4a25241f2a9cfa6bb3c5e84914d0fa1bb29ca437
+   optional-1.5.4.jar 2675db04b6c07b93e4b7f620131acef398015cf2
+  antlr
+   LICENSE.stringtemplate e985a2f62311e96dc0a7e9fd83486f8e25b5840c
+   LICENSE.txt 7d461ab97499c6ee2e5bfa8e6d19616fd7a10280
+   antlr-2.7.4.jar 56e971d779b8aeee0366d11a613dcf9f7882a3b1
+   antlr-4.4-complete.jar 735569b1fa92a0d3f14bb5f3a3ffa713f5be4d1e
+   stringtemplate.jar 8907ff3d5a09337faf31bb7bd815efda14772494
+  apache
+   LICENSE.txt a8f3e29d5eab4420318de979754f5637d4bf2c3f
+   commons-cli-1.3.1.jar 1303efbc4b181e5a58bf2e967dc156a3132b97c0
+  junit
+   cpl-v10.html 78d67e7110cbde85535b48a3cbe5fdf56e4b1aff
+   junit-3.8.1.jar 99129f16442844f6a4a11ae22fbbee40b14d774f
+   junit-3.8.1p.jar 5815f9eec8543aab9447561be6336191eb3c2f0e
+   junit-4.1.jar 73913068c0fecba0ffa1972728482b3b8df0fe94
+  xlattice
+   corexml-0.3.11.jar 72808aa5ce4b34adb88b8a9ca5a6ef4b1b9669a7
+   corexml-0.3.12.jar 2dcd2bc12f9b18811dbcbeacd5fdb7d46d7cf774
+   corexml-0.3.13.jar 7fa88f1e0598ec41fb3729374ea26fbc450fc31d
+   corexml-0.3.14.jar 7dbbb2c136a380cfe9945499b984a4303c5342b1
+   corexml-0.3.15.jar 4e137cfc2fb3f07040a1bf09427e408d82c392cb
+   corexml-0.3.7.jar 72b6fdd9710c582267ee2366d6890af234f4819d
+   corexml-0.3.8.jar 8906565eea402f2f82b81a383ce95c24dcde051a
+   crypto-0.2.0.jar 53f60db0f34876c813ac945f4f83ef04116dd7c8
+   crypto-0.2.1.jar c3dd92cb0e2100e351f5682f85f1d34677475969
+   crypto-0.2.4.jar 8b65d576a0f5957f9055cb47407c29ff4985288f
+   crypto-0.2.5.jar 0a2a5870680c172b0c3855696fe59166e4269335
+   crypto-0.2.6.jar b94fa8cfdf2da17c2563c7cec4bd38c5c12c5da3
+   crypto-0.2.7.jar dbd84a803395d9a18842fb73505d1cfc3385ebc4
+   cryptoserver-0.2.0.jar 4c9de6d60e7f49164148d6f6c2d38d5bbd5c5219
+   cryptoserver-0.2.1.jar c69147439c86bc3e4013e4e9e070ff3dcca06bb6
+   cryptoserver-0.2.4.jar 3d137db96092f683974c1e2d165c0fbb2f779c13
+   cryptoserver-0.2.5.jar bee1c5c06da20eadb72ead683ae91e041831edbd
+   cryptoserver-0.2.6.jar 6bd07583452b4f0fe7eaacec46c81b39e8d4b1f2
+   httpd-0.2.0.jar 2c076fd56184ae6d3b6e6fbe0f49a12deca724f6
+   httpd-0.2.1.jar b6449c888323efc6bada5252a3b7300bf77e2aa2
+   httpd-0.2.4.jar 2934ccd523708d0f5a22c360af83a91777b56b8f
+   httpd-0.2.5.jar 7f1655492bb7b46212e61f9acdd3d920ea6e8a00
+   httpd-0.2.6.jar 9cf76519caa2ef52516ba95f0ac68a6c3244608a
+   node-0.2.0.jar cd5bb10e6a7b6abec55a640ef1421afd90ed97dd
+   node-0.2.1.jar 900e9a21022de58814dd17662d81ab0733a22190
+   node-0.2.4.jar b9db0ba29da0517f74c61882c36247c06f0c74d9
+   node-0.2.5.jar b2ad32b5ff3902d8cae17e1ff2692cf44737002b
+   node-0.2.6.jar 3e5c56fbf56da8e467c77fd003e4970f60bd2d22
+   node-0.2.7.jar 5293feefc3e9a778c9902dcc198dcfb803b9a3a7
+   overlay-0.2.1.jar 77783b55edadbbeeea312237cbecddb7c6bd5101
+   overlay-0.2.2.jar 5ea6901f6ca8e54eda2b3779408f04b8883da22a
+   overlay-0.2.5.jar 04471cb24e22c3eb3024700d405301d0c144b14f
+   overlay-0.2.6.jar fe775a5e56fb22932988f1b9f29e772971ef1d19
+   overlay-0.2.7.jar fa23535411edc01b401699f7769902ba186beed5
+   protocol-0.2.0.jar 9134181e9a95dc23636c9ae59995a768088bd29c
+   protocol-0.2.1.jar 0f38dd93dce117d358c725dcf732ea85f06268e9
+   protocol-0.2.5.jar 4a5fb29d033244415e540e0ddcb87984b2ed992d
+   protocol-0.2.6.jar c26190ef51c50b4bda3e812f02ac4c501b1e38e1
+   protocol-0.2.7.jar c68c72fce7a00e9569e966229fdf48fdabd63c05
+   transport-0.2.1.jar 781d547b2da1eabd603fac28aa808bcc45b1107e
+   transport-0.2.4.jar 5d69ab203cba6fcd40a789b7b1d8e9ceb43490bc
+   transport-0.2.5.jar 1fdfc4719b43c2a6a0b45a96727bdf408c6b5466
+   transport-0.2.6.jar 7a380dcf94c837d1a79491c9e3abbc06460fcceb
+   util-0.3.10.jar 8317745d981ec0b8a88caf02639217a8da664a45
+   util-0.3.11.jar d4c8c62bd73682e9f5e09cc03effe24f79f661b9
+   util-0.3.12.jar 123d6bc4676172ad78ef6325c6f92e5a7fe9b8d6
+   util-0.3.14.jar 3ef6c9e9d95e03b954cfe1d869fd8406a83604e4
+   util-0.3.15.jar dd9e86160ceba78ed21b411d6d02649b2da41b37
+   util-0.3.16.jar 91d2f12b06d7d1837462d02ae12d9f435750cd92
+   util-0.3.17.jar 1c2c1e37359c4d51bbccd2c2906c38460ed14fac
+  xmlpull
+   LICENSE.txt 33ada83ff708fb6f8e54ee17df43febc21854307
+   LICENSE_TESTS.txt b462849448b085e527242d3c0216361b9ddfd6a4
+   README.txt 173d87ef1eca2ed2392c03f071e6c1e48ba01349
+  xpp3
+   LICENSE.txt cab3a06aff330487eef8fd4866ecd4cbf26e282d
+   xpp3-1.1.3.4.C.jar 7acd07c6d508dae13d0ef721764d0e4bbed50c3d
+ styleit 80155632ce2de26d753401c665062564219aa39e
+ test.all 9daef8d7f73f54e28ff215c0ee45d80287b71da6
+# END CONTENT #
+
+YIE9SnK3MAv/S+pwAl2Mr5r3rMGplrbdTD7QCcCwDIf6NdKkTQNOx/zmdZMnTJYW50zU68XY2R4rbQ6OFwWyjWYxouOZLs5dBQ4C+U5oe/KVQcyGgLC12FXuSvSnZ/t6V8VTxoraK4R1+b3cUREjYVwjw9fb4Jre4WxAKszcxAt/0uf/tpoqRuwgY165tk0DZQkPcQAPtg4YIt3HdR12Rt8kF+DNbs7WtjANZb4D4dPluaiOTx0E9swdbbhGCCzVQAvDeUxmuw0+SumliDxZYQG8cL7x3toI10a8k6OpIYp/rRoKwW1Mx5AK+BaIUOeSemwRajinsipDN4Hgmz2FBQ==

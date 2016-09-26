@@ -32,4 +32,4 @@ which is a library supporting some XLattice functionality.
 ## On-line Documentation
 
 More information on the **xlattice_java** project can be found
-[here](://jddixon.github.io/xlattice_java)
+[here](https://jddixon.github.io/xlattice_java)

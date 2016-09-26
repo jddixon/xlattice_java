@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ ! -z "${DEV_BASE// }" ]
+then
+  cd $DEV_BASE/java/xlattice_java
+  
+  
+  pySloc -L java -X xdocs  -X target -v $@
+else
+  echo "DEV_BASE is not defined"
+fi

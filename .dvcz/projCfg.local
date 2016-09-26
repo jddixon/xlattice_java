@@ -1,0 +1,12 @@
+# xlattice_java/.dvcz/projCfg.local
+
+txt:std:LICENSE-XLATTICE.md
+html:std:LICENSE-XLATTICE.html
+
+# This should be global
+dir:local:lib
+
+# These two need to be merged; the second is read from and written to
+# by other projects, and so is global.
+dir:local:doc
+dir:local:xdocs

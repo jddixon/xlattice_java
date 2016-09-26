@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [ ! -z "${DEV_BASE// }" ]
+then
+  cd $DEV_BASE/java/xlattice_java
+  
+  blListGen \
+    -d ../xlattice_java \
+    -1L  \
+    -u $DVCZ_UDIR \
+    -X .ssh \
+    $@
+  
+else
+  echo "DEV_BASE is not defined"
+fi
